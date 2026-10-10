@@ -1,0 +1,547 @@
+<title>MoveInSync Rating Recovery Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a single reading column (memo) with full-width evidence panels; tickets as a ranked queue. */
+:root {
+  --bg: #f6f7f5;
+  --surface: #ffffff;
+  --ink: #17201f;
+  --muted: #5a6764;
+  --rule: #d9dfdc;
+  --accent: #0d6b5f;      /* route green */
+  --signal: #d98a0b;      /* signal amber: stars, attention */
+  --bad: #c2412d;
+  --ops: #6b5bd6;
+  --chip: #e9eeec;
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --font-body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-data: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --step--1: 0.8125rem; --step-0: 1rem; --step-1: 1.1875rem; --step-2: 1.5rem; --step-3: 2.125rem; --step-4: 2.875rem;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111816; --surface: #18211f; --ink: #e6ecea; --muted: #9aa8a4; --rule: #2b3734;
+  --accent: #4fc2ad; --signal: #f0ac3a; --bad: #f07a63; --ops: #a79bff; --chip: #22302d; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #111816; --surface: #18211f; --ink: #e6ecea; --muted: #9aa8a4; --rule: #2b3734;
+  --accent: #4fc2ad; --signal: #f0ac3a; --bad: #f07a63; --ops: #a79bff; --chip: #22302d; color-scheme: dark }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: var(--step-0); line-height: 1.6; }
+.wrap { max-width: 60rem; margin: 0 auto; padding-inline: 1.25rem; padding-block: 2.5rem 4rem; }
+.col { max-width: 42rem; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: var(--step-4); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: var(--step-3); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: var(--step-1); font-weight: 700; }
+p { margin: 0; }
+a { color: var(--accent); }
+.eyebrow { font-family: var(--font-data); font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+section { display: flex; flex-direction: column; gap: 1.25rem; padding-block: 2.75rem; border-top: 1px solid var(--rule); }
+
+/* Header */
+.memo-head { display: flex; flex-direction: column; gap: 1.25rem; padding-bottom: 2rem; }
+.memo-meta { display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 1rem; font-size: var(--step--1); color: var(--muted); }
+.memo-meta dt { font-family: var(--font-data); text-transform: uppercase; letter-spacing: 0.06em; }
+.memo-meta dd { margin: 0; color: var(--ink); }
+.lede { font-size: var(--step-1); max-width: 40rem; }
+
+/* Summary */
+.summary { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.summary ol { margin: 0; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.summary li::marker { font-family: var(--font-data); color: var(--accent); font-weight: 600; }
+
+/* KPI strip */
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.kpi { background: var(--surface); padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
+.kpi .v { font-family: var(--font-display); font-size: var(--step-3); font-weight: 700; line-height: 1; }
+.kpi .v small { font-size: var(--step-0); color: var(--muted); font-weight: 500; }
+.kpi .d { font-size: var(--step--1); color: var(--muted); }
+.kpi.bad .v { color: var(--bad); }
+.kpi.good .v { color: var(--accent); }
+
+/* Figures */
+figure { margin: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
+figcaption { font-size: var(--step--1); color: var(--muted); }
+.chart { width: 100%; overflow-x: auto; }
+.chart svg { display: block; width: 100%; height: auto; min-width: 34rem; }
+.chart text { fill: var(--muted); font-family: var(--font-data); font-size: 11px; }
+.chart .grid { stroke: var(--rule); stroke-width: 1; }
+.chart .line-bad { fill: none; stroke: var(--bad); stroke-width: 2; }
+.chart .area-reply { fill: var(--accent); opacity: 0.22; }
+.chart .line-reply { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+.chart .dot-bad { fill: var(--bad); }
+.chart .bar-app { fill: var(--accent); }
+.chart .bar-ops { fill: var(--ops); }
+.chart .bar-gen { fill: var(--muted); opacity: 0.45; }
+.chart .tick30 { stroke: var(--signal); stroke-width: 3; }
+.chart .lbl { fill: var(--ink); font-family: var(--font-body); font-size: 12px; }
+.chart .s1 { fill: var(--bad); } .chart .s2 { fill: var(--bad); opacity: .55; } .chart .s3 { fill: var(--muted); opacity: .45; } .chart .s4 { fill: var(--accent); opacity: .55; } .chart .s5 { fill: var(--accent); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: var(--step--1); color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.legend i { width: 0.8rem; height: 0.8rem; border-radius: 2px; display: inline-block; }
+
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1rem; }
+.callout { border-left: 3px solid var(--signal); padding: 0.25rem 0 0.25rem 1rem; }
+.callout strong { color: var(--ink); }
+
+/* Ticket queue */
+.phase { display: flex; flex-direction: column; gap: 0.9rem; }
+.phase-head { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
+.pill { font-family: var(--font-data); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; padding: 0.15rem 0.5rem; border-radius: 3px; background: var(--chip); color: var(--ink); white-space: nowrap; }
+.pill.p0 { background: var(--bad); color: var(--surface); }
+.pill.p1 { background: var(--signal); color: #1b1404; }
+.pill.p2 { background: var(--accent); color: var(--surface); }
+.pill.own-app { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
+.pill.own-ops { background: transparent; border: 1px solid var(--ops); color: var(--ops); }
+.pill.own-cs { background: transparent; border: 1px solid var(--muted); color: var(--muted); }
+.ticket { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1.25rem; display: grid; grid-template-columns: 2.5rem 1fr; gap: 0 1rem; }
+.ticket .rank { font-family: var(--font-display); font-size: var(--step-3); font-weight: 700; color: var(--muted); line-height: 1; }
+.ticket .body { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
+.ticket .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ticket dl { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.5rem 1rem; margin: 0; font-size: 0.9375rem; }
+.ticket dt { font-family: var(--font-data); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding-top: 0.2rem; }
+.ticket dd { margin: 0; min-width: 0; }
+.ticket ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.3rem; }
+blockquote { margin: 0; font-style: italic; color: var(--muted); font-size: 0.9375rem; }
+blockquote + blockquote { margin-top: 0.35rem; }
+blockquote cite { font-style: normal; font-family: var(--font-data); font-size: 0.6875rem; }
+
+/* Tables */
+.tbl { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.9375rem; }
+th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--font-data); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+td.r, th.r { text-align: right; font-family: var(--font-data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.hl td { background: var(--chip); }
+
+code { font-family: var(--font-data); font-size: 0.875em; background: var(--chip); padding: 0.05rem 0.3rem; border-radius: 3px; }
+pre { font-family: var(--font-data); font-size: 0.8125rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 0; }
+.fine { font-size: var(--step--1); color: var(--muted); }
+footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
+
+@media (max-width: 44rem) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 34rem) {
+  .ticket { grid-template-columns: 1fr; }
+  .ticket .rank { font-size: var(--step-2); margin-bottom: 0.5rem; }
+  .ticket dl { grid-template-columns: 1fr; gap: 0.15rem; }
+  .ticket dd { margin-bottom: 0.5rem; }
+  h1 { font-size: var(--step-3); }
+}
+</style>
+
+<div class="wrap">
+
+<header class="memo-head">
+  <p class="eyebrow">Forward Deployed Engineer assignment · MoveInSync</p>
+  <h1>Raising the MoveInSync Play Store rating</h1>
+  <dl class="memo-meta">
+    <dt>For</dt><dd>Product, Engineering, Customer Success</dd>
+    <dt>From</dt><dd>Ankan Ghosh</dd>
+    <dt>Data</dt><dd>All 24,314 public Play Store reviews of the MoveInSync employee app (<code>com.moveinsync.ets</code>), March 2014 – 9 Oct 2026, plus store metadata for every MoveInSync app and one competitor</dd>
+  </dl>
+  <p class="lede">The headline 4.6★ hides the problem. The people who write reviews average 3.8★, one in four gives 1★, and that has barely moved in three years. Most of what they complain about is the app getting in their way at the moment their cab arrives. That is fixable, and four of the fixes are small.</p>
+</header>
+
+<div class="summary">
+  <p class="eyebrow">What to do first</p>
+  <ol>
+    <li><strong>This week:</strong> stop the unskippable trip-rating screen and review nags. They send annoyed users straight to the Play Store, and complaints about them doubled in the last 30 days.</li>
+    <li><strong>This week:</strong> fix the false <em>"app not installed from Play Store"</em> lockout. It caused 9% of negative reviews in the last 30 days, up from 2%.</li>
+    <li><strong>This week:</strong> restart replying to reviews, with real answers this time. The reply rate fell from about 95% to 3% in mid-2024, and the first reviews a store visitor sees average 1.4★.</li>
+    <li><strong>Next two sprints:</strong> keep people signed in, open straight to an offline-cached "today's trip" card, and gate every release on review signals with a staged rollout.</li>
+  </ol>
+  <p class="fine">Halving the app-caused 1–2★ reviews takes the estimated rating from about 4.68 to about 4.74, which passes Safetrax at 4.72 (<a href="#impact">model and assumptions</a>). The pipeline behind this memo re-runs weekly, so the question "how are our Play Store ratings?" gets a standing answer (<a href="#monitor">how</a>).</p>
+</div>
+
+<section id="where">
+  <div class="col stack">
+    <p class="eyebrow">1 · Where the rating stands</p>
+    <h2>A 4.6 average with one in four reviewers giving 1★</h2>
+    <p>The store score is held up by people who tap five stars and leave. The people who take the time to write are far less happy, and their reviews are what a new user reads first.</p>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><span class="eyebrow">Store rating</span><span class="v num">4.64</span><span class="d">114,849 ratings · 1M+ installs</span></div>
+    <div class="kpi bad"><span class="eyebrow">Written reviews, last 12 mo</span><span class="v num">3.83<small>★</small></span><span class="d">2,857 reviews · 24% are 1★</span></div>
+    <div class="kpi bad"><span class="eyebrow">"Most relevant" reviews</span><span class="v num">1.4<small>★</small></span><span class="d">avg of top 40 shown on the store page; 37 of 40 are 1–2★</span></div>
+    <div class="kpi bad"><span class="eyebrow">Developer reply rate</span><span class="v num">3%</span><span class="d">last 12 mo · was 92% of 1★ reviews in 2022–24</span></div>
+  </div>
+  <figure>
+    <div class="legend">
+      <span><i style="background:var(--bad)"></i>Share of written reviews that are 1★</span>
+      <span><i style="background:var(--accent);opacity:.5"></i>Share of reviews with a developer reply</span>
+    </div>
+    <div class="chart" id="trend"></div>
+    <figcaption>Monthly, October 2023 – October 2026. Replies stopped in July 2024. The 1★ share sits between 19% and 33% throughout, with spikes in January 2025, June 2025, June 2026 and August 2026.</figcaption>
+  </figure>
+  <div class="two">
+    <figure>
+      <div class="chart" id="split"></div>
+      <figcaption>Ratings by star, split into ratings that came with a written review and star-only taps. 92% of all 1–2★ ratings come with text, but only 13% of 5★ ratings do. Star-only raters are about 94% 5★. Estimate: store histogram minus scraped reviews.</figcaption>
+    </figure>
+    <div class="stack callout">
+      <p><strong>What this means.</strong> The silent majority is happy. The rating is pulled down by a vocal group who are angry enough to leave the app, open the Play Store and type. Their triggers are specific and repeated, so fixing those triggers moves the number.</p>
+      <p><strong>Competitor check.</strong> Safetrax Commuter shows 4.72★. Its written reviews are actually worse than ours (2.9★, 46% 1★ in the last 12 months), but it replies to 98% of them and gets far fewer written reviews. MoveInSync's experience is not worse than the market; its rating management is.</p>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="col stack">
+    <p class="eyebrow">2 · Why</p>
+    <h2>Most negative reviews are about the app getting in the way, not the cab</h2>
+    <p>I classified every review from the last 12 months into 17 themes. The negative reviews (1–2★, n = 772) break down like this. One review can carry more than one theme.</p>
+  </div>
+  <figure>
+    <div class="legend">
+      <span><i style="background:var(--accent)"></i>App (Product &amp; Engineering can fix)</span>
+      <span><i style="background:var(--ops)"></i>Operations (vendor, driver, transport desk)</span>
+      <span><i style="background:var(--muted);opacity:.45"></i>No detail given</span>
+      <span><i style="background:var(--signal)"></i>Share in last 30 days</span>
+    </div>
+    <div class="chart" id="themes"></div>
+    <figcaption>Share of the 772 negative reviews (last 12 months) mentioning each theme. The amber tick marks the last 30 days, to show what is rising right now.</figcaption>
+  </figure>
+  <div class="two">
+    <div class="stack">
+      <h3>Who owns the fix</h3>
+      <p>Of negative reviews that name a cause, <strong>84% involve the app</strong>: 48% app only plus 11% app and ops, out of the 71% that give any detail. Only 12% are purely about the ride itself: late cabs, routing, driver behaviour. The app is the main lever.</p>
+    </div>
+    <div class="stack callout">
+      <h3>Rising in the last 30 days</h3>
+      <p><strong>"Not installed from Play Store" lockouts</strong>: 9.3% of negative reviews, up from 2.0%.<br>
+      <strong>Forced rating and prompts</strong>: 8.0%, up from 3.0%.<br>
+      <strong>Notification spam</strong>: 6.7%, up from 2.8%.<br>
+      <strong>Driver behaviour</strong>: 4.0%, up from 1.3%. Routed to ops.</p>
+    </div>
+  </div>
+  <div class="col stack">
+    <h3>Releases are a repeat cause</h3>
+    <p>Three releases in the last 12 months pushed the 1★ share at least 8 points above the 90 days before them: <span class="num">12.13.1</span> (31% vs 22%), <span class="num">12.14.0</span> (37% vs 22%) and <span class="num">12.16.1</span> (34% vs 24%). The current version, <span class="num">12.19.0</span>, is at 32% against a 25% baseline, just under the line. A staged rollout gated on these signals would have caught each of them at 10% of users.</p>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="col stack">
+    <p class="eyebrow">3 · What to do, in order</p>
+    <h2>Ten tickets, ranked by rating impact per week of effort</h2>
+    <p>Each ticket is written so a team can pick it up tomorrow. The evidence counts are from the last 12 months of negative reviews unless stated otherwise. Quotes are verbatim from public reviews.</p>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pill p0">P0 · THIS WEEK</span><span class="fine">Small code or configuration changes. Stops new damage.</span></div>
+
+    <article class="ticket">
+      <div class="rank num">1</div>
+      <div class="body">
+        <h3>Make trip feedback skippable and stop sending annoyed users to the store</h3>
+        <div class="tags"><span class="pill own-app">App</span><span class="pill">~3 days</span></div>
+        <dl>
+          <dt>Evidence</dt><dd>Forced rating, review nags and policy re-accept screens: 30 reviews, rising from 3% to 8% of negatives in the last 30 days. Users say outright that the prompt is why they left 1★. One reviewer also reports the in-app rating offers only 4 or 5 stars.
+            <blockquote>"forcing me to give rating after every ride, so I came here to give you 1 star. because if I don't rate, I can't use the app as there is no skip option." <cite>1★ · v12.19.0 · Oct 2026</cite></blockquote>
+            <blockquote>"users are only given options like 4 or 5 stars, with no way to rate 1, 2, or even 3" <cite>2★ · v12.15.0 · Jul 2026</cite></blockquote></dd>
+          <dt>Fix</dt><dd><ul>
+            <li>Add <strong>Skip</strong> to the trip-feedback screen. Never let it block tracking, OTP or QR boarding. Ask at most once a day.</li>
+            <li>Ask for a Play rating only through Google's <a href="https://developer.android.com/guide/playcore/in-app-review">In-App Review API</a>, after a trip that completed on time with no complaint raised. Cap it at once per 60 days per user.</li>
+            <li>Remove any pre-question such as "would you rate us 5★?". Show all five stars in trip feedback. Google's guidelines forbid asking questions before the review card, and a 4–5-only picker is a policy risk to audit now.</li>
+            <li>Show the transport-policy acceptance only when the policy version changes, not on every launch.</li>
+          </ul></dd>
+          <dt>Measure</dt><dd>Forced-prompt complaints fall to near zero within 4 weeks. Star-only rating volume holds, because the good-moment prompt replaces the forced one.</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="ticket">
+      <div class="rank num">2</div>
+      <div class="body">
+        <h3>Stop the false "not installed from Play Store" lockout</h3>
+        <div class="tags"><span class="pill own-app">App</span><span class="pill">~1 week</span></div>
+        <dl>
+          <dt>Evidence</dt><dd>18 reviews in 12 months, but 9.3% of all negative reviews in the last 30 days, up from 2.0%. Every one is a user fully locked out until they reinstall, often right after an auto-update.
+            <blockquote>"in last 3 weeks I uninstall an installed it for 10 times due to the same error" <cite>2★ · Aug 2026</cite></blockquote>
+            <blockquote>"Auto updates itself and then the app does not launch. The only solution is to uninstall and reinstall" <cite>1★ · v12.16.0</cite></blockquote></dd>
+          <dt>Fix</dt><dd><ul>
+            <li>Likely cause: an installer-source or Play Integrity check that hard-blocks on a non-pass verdict. That includes transient errors and the window right after an update. Confirm with the verdict breakdown in Play Console and client logs.</li>
+            <li>Fail open on errors and "unevaluated" verdicts. Retry with backoff. Never block the "today's trip" view. Restrict only sensitive actions if needed.</li>
+            <li>Log every verdict with app version and device model so a spike is visible within a day.</li>
+          </ul></dd>
+          <dt>Measure</dt><dd>Theme back below 1% of negative reviews. Zero hard blocks on error verdicts.</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="ticket">
+      <div class="rank num">3</div>
+      <div class="body">
+        <h3>Reply to every 1–3★ review within 24 hours, with a real answer</h3>
+        <div class="tags"><span class="pill own-cs">Customer Success + FDE</span><span class="pill">start now, ~1 hr/day</span></div>
+        <dl>
+          <dt>Evidence</dt><dd>The reply rate fell from 92–98% to 3% in July 2024. The 40 "most relevant" reviews that greet every store visitor average 1.4★, and 25 of them have no reply. Earlier replies were templates that redirected users ("reach out to your transport facility manager"), and the 1★ share did not improve while they ran. Google reports that users who get a reply raise their rating by 0.7★ on average.</dd>
+          <dt>Fix</dt><dd><ul>
+            <li>Start with the 40 "most relevant" reviews this week.</li>
+            <li>Use the weekly monitor's triage queue. Every negative review is pre-tagged with its theme and owner. App issues get a specific answer or a known-issue status. Ride issues go to that client's transport desk with a reference number.</li>
+            <li>Close the loop. When a fix ships, reply again ("fixed in 12.x, please update") so the reviewer can revise their rating.</li>
+          </ul></dd>
+          <dt>Measure</dt><dd>At least 90% of 1–3★ reviews answered within 48 hours. "Most relevant" average above 2.5★ within a quarter. Track rating changes on replied reviews in Play Console.</dd>
+        </dl>
+      </div>
+    </article>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pill p1">P1 · NEXT 2 SPRINTS</span><span class="fine">Engineering work on the biggest themes.</span></div>
+
+    <article class="ticket">
+      <div class="rank num">4</div>
+      <div class="body">
+        <h3>Keep people signed in, and make OTP delivery reliable</h3>
+        <div class="tags"><span class="pill own-app">App + Backend</span><span class="pill">~2 sprints</span></div>
+        <dl>
+          <dt>Evidence</dt><dd>Login, OTP and forced logouts: 109 reviews (14% of negatives), with steady complaints since early 2025. The worst failures happen at the kerb, when the cab is there.
+            <blockquote>"when cab is waiting for you and you are in hurry, you will be logged out with no access to cab number/otp/call option" <cite>2★ · v12.8.2</cite></blockquote>
+            <blockquote>"I stepped in a no network zone and it logged me out" <cite>1★ · v12.13.2</cite></blockquote></dd>
+          <dt>Fix</dt><dd><ul>
+            <li>Use sliding refresh tokens (for example 30–90 days, per client security policy). Never log out because of a network failure or a failed refresh. Keep showing cached data and refresh quietly on reconnect.</li>
+            <li>For SSO clients, refresh silently instead of sending users to a full re-login.</li>
+            <li>Measure OTP delivery rate and latency by channel and mobile operator. Fall back automatically to WhatsApp or email, with a visible resend timer and a message saying where the code was sent.</li>
+          </ul></dd>
+          <dt>Measure</dt><dd>Forced logins per active user per week down 80%. OTP delivery success above 98% within 30 seconds.</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="ticket">
+      <div class="rank num">5</div>
+      <div class="body">
+        <h3>Open straight to a cached "today's trip" card</h3>
+        <div class="tags"><span class="pill own-app">App</span><span class="pill">~2 sprints</span></div>
+        <dl>
+          <dt>Evidence</dt><dd>Crashes, won't open, slow or blank screen is the largest theme: 173 reviews (22% of negatives). Related themes include trip details unavailable offline, the QR and OTP screen, and banners blocking launch.
+            <blockquote>"Loading and showing full screen banner on every app launch is terrible. I am opening the app to see my cab timing" <cite>1★ · v12.11.2</cite></blockquote>
+            <blockquote>"when you click view otp, it pops up the seat belt [check] first ... I should be able to see the otp in one click" <cite>2★ · v12.19.0</cite></blockquote></dd>
+          <dt>Fix</dt><dd><ul>
+            <li>Cache the current trip on the device: cab number, driver, OTP, pickup time and helpdesk number. Render it first on launch, before any network call.</li>
+            <li>Move banners, notices and campaign pop-ups off the launch path. Show the OTP in one tap, with the seat-belt check after boarding.</li>
+            <li>Track cold-start time, crash rate and ANR rate per release in Android Vitals. Google's bad-behaviour thresholds are 1.09% user-perceived crash rate and 0.47% ANR rate.</li>
+          </ul></dd>
+          <dt>Measure</dt><dd>P90 time to trip card under 2 seconds. Crash and slow-launch theme below 12% of negatives.</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="ticket">
+      <div class="rank num">6</div>
+      <div class="body">
+        <h3>Gate every release on review signals with a staged rollout</h3>
+        <div class="tags"><span class="pill own-app">Release engineering</span><span class="pill">~3 days</span></div>
+        <dl>
+          <dt>Evidence</dt><dd>Three regressions in 12 months: 12.13.1, 12.14.0 and 12.16.1, each 8–15 points above the prior 1★ baseline. The current release, 12.19.0, is 7 points above.</dd>
+          <dt>Fix</dt><dd><ul>
+            <li>Roll out through Play Console in stages: 5%, then 20%, 50% and 100%, with at least 48 hours at each stage.</li>
+            <li>Halt automatically when the weekly monitor flags the version (1★ share at least 8 points over baseline with 20 or more reviews), or when Vitals crash or ANR rates breach their thresholds.</li>
+            <li>Add the top three negative themes for each new version to release notes and retros.</li>
+          </ul></dd>
+          <dt>Measure</dt><dd>No release more than 5 points above baseline reaches 100% of users.</dd>
+        </dl>
+      </div>
+    </article>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pill p2">P2 · THIS QUARTER</span><span class="fine">Product work that earns the 5★ reviews.</span></div>
+
+    <article class="ticket">
+      <div class="rank num">7</div>
+      <div class="body">
+        <h3>Make live tracking trustworthy</h3>
+        <div class="tags"><span class="pill own-app">App + Backend</span></div>
+        <dl>
+          <dt>Evidence</dt><dd>91 reviews (12%), with 44 upvotes, several of them among the most relevant reviews on the store page.
+            <blockquote>"whenever you see the location, it shows one or two hours ago" <cite>1★ · v12.16.0</cite></blockquote>
+            <blockquote>"when we have zoomed in the map to track a vehicle what's the necessity to zoom out" <cite>2★ · v12.16.0</cite></blockquote></dd>
+          <dt>Fix</dt><dd>Show "location updated N minutes ago" and grey out stale positions. Stop resetting the zoom once the user has zoomed. Calculate ETA from road routing with traffic. Show the user's place in the pickup sequence.</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="ticket">
+      <div class="rank num">8</div>
+      <div class="body">
+        <h3>Make booking state impossible to misread</h3>
+        <div class="tags"><span class="pill own-app">App</span></div>
+        <dl>
+          <dt>Evidence</dt><dd>Booking, cancel, waitlist and schedule: 102 reviews (13%). New UI or update made it harder: 48 (6%).
+            <blockquote>"Booking a shuttle is now a 2 step process previously it used to be 1. I got confused and thought I had booked a cab while I hadn't." <cite>1★ · v12.14.1</cite></blockquote></dd>
+          <dt>Fix</dt><dd>Restore one-step booking. Show an explicit Booked or Waitlisted status with the cancellation cut-off inline. Label times with AM/PM. Allow editing a booking without cancelling it.</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="ticket">
+      <div class="rank num">9</div>
+      <div class="body">
+        <h3>Fair no-shows and one-tap contact</h3>
+        <div class="tags"><span class="pill own-app">App</span><span class="pill own-ops">Ops</span></div>
+        <dl>
+          <dt>Evidence</dt><dd>Late cabs and disputed no-shows: 73 reviews (9.5%). Can't reach driver or helpdesk: 64 (8%).
+            <blockquote>"came half an hour earlier and marked no show at pick point no call" <cite>1★ · v12.9.4</cite></blockquote></dd>
+          <dt>Fix</dt><dd>Mark "arrived" only from the driver's GPS geofence, not by hand. Show a visible wait timer, and allow a no-show only after the timer runs out and a call attempt is logged. Add masked call and chat with the driver on the trip screen. Where a client disables calling, show the helpdesk number instead of an error.</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="ticket">
+      <div class="rank num">10</div>
+      <div class="body">
+        <h3>Send ride complaints to the people who can fix them</h3>
+        <div class="tags"><span class="pill own-ops">Ops + account teams</span></div>
+        <dl>
+          <dt>Evidence</dt><dd>About 23% of negative reviews are about the ride: late cabs, routing and clubbing, driver behaviour, safety. The app team can't fix these. They come from specific vendors and client sites, and reviewers often name their employer.</dd>
+          <dt>Fix</dt><dd>The monitor sends a weekly digest of ride-tagged reviews to ops and account managers. Any review mentioning safety or harassment gets same-day escalation, and every one is listed individually, never only in aggregate.</dd>
+        </dl>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="impact">
+  <div class="col stack">
+    <p class="eyebrow">4 · Expected impact</p>
+    <h2>Halving app-caused 1–2★ reviews passes the competitor</h2>
+    <p>Google weights recent ratings, so I model a 12-month window. About 21% of ratings come with a written review. That puts last year's total at about 13,500 ratings, of which 2,857 were written (3.83★ average) and the rest were star-only taps (4.90★ average). This model gives <strong>4.68</strong> against the 4.64 the store shows, close enough to use for comparisons.</p>
+  </div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Scenario (12-month window)</th><th class="r">Est. rating</th><th class="r">Change</th></tr></thead>
+      <tbody>
+        <tr><td>Today (model)</td><td class="r">4.68</td><td class="r">—</td></tr>
+        <tr><td>Tickets 1–2 only: forced-prompt and lockout reviews (48/yr) become normal ratings</td><td class="r">4.69</td><td class="r">+0.01</td></tr>
+        <tr class="hl"><td>Tickets 1–6: half of app-caused 1–2★ reviews (~230 of 459/yr) become normal ratings</td><td class="r">4.74</td><td class="r">+0.06</td></tr>
+        <tr><td>Tickets 1–9: 75% of app-caused 1–2★ reviews avoided</td><td class="r">4.77</td><td class="r">+0.09</td></tr>
+        <tr><td>Tickets 1–6, plus 20% more ratings from the good-moment prompt</td><td class="r">4.76</td><td class="r">+0.08</td></tr>
+        <tr><td>Benchmark: Safetrax Commuter</td><td class="r">4.72</td><td class="r"></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fine col">Assumptions: an avoided negative review is replaced by a typical star-only rating (4.9★). The ratio of written reviews to ratings is assumed constant. Google's exact recency weighting is not public, so treat these as directional. The bigger visible win is the store page: answering and resolving the "most relevant" reviews changes what every new user reads first.</p>
+  <div class="col stack">
+    <h3>Targets for two quarters</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Metric</th><th class="r">Now</th><th class="r">Target</th></tr></thead>
+        <tbody>
+          <tr><td>Store rating</td><td class="r">4.64</td><td class="r">≥ 4.75</td></tr>
+          <tr><td>1★ share of written reviews (rolling 90 days)</td><td class="r">24%</td><td class="r">≤ 15%</td></tr>
+          <tr><td>"Most relevant" top-40 average</td><td class="r">1.4★</td><td class="r">≥ 2.5★</td></tr>
+          <tr><td>1–3★ reviews replied within 48 hours</td><td class="r">3%</td><td class="r">≥ 90%</td></tr>
+          <tr><td>Releases reaching 100% while flagged</td><td class="r">3 / yr</td><td class="r">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="monitor">
+  <div class="col stack">
+    <p class="eyebrow">5 · Keeping the answer current</p>
+    <h2>"How are our Play Store ratings?" now has a weekly answer</h2>
+    <p>The brief says this question will come up again. So the analysis above is a small pipeline, not a one-off notebook. It runs on a schedule, costs nothing to operate, and gives each team its own view.</p>
+  </div>
+  <div class="two">
+    <div class="stack">
+      <h3>What it does each week</h3>
+      <ul class="stack" style="padding-left:1.1rem;margin:0;gap:.4rem">
+        <li><strong>Fetches</strong> new reviews and the store snapshot for every MoveInSync app, incrementally, plus the benchmark app.</li>
+        <li><strong>Tags</strong> each review with theme and owner using a rule-based classifier. On a hand-checked holdout of 80 negative reviews, about 91% of tags were correct and about 88% of themes present were caught.</li>
+        <li><strong>Flags</strong> three things: release regressions, themes rising sharply in the last 30 days, and safety mentions, listed one by one.</li>
+        <li><strong>Publishes</strong> a dashboard and a reply triage queue, and keeps a history of store-rating snapshots so the trend builds up over time.</li>
+      </ul>
+    </div>
+    <div class="stack">
+      <h3>Run it</h3>
+<pre>pip install -r requirements.txt
+python pipeline/run_weekly.py
+# → data/metrics.json, dashboard/index.html,
+#   data/triage_queue.csv</pre>
+      <p class="fine">A GitHub Actions workflow runs this every Monday at 07:00 IST and commits the results. A Slack webhook can post the alerts. If an LLM key is added, the rule-based tagger can be swapped for an LLM classifier with the same output columns.</p>
+    </div>
+  </div>
+</section>
+
+<section id="method">
+  <div class="col stack">
+    <p class="eyebrow">6 · How I got here</p>
+    <h2>Method, tools and limits</h2>
+    <p><strong>Data.</strong> I searched the Play Store for the developer "MoveInSync: Enabling Hybrid Workplaces" and found six apps. The employee app has 99% of the ratings, so the analysis focuses on it. I pulled every public review (24,314) with the open-source <code>google-play-scraper</code> library, along with the store histogram, the "most relevant" ordering a visitor sees, and the same data for Safetrax Commuter as a benchmark.</p>
+    <p><strong>Analysis.</strong> I read about 400 recent 1–2★ reviews by hand to build the 17-theme taxonomy. I encoded it as English and Hinglish patterns, checked it against a separate holdout sample, and fixed the misses. I then cut the data by month, release version and owner, compared the store histogram with the written reviews to separate star-only raters, and modelled the rating scenarios.</p>
+    <p><strong>Tools.</strong> Python (pandas, google-play-scraper). Claude Code as an AI pair for writing the scraper and pipeline, drafting regex patterns and building this page. Every number here comes from the pipeline output, and I made the theme definitions and priorities by reading the reviews myself. Google's Android developer documentation for the In-App Review API and Android Vitals thresholds.</p>
+    <p><strong>Limits.</strong> Public reviews only. I could not see Play Console data (rating breakdown by version or device, Android Vitals, the Play Integrity verdict mix), iOS, or internal tickets, and the root causes for tickets 2 and 4 are hypotheses to confirm against those. Reviews from 2014 to early 2018 reflect a much older product and are excluded from the conclusions. The driver apps (Partner Lite 4.29★, Driver Partner 3.5★) matter too, because tracking and ETA depend on the driver's phone, but they have under 1% of the employee app's review volume and are out of scope here.</p>
+  </div>
+</section>
+
+<footer class="fine">Data through 9 October 2026. Source: public Google Play reviews and listings (India, English). Reviews are quoted verbatim, without reviewer names.</footer>
+
+</div>
+
+<script>
+const MONTHLY = [["2023-10",242,3.52,0.293,0.959],["2023-11",227,3.72,0.225,0.982],["2023-12",211,3.63,0.246,0.991],["2024-01",245,3.61,0.269,0.971],["2024-02",209,3.53,0.297,0.986],["2024-03",192,3.45,0.312,0.969],["2024-04",211,3.56,0.303,0.327],["2024-05",218,3.71,0.257,1.0],["2024-06",213,3.62,0.277,0.249],["2024-07",295,3.56,0.278,0.024],["2024-08",191,3.61,0.288,0.005],["2024-09",225,3.64,0.276,0.022],["2024-10",266,3.73,0.259,0.015],["2024-11",221,3.71,0.267,0.018],["2024-12",209,3.78,0.249,0.01],["2025-01",290,3.41,0.331,0.014],["2025-02",229,3.46,0.314,0.057],["2025-03",226,3.8,0.243,0.018],["2025-04",228,3.84,0.232,0.022],["2025-05",257,3.8,0.226,0.008],["2025-06",301,3.56,0.292,0.013],["2025-07",293,3.78,0.225,0.048],["2025-08",241,3.68,0.27,0.033],["2025-09",205,3.52,0.298,0.024],["2025-10",297,3.79,0.246,0.074],["2025-11",160,3.69,0.263,0.163],["2025-12",196,3.84,0.219,0.092],["2026-01",211,3.77,0.232,0.043],["2026-02",207,3.74,0.275,0.0],["2026-03",197,3.98,0.208,0.01],["2026-04",292,4.03,0.209,0.003],["2026-05",247,4.02,0.202,0.004],["2026-06",273,3.56,0.311,0.007],["2026-07",285,4.01,0.193,0.004],["2026-08",242,3.65,0.285,0.004],["2026-09",245,3.84,0.249,0.004]];
+const THEMES = [["Generic (no detail)","gen",0.29,0.24],["Crashes, won't open, slow","app",0.224,0.28],["Login, OTP & forced logouts","app",0.141,0.12],["Booking, cancel, waitlist","app",0.132,0.147],["Tracking, GPS, ETA, location","app",0.118,0.12],["Late cabs, no-shows","ops",0.095,0.107],["Service / vendor / desk","ops",0.089,0.053],["Can't reach driver / helpdesk","app",0.083,0.08],["Routing, clubbing, nodal points","ops",0.063,0.053],["New UI made it harder","app",0.062,0.053],["Forced rating, nags, policy screens","app",0.039,0.08],["Notification spam","app",0.028,0.067],["'Not installed from Play Store'","app",0.023,0.093],["Driver behaviour","ops",0.019,0.04],["Boarding QR / OTP screen","app",0.016,0.04],["Safety","ops",0.016,0.0],["Trip details unavailable offline","app",0.008,0.013]];
+const WRITTEN = [6352,1165,1089,2794,12914], HIST = [7338,837,1231,7297,98141];
+
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, parent, text) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; if (parent) parent.appendChild(e); return e; }
+
+// 1) Trend: 1-star share (line) over reply rate (area)
+(function () {
+  const W = 720, H = 260, L = 44, R = 12, T = 14, B = 34, iw = W - L - R, ih = H - T - B;
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Monthly share of 1-star reviews and developer reply rate" });
+  const x = i => L + (i / (MONTHLY.length - 1)) * iw, y = v => T + ih - v * ih;
+  [0, 0.25, 0.5, 0.75, 1].forEach(v => { el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), class: "grid" }, svg); el("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, svg, Math.round(v * 100) + "%"); });
+  MONTHLY.forEach((m, i) => { if (m[0].endsWith("-01")) el("text", { x: x(i), y: H - 12, "text-anchor": "middle" }, svg, "Jan " + m[0].slice(0, 4)); });
+  let a = `M${x(0)},${y(0)} ` + MONTHLY.map((m, i) => `L${x(i)},${y(m[4])}`).join(" ") + ` L${x(MONTHLY.length - 1)},${y(0)} Z`;
+  el("path", { d: a, class: "area-reply" }, svg);
+  el("path", { d: MONTHLY.map((m, i) => `${i ? "L" : "M"}${x(i)},${y(m[4])}`).join(" "), class: "line-reply" }, svg);
+  el("path", { d: MONTHLY.map((m, i) => `${i ? "L" : "M"}${x(i)},${y(m[3])}`).join(" "), class: "line-bad" }, svg);
+  const li = MONTHLY.length - 1; el("circle", { cx: x(li), cy: y(MONTHLY[li][3]), r: 4, class: "dot-bad" }, svg);
+  el("text", { x: x(li) - 6, y: y(MONTHLY[li][3]) - 10, "text-anchor": "end", class: "lbl" }, svg, Math.round(MONTHLY[li][3] * 100) + "% 1★");
+  const ji = MONTHLY.findIndex(m => m[0] === "2024-07");
+  el("text", { x: x(ji) + 6, y: y(0.62), class: "lbl" }, svg, "Replies stop, Jul 2024");
+  document.getElementById("trend").appendChild(svg);
+})();
+
+// 2) Theme bars
+(function () {
+  const rowH = 26, L = 230, R = 50, T = 6, W = 720, H = T + THEMES.length * rowH + 22, iw = W - L - R, max = 0.3;
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Share of negative reviews by theme" });
+  const x = v => L + (v / max) * iw;
+  [0, 0.1, 0.2, 0.3].forEach(v => { el("line", { x1: x(v), x2: x(v), y1: T, y2: H - 20, class: "grid" }, svg); el("text", { x: x(v), y: H - 6, "text-anchor": "middle" }, svg, Math.round(v * 100) + "%"); });
+  THEMES.forEach((t, i) => {
+    const yy = T + i * rowH;
+    el("text", { x: L - 10, y: yy + 16, "text-anchor": "end", class: "lbl" }, svg, t[0]);
+    el("rect", { x: L, y: yy + 5, width: Math.max(1, x(t[2]) - L), height: rowH - 10, rx: 2, class: t[1] === "app" ? "bar-app" : t[1] === "ops" ? "bar-ops" : "bar-gen" }, svg);
+    el("line", { x1: x(t[3]), x2: x(t[3]), y1: yy + 2, y2: yy + rowH - 2, class: "tick30" }, svg);
+    el("text", { x: x(Math.max(t[2], t[3])) + 6, y: yy + 16 }, svg, Math.round(t[2] * 100) + "%");
+  });
+  document.getElementById("themes").appendChild(svg);
+})();
+
+// 3) Written vs star-only, by star
+(function () {
+  const W = 420, H = 230, L = 70, R = 16, T = 10, rowH = 34, iw = W - L - R;
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Share of each star rating that came with a written review" });
+  svg.style.minWidth = "0";
+  [5, 4, 3, 2, 1].forEach((s, i) => {
+    const total = HIST[s - 1], w = Math.min(WRITTEN[s - 1], total), share = w / total, yy = T + i * rowH;
+    el("text", { x: L - 10, y: yy + 20, "text-anchor": "end", class: "lbl" }, svg, s + "★");
+    el("rect", { x: L, y: yy + 6, width: iw, height: rowH - 12, rx: 2, class: "bar-gen" }, svg);
+    el("rect", { x: L, y: yy + 6, width: iw * share, height: rowH - 12, rx: 2, class: "s" + s }, svg);
+    el("text", { x: L + iw * share + 6 > L + iw - 40 ? L + iw * share - 6 : L + iw * share + 6, y: yy + 21, "text-anchor": L + iw * share + 6 > L + iw - 40 ? "end" : "start", class: "lbl" }, svg, (WRITTEN[s - 1] > total ? "≈100" : Math.round(share * 100)) + "% written");
+  });
+  el("text", { x: L, y: H - 8 }, svg, "Grey = star-only ratings");
+  document.getElementById("split").appendChild(svg);
+})();
+</script>
