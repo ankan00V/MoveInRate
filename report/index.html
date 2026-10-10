@@ -1,42 +1,60 @@
 <title>MoveInSync Rating Recovery Plan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<!-- Tailwind play CDN: no CORS headers, so it cannot carry an SRI hash -->
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+tailwind.config = {
+  corePlugins: { preflight: false },
+  theme: { extend: {
+    fontFamily: {
+      manrope: ['Manrope', 'system-ui', 'sans-serif'],
+      cabin: ['Cabin', 'system-ui', 'sans-serif'],
+      instrument: ['"Instrument Serif"', 'Georgia', 'serif'],
+      inter: ['Inter', 'system-ui', 'sans-serif'],
+    },
+    colors: { primary: '#7b39fc', plum: '#2b2344' },
+  } },
+};
+</script>
 <style>
-/* Layout: a single reading column (memo) with full-width evidence panels; tickets as a ranked queue. */
+/* Layout: full-screen video hero, then a single reading column with evidence panels and a ranked ticket queue.
+   One deliberate dark world (night commute), purple primary from the design system. */
 :root {
-  --bg: #f6f7f5;
-  --surface: #ffffff;
-  --ink: #17201f;
-  --muted: #5a6764;
-  --rule: #d9dfdc;
-  --accent: #0d6b5f;      /* route green */
-  --signal: #d98a0b;      /* signal amber: stars, attention */
-  --bad: #c2412d;
-  --ops: #6b5bd6;
-  --chip: #e9eeec;
-  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
-  --font-body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
-  --font-data: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --step--1: 0.8125rem; --step-0: 1rem; --step-1: 1.1875rem; --step-2: 1.5rem; --step-3: 2.125rem; --step-4: 2.875rem;
+  color-scheme: dark;
+  --bg: #0c0916;
+  --surface: #151026;
+  --ink: #f4f2fa;
+  --muted: #a39cb8;
+  --rule: #2a2340;
+  --accent: #a684ff;      /* readable purple on dark */
+  --primary: #7b39fc;     /* design-system primary */
+  --plum: #2b2344;        /* design-system dark */
+  --signal: #f0ac3a;
+  --bad: #ff7b6b;
+  --ops: #5ec8f2;
+  --chip: #231c3a;
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-tag: "Cabin", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --step--1: 0.8125rem; --step-0: 1rem; --step-1: 1.1875rem; --step-2: 1.5rem; --step-3: 2.5rem; --step-4: 3.5rem;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #111816; --surface: #18211f; --ink: #e6ecea; --muted: #9aa8a4; --rule: #2b3734;
-  --accent: #4fc2ad; --signal: #f0ac3a; --bad: #f07a63; --ops: #a79bff; --chip: #22302d; color-scheme: dark } }
-:root[data-theme="dark"] {
-  --bg: #111816; --surface: #18211f; --ink: #e6ecea; --muted: #9aa8a4; --rule: #2b3734;
-  --accent: #4fc2ad; --signal: #f0ac3a; --bad: #f07a63; --ops: #a79bff; --chip: #22302d; color-scheme: dark }
 
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: var(--step-0); line-height: 1.6; }
-.wrap { max-width: 60rem; margin: 0 auto; padding-inline: 1.25rem; padding-block: 2.5rem 4rem; }
+.wrap { max-width: 60rem; margin: 0 auto; padding-inline: 1.25rem; padding-block: 3.5rem 4rem; }
 .col { max-width: 42rem; }
-h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; text-wrap: balance; margin: 0; font-weight: 400; }
 h1 { font-size: var(--step-4); font-weight: 700; letter-spacing: -0.02em; }
-h2 { font-size: var(--step-3); font-weight: 700; letter-spacing: -0.01em; }
-h3 { font-size: var(--step-1); font-weight: 700; }
+h2 { font-size: var(--step-3); font-weight: 400; letter-spacing: -0.005em; }
+h2 em { font-style: italic; }
+h3 { font-family: var(--font-data); font-size: var(--step-1); font-weight: 700; letter-spacing: -0.01em; }
 p { margin: 0; }
 a { color: var(--accent); }
+strong { color: var(--ink); font-weight: 600; }
+.memo-meta a { color: var(--accent); }
 .eyebrow { font-family: var(--font-data); font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
 .num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
 .stack { display: flex; flex-direction: column; gap: 1rem; }
@@ -50,36 +68,38 @@ section { display: flex; flex-direction: column; gap: 1.25rem; padding-block: 2.
 .lede { font-size: var(--step-1); max-width: 40rem; }
 
 /* Summary */
-.summary { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.summary { background: linear-gradient(180deg, rgba(123,57,252,0.14), rgba(123,57,252,0.04)); border: 1px solid rgba(164,132,215,0.35); border-radius: 10px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
 .summary ol { margin: 0; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
-.summary li::marker { font-family: var(--font-data); color: var(--accent); font-weight: 600; }
+.summary ol { list-style: decimal; }
+.summary li::marker { font-family: var(--font-data); color: var(--accent); font-weight: 700; }
+.ticket ul, ul.stack { list-style: disc; }
 
 /* KPI strip */
-.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
 .kpi { background: var(--surface); padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
-.kpi .v { font-family: var(--font-display); font-size: var(--step-3); font-weight: 700; line-height: 1; }
+.kpi .v { font-family: var(--font-display); font-size: 2.75rem; font-weight: 400; line-height: 1; }
 .kpi .v small { font-size: var(--step-0); color: var(--muted); font-weight: 500; }
 .kpi .d { font-size: var(--step--1); color: var(--muted); }
 .kpi.bad .v { color: var(--bad); }
 .kpi.good .v { color: var(--accent); }
 
 /* Figures */
-figure { margin: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
+figure { margin: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
 figcaption { font-size: var(--step--1); color: var(--muted); }
 .chart { width: 100%; overflow-x: auto; }
 .chart svg { display: block; width: 100%; height: auto; min-width: 34rem; }
 .chart text { fill: var(--muted); font-family: var(--font-data); font-size: 11px; }
 .chart .grid { stroke: var(--rule); stroke-width: 1; }
 .chart .line-bad { fill: none; stroke: var(--bad); stroke-width: 2; }
-.chart .area-reply { fill: var(--accent); opacity: 0.22; }
+.chart .area-reply { fill: var(--primary); opacity: 0.35; }
 .chart .line-reply { fill: none; stroke: var(--accent); stroke-width: 1.5; }
 .chart .dot-bad { fill: var(--bad); }
-.chart .bar-app { fill: var(--accent); }
+.chart .bar-app { fill: var(--primary); }
 .chart .bar-ops { fill: var(--ops); }
 .chart .bar-gen { fill: var(--muted); opacity: 0.45; }
 .chart .tick30 { stroke: var(--signal); stroke-width: 3; }
 .chart .lbl { fill: var(--ink); font-family: var(--font-body); font-size: 12px; }
-.chart .s1 { fill: var(--bad); } .chart .s2 { fill: var(--bad); opacity: .55; } .chart .s3 { fill: var(--muted); opacity: .45; } .chart .s4 { fill: var(--accent); opacity: .55; } .chart .s5 { fill: var(--accent); }
+.chart .s1 { fill: var(--bad); } .chart .s2 { fill: var(--bad); opacity: .55; } .chart .s3 { fill: var(--muted); opacity: .45; } .chart .s4 { fill: var(--primary); opacity: .55; } .chart .s5 { fill: var(--primary); }
 .legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: var(--step--1); color: var(--muted); }
 .legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
 .legend i { width: 0.8rem; height: 0.8rem; border-radius: 2px; display: inline-block; }
@@ -91,15 +111,15 @@ figcaption { font-size: var(--step--1); color: var(--muted); }
 /* Ticket queue */
 .phase { display: flex; flex-direction: column; gap: 0.9rem; }
 .phase-head { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
-.pill { font-family: var(--font-data); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; padding: 0.15rem 0.5rem; border-radius: 3px; background: var(--chip); color: var(--ink); white-space: nowrap; }
-.pill.p0 { background: var(--bad); color: var(--surface); }
+.pill { font-family: var(--font-tag); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; padding: 0.15rem 0.5rem; border-radius: 3px; background: var(--chip); color: var(--ink); white-space: nowrap; }
+.pill.p0 { background: var(--bad); color: #1a0d0b; }
 .pill.p1 { background: var(--signal); color: #1b1404; }
-.pill.p2 { background: var(--accent); color: var(--surface); }
+.pill.p2 { background: var(--primary); color: #fafafa; }
 .pill.own-app { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
 .pill.own-ops { background: transparent; border: 1px solid var(--ops); color: var(--ops); }
 .pill.own-cs { background: transparent; border: 1px solid var(--muted); color: var(--muted); }
-.ticket { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1.25rem; display: grid; grid-template-columns: 2.5rem 1fr; gap: 0 1rem; }
-.ticket .rank { font-family: var(--font-display); font-size: var(--step-3); font-weight: 700; color: var(--muted); line-height: 1; }
+.ticket { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem; display: grid; grid-template-columns: 2.5rem 1fr; gap: 0 1rem; }
+.ticket .rank { font-family: var(--font-display); font-size: 2.75rem; font-weight: 400; color: var(--accent); line-height: 1; }
 .ticket .body { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
 .ticket .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .ticket dl { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.5rem 1rem; margin: 0; font-size: 0.9375rem; }
@@ -111,7 +131,7 @@ blockquote + blockquote { margin-top: 0.35rem; }
 blockquote cite { font-style: normal; font-family: var(--font-data); font-size: 0.6875rem; }
 
 /* Tables */
-.tbl { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+.tbl { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
 table { border-collapse: collapse; width: 100%; font-size: 0.9375rem; }
 th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
 th { font-family: var(--font-data); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
@@ -120,7 +140,7 @@ td.r, th.r { text-align: right; font-family: var(--font-data); font-variant-nume
 tr.hl td { background: var(--chip); }
 
 code { font-family: var(--font-data); font-size: 0.875em; background: var(--chip); padding: 0.05rem 0.3rem; border-radius: 3px; }
-pre { font-family: var(--font-data); font-size: 0.8125rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 0; }
+pre { font-family: var(--font-data); font-size: 0.8125rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 1rem; overflow-x: auto; margin: 0; }
 .fine { font-size: var(--step--1); color: var(--muted); }
 footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
 
@@ -132,20 +152,33 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
   .ticket dd { margin-bottom: 0.5rem; }
   h1 { font-size: var(--step-3); }
 }
+
+/* Hero */
+.hero-fallback { background:
+  radial-gradient(ellipse 80% 60% at 70% 20%, rgba(123,57,252,0.55), transparent 60%),
+  radial-gradient(ellipse 70% 60% at 15% 85%, rgba(94,200,242,0.18), transparent 60%),
+  linear-gradient(180deg, #1b1430 0%, #2b2344 55%, #0c0916 100%); }
+.hero a, .hero button { text-decoration: none; }
+.memo-strip { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1.25rem; font-size: var(--step--1); color: var(--muted); padding-bottom: 2rem; }
+.memo-strip dt { font-family: var(--font-data); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.memo-strip dd { margin: 0; color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .hero video { display: none; } }
+@media print {
+  .hero { min-height: auto !important; padding-bottom: 3rem; }
+  .hero video, .hero .mobile-only { display: none !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
 </style>
+
+<div id="hero" class="hero"></div>
 
 <div class="wrap">
 
-<header class="memo-head">
-  <p class="eyebrow">Forward Deployed Engineer assignment · MoveInSync</p>
-  <h1>Raising the MoveInSync Play Store rating</h1>
-  <dl class="memo-meta">
-    <dt>For</dt><dd>Product, Engineering, Customer Success</dd>
-    <dt>From</dt><dd>Ankan Ghosh · <a href="https://github.com/ankan00V/MoveInRate">github.com/ankan00V/MoveInRate</a></dd>
-    <dt>Data</dt><dd>All 24,314 public Play Store reviews of the MoveInSync employee app (<code>com.moveinsync.ets</code>), March 2014 – 9 Oct 2026, plus store metadata for every MoveInSync app and one competitor</dd>
-  </dl>
-  <p class="lede">The headline 4.6★ hides the problem. The people who write reviews average 3.8★, one in four gives 1★, and that has barely moved in three years. Most of what they complain about is the app getting in their way at the moment their cab arrives. That is fixable, and four of the fixes are small.</p>
-</header>
+<dl class="memo-strip">
+  <dt>For</dt><dd>Product, Engineering, Customer Success · MoveInSync</dd>
+  <dt>From</dt><dd>Ankan Ghosh · <a href="https://github.com/ankan00V/MoveInRate">github.com/ankan00V/MoveInRate</a></dd>
+  <dt>Data</dt><dd>All 24,314 public Play Store reviews of the MoveInSync employee app (<code>com.moveinsync.ets</code>), March 2014 – 9 Oct 2026, plus store metadata for every MoveInSync app and one competitor</dd>
+</dl>
 
 <div class="summary">
   <p class="eyebrow">What to do first</p>
@@ -155,7 +188,7 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
     <li><strong>This week:</strong> restart replying to reviews, with real answers this time. The reply rate fell from about 95% to 3% in mid-2024, and the first reviews a store visitor sees average 1.4★.</li>
     <li><strong>Next two sprints:</strong> keep people signed in, open straight to an offline-cached "today's trip" card, and gate every release on review signals with a staged rollout.</li>
   </ol>
-  <p class="fine">Halving the app-caused 1–2★ reviews takes the estimated rating from about 4.68 to about 4.74, which passes Safetrax at 4.72 (<a href="#impact">model and assumptions</a>). The pipeline behind this memo re-runs weekly, so the question "how are our Play Store ratings?" gets a standing answer (<a href="#monitor">how</a>).</p>
+  <p class="fine">Halving the app-caused 1–2★ reviews takes the estimated rating from about 4.68 to about 4.74, which passes Safetrax at 4.72 (<a href="#impact">model and assumptions</a>). The pipeline behind this memo re-runs every hour, so the question "how are our Play Store ratings?" has a <a href="https://ankan00v.github.io/MoveInRate/">live answer</a> (<a href="#monitor">how</a>).</p>
 </div>
 
 <section id="where">
@@ -173,7 +206,7 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
   <figure>
     <div class="legend">
       <span><i style="background:var(--bad)"></i>Share of written reviews that are 1★</span>
-      <span><i style="background:var(--accent);opacity:.5"></i>Share of reviews with a developer reply</span>
+      <span><i style="background:var(--primary);opacity:.6"></i>Share of reviews with a developer reply</span>
     </div>
     <div class="chart" id="trend"></div>
     <figcaption>Monthly, October 2023 – October 2026. Replies stopped in July 2024. The 1★ share sits between 19% and 33% throughout, with spikes in January 2025, June 2025, June 2026 and August 2026.</figcaption>
@@ -198,7 +231,7 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
   </div>
   <figure>
     <div class="legend">
-      <span><i style="background:var(--accent)"></i>App (Product &amp; Engineering can fix)</span>
+      <span><i style="background:var(--primary)"></i>App (Product &amp; Engineering can fix)</span>
       <span><i style="background:var(--ops)"></i>Operations (vendor, driver, transport desk)</span>
       <span><i style="background:var(--muted);opacity:.45"></i>No detail given</span>
       <span><i style="background:var(--signal)"></i>Share in last 30 days</span>
@@ -232,7 +265,7 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
     <p>Each ticket is written so a team can pick it up tomorrow. The evidence counts are from the last 12 months of negative reviews unless stated otherwise. Quotes are verbatim from public reviews.</p>
   </div>
 
-  <div class="phase">
+  <div class="phase" id="p0">
     <div class="phase-head"><span class="pill p0">P0 · THIS WEEK</span><span class="fine">Small code or configuration changes. Stops new damage.</span></div>
 
     <article class="ticket">
@@ -292,7 +325,7 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
     </article>
   </div>
 
-  <div class="phase">
+  <div class="phase" id="p1">
     <div class="phase-head"><span class="pill p1">P1 · NEXT 2 SPRINTS</span><span class="fine">Engineering work on the biggest themes.</span></div>
 
     <article class="ticket">
@@ -351,7 +384,7 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
     </article>
   </div>
 
-  <div class="phase">
+  <div class="phase" id="p2">
     <div class="phase-head"><span class="pill p2">P2 · THIS QUARTER</span><span class="fine">Product work that earns the 5★ reviews.</span></div>
 
     <article class="ticket">
@@ -448,26 +481,27 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
 <section id="monitor">
   <div class="col stack">
     <p class="eyebrow">5 · Keeping the answer current</p>
-    <h2>"How are our Play Store ratings?" now has a weekly answer</h2>
-    <p>The brief says this question will come up again. So the analysis above is a small pipeline, not a one-off notebook. It runs on a schedule, costs nothing to operate, and gives each team its own view.</p>
+    <h2>"How are our Play Store ratings?" now has a live answer</h2>
+    <p>The brief says this question will come up again. So the analysis above is a small pipeline, not a one-off notebook. It runs every hour, costs nothing to operate, and gives each team its own view. This memo is dated; the <a href="https://ankan00v.github.io/MoveInRate/">live dashboard</a> always shows the current numbers.</p>
   </div>
   <div class="two">
     <div class="stack">
-      <h3>What it does each week</h3>
+      <h3>What it does every hour</h3>
       <ul class="stack" style="padding-left:1.1rem;margin:0;gap:.4rem">
         <li><strong>Fetches</strong> new reviews and the store snapshot for every MoveInSync app, incrementally, plus the benchmark app.</li>
         <li><strong>Tags</strong> each review with theme and owner using a rule-based classifier. On a hand-checked holdout of 80 negative reviews, about 91% of tags were correct and about 88% of themes present were caught.</li>
-        <li><strong>Flags</strong> three things: release regressions, themes rising sharply in the last 30 days, and safety mentions, listed one by one.</li>
-        <li><strong>Publishes</strong> a dashboard and a reply triage queue, and keeps a history of store-rating snapshots so the trend builds up over time.</li>
+        <li><strong>Alerts</strong> in Slack the moment something new appears, and flags three things: release regressions, themes rising sharply in the last 30 days, and safety mentions, listed one by one.</li>
+        <li><strong>Publishes</strong> the live dashboard and a reply triage queue, and keeps a history of store-rating snapshots so the trend builds up over time.</li>
       </ul>
     </div>
     <div class="stack">
       <h3>Run it</h3>
 <pre>pip install -r requirements.txt
-python pipeline/run_weekly.py
+python pipeline/run_weekly.py            # weekly summary
+python pipeline/run_weekly.py --hourly   # new alerts only
 # → data/metrics.json, dashboard/index.html,
 #   data/triage_queue.csv</pre>
-      <p class="fine">Code and data: <a href="https://github.com/ankan00V/MoveInRate">github.com/ankan00V/MoveInRate</a>. A GitHub Actions workflow runs this every Monday at 07:00 IST and commits the results. A Slack webhook can post the alerts. If an LLM key is added, the rule-based tagger can be swapped for an LLM classifier with the same output columns.</p>
+      <p class="fine">Live dashboard: <a href="https://ankan00v.github.io/MoveInRate/">ankan00v.github.io/MoveInRate</a>. Code and data: <a href="https://github.com/ankan00V/MoveInRate">github.com/ankan00V/MoveInRate</a>. A GitHub Actions workflow checks the Play Store every hour, redeploys the dashboard and posts anything new to Slack. Every Monday at 07:00 IST it also posts the weekly summary and commits a data snapshot. If an LLM key is added, the rule-based tagger can be swapped for an LLM classifier with the same output columns.</p>
     </div>
   </div>
 </section>
@@ -544,4 +578,159 @@ function el(tag, attrs, parent, text) { const e = document.createElementNS(NS, t
   el("text", { x: L, y: H - 8 }, svg, "Grey = star-only ratings");
   document.getElementById("split").appendChild(svg);
 })();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js" integrity="sha384-toVdrLSMaw7Y55MowcKqkmFL/Ek6Sky62NOk0b5sDDZBu2wcoPyyQUt9unDVjXhL" crossorigin="anonymous"></script>
+<script>
+/* hero: inlined from pipeline/templates/hero.js */
+/* MoveInRate hero: full-screen video background, navbar, tagline pill, headline, CTAs.
+   Shared by the report and the dashboard. Needs React, ReactDOM and htm loaded first.
+   Usage: mountHero(element, config) — see the config objects in each page. */
+(function () {
+  const { useState, useEffect, useRef } = React;
+  const html = htm.bind(React.createElement);
+
+  const VIDEO = "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260210_031346_d87182fb-b0af-4273-84d1-c6fd17d6bf0f.mp4";
+
+  // MoveInRate mark: a five-point rating star on a rounded tile
+  const Logo = () => html`
+    <svg width="30" height="30" viewBox="0 0 28 28" fill="none" aria-hidden="true" className="block">
+      <rect x="0.5" y="0.5" width="27" height="27" rx="8" fill="white" fill-opacity="0.12" stroke="white" stroke-opacity="0.35"/>
+      <path d="M14 4.5L16.4 10.9L23.2 11.2L17.9 15.4L19.7 22L14 18.2L8.3 22L10.1 15.4L4.8 11.2L11.6 10.9Z" fill="white"/>
+    </svg>`;
+
+  const Chevron = ({ open }) => html`
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+      aria-hidden="true" className=${"block transition-transform " + (open ? "rotate-180" : "")}><path d="m6 9 6 6 6-6"/></svg>`;
+
+  const MenuIcon = () => html`
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" aria-hidden="true" className="block">
+      <path d="M4 7h16M4 12h16M4 17h16"/></svg>`;
+
+  const CloseIcon = () => html`
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" aria-hidden="true" className="block">
+      <path d="M6 6l12 12M18 6L6 18"/></svg>`;
+
+  function Navbar({ brand, links, secondary, primary }) {
+    const [menu, setMenu] = useState(false);
+    const [dropdown, setDropdown] = useState(false);
+    const ddRef = useRef(null);
+
+    useEffect(() => {
+      const close = (e) => { if (ddRef.current && !ddRef.current.contains(e.target)) setDropdown(false); };
+      const esc = (e) => { if (e.key === "Escape") { setDropdown(false); setMenu(false); } };
+      document.addEventListener("click", close);
+      document.addEventListener("keydown", esc);
+      return () => { document.removeEventListener("click", close); document.removeEventListener("keydown", esc); };
+    }, []);
+
+    useEffect(() => { document.body.style.overflow = menu ? "hidden" : ""; }, [menu]);
+
+    return html`
+      <nav className="relative z-20 w-full bg-transparent px-6 lg:px-[120px] py-[16px] flex items-center justify-between">
+        <div className="flex items-center gap-12">
+          <a href="#top" className="flex items-center gap-2.5 text-white hover:opacity-80 transition-opacity" aria-label=${brand + " home"}>
+            <${Logo} />
+            <span className="font-manrope font-bold text-[16px] tracking-[-0.01em] text-white">${brand}</span>
+          </a>
+          <ul className="hidden lg:flex items-center gap-8 list-none m-0 p-0">
+            ${links.map((l) => l.children
+              ? html`<li key=${l.label} className="relative" ref=${ddRef}>
+                  <button type="button" onClick=${(e) => { e.stopPropagation(); setDropdown(!dropdown); }}
+                    aria-expanded=${dropdown} aria-haspopup="true"
+                    className="flex items-center gap-1 bg-transparent border-0 p-0 cursor-pointer font-manrope font-medium text-[14px] text-white hover:opacity-80 transition-opacity">
+                    ${l.label}<${Chevron} open=${dropdown} />
+                  </button>
+                  ${dropdown && html`<div role="menu"
+                      className="absolute left-0 top-[calc(100%+12px)] min-w-[220px] rounded-[10px] border border-[rgba(164,132,215,0.5)] bg-[rgba(43,35,68,0.92)] backdrop-blur-md p-1.5 shadow-xl">
+                    ${l.children.map((c) => html`<a key=${c.label} role="menuitem" href=${c.href} onClick=${() => setDropdown(false)}
+                        className="block rounded-[6px] px-3 py-2 font-manrope font-medium text-[14px] text-white hover:bg-white/10">
+                        ${c.label}${c.note && html`<span className="block text-[12px] font-normal text-white/60">${c.note}</span>`}</a>`)}
+                  </div>`}
+                </li>`
+              : html`<li key=${l.label}><a href=${l.href} className="font-manrope font-medium text-[14px] text-white hover:opacity-80 transition-opacity">${l.label}</a></li>`)}
+          </ul>
+        </div>
+
+        <div className="hidden lg:flex items-center gap-3">
+          <a href=${secondary.href} target=${secondary.external ? "_blank" : undefined} rel="noopener"
+            className="inline-flex items-center bg-white border border-solid border-[#d4d4d4] rounded-[8px] px-4 py-2 font-manrope font-semibold text-[14px] text-[#171717] hover:bg-neutral-100 transition-colors">${secondary.label}</a>
+          <a href=${primary.href} target=${primary.external ? "_blank" : undefined} rel="noopener"
+            className="inline-flex items-center bg-[#7b39fc] rounded-[8px] px-4 py-2 font-manrope font-semibold text-[14px] text-[#fafafa] shadow-[0_1px_2px_rgba(16,24,40,0.25)] hover:bg-[#8a4ffd] transition-colors">${primary.label}</a>
+        </div>
+
+        <button type="button" onClick=${() => setMenu(true)} aria-label="Open menu"
+          className="mobile-only lg:hidden bg-transparent border-0 p-1 cursor-pointer"><${MenuIcon} /></button>
+
+        ${menu && html`
+          <div className="fixed inset-0 z-50 bg-black flex flex-col px-6 py-[16px]" role="dialog" aria-modal="true" aria-label="Menu">
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-2.5"><${Logo} /><span className="font-manrope font-bold text-[16px] text-white">${brand}</span></span>
+              <button type="button" onClick=${() => setMenu(false)} aria-label="Close menu" className="bg-transparent border-0 p-1 cursor-pointer"><${CloseIcon} /></button>
+            </div>
+            <ul className="list-none m-0 p-0 mt-12 flex flex-col gap-6">
+              ${links.flatMap((l) => l.children ? l.children : [l]).map((l) => html`
+                <li key=${l.label}><a href=${l.href} onClick=${() => setMenu(false)} className="font-manrope font-medium text-[22px] text-white hover:opacity-80">${l.label}</a></li>`)}
+            </ul>
+            <div className="mt-auto flex flex-col gap-3 pb-6">
+              <a href=${secondary.href} target=${secondary.external ? "_blank" : undefined} rel="noopener" className="text-center bg-white border border-solid border-[#d4d4d4] rounded-[8px] px-4 py-3 font-manrope font-semibold text-[14px] text-[#171717]">${secondary.label}</a>
+              <a href=${primary.href} target=${primary.external ? "_blank" : undefined} rel="noopener" onClick=${() => setMenu(false)} className="text-center bg-[#7b39fc] rounded-[8px] px-4 py-3 font-manrope font-semibold text-[14px] text-[#fafafa]">${primary.label}</a>
+            </div>
+          </div>`}
+      </nav>`;
+  }
+
+  function Hero(c) {
+    const [videoOk, setVideoOk] = useState(true);
+    const [before, italic, after] = c.headline;
+    return html`
+      <section id="top" className="hero-fallback relative min-h-screen w-full overflow-hidden flex flex-col pb-24">
+        ${videoOk && html`<video className="absolute inset-0 w-full h-full min-h-screen object-cover" src=${VIDEO}
+            autoPlay loop muted playsInline preload="auto" aria-hidden="true" onError=${() => setVideoOk(false)} />`}
+        <${Navbar} brand=${c.brand} links=${c.links} secondary=${c.navSecondary} primary=${c.navPrimary} />
+        <div className="relative z-10 mt-32 flex flex-col items-center text-center px-6">
+          <div className="inline-flex items-center gap-2.5 h-[38px] rounded-[10px] bg-[rgba(85,80,110,0.4)] backdrop-blur-md border border-solid border-[rgba(164,132,215,0.5)] pl-1 pr-3.5">
+            <span className="bg-[#7b39fc] rounded-[6px] px-2 py-[5px] font-cabin font-medium text-[14px] leading-none text-white">${c.badge}</span>
+            <span className="font-cabin font-medium text-[14px] text-white whitespace-nowrap">${c.taglineShort ? html`<span className="sm:hidden">${c.taglineShort}</span><span className="hidden sm:inline">${c.tagline}</span>` : c.tagline}</span>
+          </div>
+          <h1 className="font-instrument font-normal text-white text-5xl md:text-7xl lg:text-[96px] leading-[1.1] tracking-[-0.01em] max-w-[1100px] mt-8 mb-0">
+            ${before}<em className="italic font-instrument mx-[0.06em] tracking-[0.01em]">${italic}</em>${after}
+          </h1>
+          <p className="font-inter font-normal text-[18px] leading-[1.6] text-white/70 max-w-[662px] mt-6 mb-0">${c.subtext}</p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <a href=${c.cta1.href} className="inline-flex items-center bg-[#7b39fc] hover:bg-[#8f57fd] transition-colors rounded-[10px] px-6 py-3.5 font-cabin font-medium text-[16px] text-white">${c.cta1.label}</a>
+            <a href=${c.cta2.href} target=${c.cta2.external ? "_blank" : undefined} rel="noopener" className="inline-flex items-center bg-[#2b2344] hover:bg-[#3a3058] transition-colors rounded-[10px] px-6 py-3.5 font-cabin font-medium text-[16px] text-[#f6f7f9]">${c.cta2.label}</a>
+          </div>
+        </div>
+      </section>`;
+  }
+
+  // Re-mounting reuses the same root, so live pages can re-render the hero with fresh data
+  window.mountHero = (el, config) => { (el._heroRoot ||= ReactDOM.createRoot(el)).render(html`<${Hero} ...${config} />`); };
+})();
+
+mountHero(document.getElementById("hero"), {
+  brand: "MoveInRate",
+  links: [
+    { label: "Findings", href: "#where" },
+    { label: "Fixes", children: [
+      { label: "This week", note: "Three small fixes that stop new damage", href: "#p0" },
+      { label: "Next 2 sprints", note: "Sign-in, launch speed, release gates", href: "#p1" },
+      { label: "This quarter", note: "Tracking, booking, contact, ops loop", href: "#p2" },
+    ] },
+    { label: "Impact", href: "#impact" },
+    { label: "Method", href: "#method" },
+  ],
+  navSecondary: { label: "View code", href: "https://github.com/ankan00V/MoveInRate", external: true },
+  navPrimary: { label: "Live dashboard", href: "https://ankan00v.github.io/MoveInRate/", external: true },
+  badge: "Memo",
+  tagline: "24,314 reviews analysed · data through 9 Oct 2026",
+  taglineShort: "24,314 reviews · to 9 Oct 2026",
+  headline: ["Fix what users hit first, ", "and", " the stars follow"],
+  subtext: "MoveInSync shows 4.64★, yet written reviews average 3.83★ and one in four is 1★. Most of the anger is the app getting in the way as the cab arrives. Here is what to fix, in order.",
+  cta1: { label: "See the 10 fixes", href: "#plan" },
+  cta2: { label: "Read the evidence", href: "#where" },
+});
 </script>
