@@ -1,52 +1,442 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>MoveInSync Ratings Monitor</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Public+Sans:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
-<style>
-:root{--bg:#f6f7f5;--surface:#fff;--ink:#17201f;--muted:#5a6764;--rule:#d9dfdc;--accent:#0d6b5f;--signal:#d98a0b;--bad:#c2412d;--ops:#6b5bd6;--chip:#e9eeec;
---fd:"Bricolage Grotesque","Avenir Next","Segoe UI",sans-serif;--fb:"Public Sans","Helvetica Neue",Arial,sans-serif;--fm:"JetBrains Mono",ui-monospace,Menlo,monospace}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111816;--surface:#18211f;--ink:#e6ecea;--muted:#9aa8a4;--rule:#2b3734;--accent:#4fc2ad;--signal:#f0ac3a;--bad:#f07a63;--ops:#a79bff;--chip:#22302d;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#111816;--surface:#18211f;--ink:#e6ecea;--muted:#9aa8a4;--rule:#2b3734;--accent:#4fc2ad;--signal:#f0ac3a;--bad:#f07a63;--ops:#a79bff;--chip:#22302d;color-scheme:dark}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:15px;line-height:1.5}
-.wrap{max-width:72rem;margin:0 auto;padding-inline:1.25rem;padding-block:2rem 3rem;display:flex;flex-direction:column;gap:1.5rem}
-h1,h2{font-family:var(--fd);margin:0;line-height:1.15}h1{font-size:2rem}h2{font-size:1.25rem}
-.eb{font-family:var(--fm);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
-.kpi{background:var(--surface);padding:1rem;display:flex;flex-direction:column;gap:.3rem}.kpi .v{font-family:var(--fd);font-size:1.9rem;font-weight:700;line-height:1}
-.kpi .d{font-size:.8rem;color:var(--muted)}.bad{color:var(--bad)}.good{color:var(--accent)}
-.panel{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:1.1rem;display:flex;flex-direction:column;gap:.75rem;min-width:0}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(22rem,1fr));gap:1rem}
-.alert{border-left:3px solid var(--bad);padding:.2rem 0 .2rem .8rem}.alert.warn{border-color:var(--signal)}.alert.ok{border-color:var(--accent)}
-.tbl{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.875rem}th,td{text-align:left;padding:.45rem .6rem;border-bottom:1px solid var(--rule);vertical-align:top}
-th{font-family:var(--fm);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}td.r,th.r{text-align:right;font-family:var(--fm);font-variant-numeric:tabular-nums;white-space:nowrap}
-.pill{font-family:var(--fm);font-size:.7rem;padding:.1rem .4rem;border-radius:3px;background:var(--chip);white-space:nowrap}.pill.app{color:var(--accent)}.pill.ops{color:var(--ops)}.pill.flag{background:var(--bad);color:var(--surface)}.pill.up{background:var(--signal);color:#1b1404}
-blockquote{margin:0;font-style:italic;color:var(--muted);font-size:.85rem}
-.chart{overflow-x:auto}.chart svg{display:block;width:100%;height:auto;min-width:30rem}.chart text{fill:var(--muted);font-family:var(--fm);font-size:11px}
-.g{stroke:var(--rule)}.lb{fill:none;stroke:var(--bad);stroke-width:2}.la{fill:none;stroke:var(--accent);stroke-width:2}
-.fine{font-size:.8rem;color:var(--muted)}
-</style></head><body><div class="wrap">
-<header><p class="eb">Weekly Play Store monitor · data through 2026-10-09 · generated 2026-10-10T15:08</p><h1>MoveInSync Ratings Monitor</h1></header>
-<div class="kpis">
- <div class="kpi"><span class="eb">Store rating</span><span class="v">4.64</span><span class="d">114,849 ratings · v12.19.0</span></div>
- <div class="kpi"><span class="eb">Written reviews, 12 mo</span><span class="v bad">3.83★</span><span class="d">2,859 reviews · 24% 1★</span></div>
- <div class="kpi"><span class="eb">"Most relevant" top 40</span><span class="v bad">1.4★</span><span class="d">92% are 1–2★ · 38% replied</span></div>
- <div class="kpi"><span class="eb">Reply rate, 12 mo</span><span class="v bad">3%</span><span class="d">target ≥ 90% of 1–3★</span></div>
- <div class="kpi"><span class="eb">Benchmark</span><span class="v">4.72</span><span class="d">Safetrax Commuter · 98% replied</span></div>
-</div>
-<section class="panel"><h2>Needs attention</h2><div class="alert"><strong>Release 12.16.1</strong>: 1★ 34% vs 24% baseline (38 reviews, since 2026-07-29). Top issues: Crashes, won&#x27;t open, slow / blank screen, Routing, clubbing, nodal points &amp; trip length, New UI / update made it harder to use</div><div class="alert warn"><strong>Rising in the last 30 days:</strong> Forced trip rating, review nags, policy re-accept, permissions, banners; Notification spam / wrong notifications; &#x27;Not installed from Play Store&#x27; / forced reinstall; Driver behaviour &amp; professionalism; Boarding: QR scan &amp; OTP screen; Trip details / OTP / cab no. unavailable when needed</div><div class="alert"><strong>Safety · 2026-10-08 · 1★</strong> <blockquote>your new update is a threat to person with medical condition. it just books you without informing if he&#x27;s on waitlist or not. so annoying</blockquote></div><div class="alert"><strong>Safety · 2026-10-01 · 1★</strong> <blockquote>👎👎👎👎👎👎👎👎👎👎👎👎👎👎👎👎who the hell is giving them 5 star ⭐ rating worst punctuation, my cab has to assign on 2:30 am and it&#x27;s 3:30 am and still no updates. I called twice to there Customer support they are not receiving the call . i have a lots of abusive words for them. i have edited </blockquote></div><div class="alert"><strong>Safety · 2026-09-16 · 1★</strong> <blockquote>Extremely disappointing experience with Move In Sync. Why does the company keep assigning rude, disrespectful, and abusive cab drivers? Is there no proper qualification, screening, or behavioural training before hiring drivers? I have repeatedly faced issues with drivers, especia</blockquote></div><div class="alert"><strong>Safety · 2026-09-09 · 2★</strong> <blockquote>Too much pop up notification, which won&#x27;t close easily. even you close the app and restart again it will show pop up notification nothing to display but no close option. frustrating experience. If someone needs to use SOS button, he/she can not use in timely manner due to useless</blockquote></div></section>
-<section class="panel"><h2>Monthly trend, written reviews</h2>
-<p class="fine"><span style="color:var(--bad)">■</span> 1★ share &nbsp; <span style="color:var(--accent)">■</span> reply rate</p><div class="chart" id="trend"></div></section>
-<section class="panel"><h2>What negative reviews are about (1–2★, last 12 months, n = 773)</h2>
-<div class="tbl"><table><thead><tr><th>Theme</th><th>Owner</th><th class="r">Reviews</th><th class="r">Share 12 mo</th><th class="r">Prior 180d</th><th class="r">Last 30d</th><th>Most upvoted example</th></tr></thead><tbody><tr><td>Generic (e.g. &#x27;worst app&#x27;, no detail)</td><td><span class="pill ">-</span></td><td class="r">224</td><td class="r">29%</td><td class="r">28%</td><td class="r">24% </td><td><blockquote>The app is by far the worst.. when navigation etc is concerned. the number of selections, drop downs etc that need to be selected.. even before you reach the main page...</blockquote></td></tr><tr><td>Crashes, won&#x27;t open, slow / blank screen</td><td><span class="pill app">app</span></td><td class="r">173</td><td class="r">22%</td><td class="r">24%</td><td class="r">28% </td><td><blockquote>Worst user interface. App doesn&#x27;t even load once you login using your official id. It just says &quot;Something went wrong&quot;. Tried uninstalling and installing a couple of times but gett</blockquote></td></tr><tr><td>Login, OTP &amp; forced logouts</td><td><span class="pill app">app</span></td><td class="r">109</td><td class="r">14%</td><td class="r">12%</td><td class="r">12% </td><td><blockquote>Worst user interface. App doesn&#x27;t even load once you login using your official id. It just says &quot;Something went wrong&quot;. Tried uninstalling and installing a couple of times but gett</blockquote></td></tr><tr><td>Booking, cancel, waitlist &amp; schedule flow</td><td><span class="pill app">app</span></td><td class="r">102</td><td class="r">13%</td><td class="r">14%</td><td class="r">14% </td><td><blockquote>Unable to view the schedule for the whole month even though the schedule is done a month prior. Only the following / next schedule is shown. Reinstalled app multiple times!</blockquote></td></tr><tr><td>Live tracking, GPS, ETA &amp; location accuracy</td><td><span class="pill app">app</span></td><td class="r">91</td><td class="r">12%</td><td class="r">12%</td><td class="r">12% </td><td><blockquote>when we have zoomed in the map to track a vehicle what&#x27;s the necessity to zoom out and show the ETA</blockquote></td></tr><tr><td>Late cabs, no-shows, cab not assigned</td><td><span class="pill ops">ops</span></td><td class="r">73</td><td class="r">9%</td><td class="r">10%</td><td class="r">11% </td><td><blockquote>it was good till 2 days back but now we are not able to see the people who are aligned to our pickup or drop. the app is not showing pickup timing as well now. only via msg we are </blockquote></td></tr><tr><td>Transport service / vendor / desk (general)</td><td><span class="pill ops">ops</span></td><td class="r">69</td><td class="r">9%</td><td class="r">10%</td><td class="r">5% </td><td><blockquote>so much ridiculous app. After 3 no show cab facility nahi milti... shiiii Ganda app</blockquote></td></tr><tr><td>Can&#x27;t reach driver / helpdesk from the app</td><td><span class="pill app">app</span></td><td class="r">64</td><td class="r">8%</td><td class="r">8%</td><td class="r">8% </td><td><blockquote>Pathetic app. My office is using their service and driver doesn&#x27;t come on time for pickup. Most of the time driver doesn&#x27;t pick the call. Their customer care is also not easy to co</blockquote></td></tr><tr><td>Routing, clubbing, nodal points &amp; trip length</td><td><span class="pill ops">ops</span></td><td class="r">50</td><td class="r">6%</td><td class="r">7%</td><td class="r">5% </td><td><blockquote>cab is never assigned on time...always late ..no value of others time...after logout every day we have to wait for 40+ mins for cab the 20 mins distance route...which is totally wa</blockquote></td></tr><tr><td>New UI / update made it harder to use</td><td><span class="pill app">app</span></td><td class="r">48</td><td class="r">6%</td><td class="r">6%</td><td class="r">5% </td><td><blockquote>Worst user interface. App doesn&#x27;t even load once you login using your official id. It just says &quot;Something went wrong&quot;. Tried uninstalling and installing a couple of times but gett</blockquote></td></tr><tr><td>Forced trip rating, review nags, policy re-accept, permissions, banners</td><td><span class="pill app">app</span></td><td class="r">30</td><td class="r">4%</td><td class="r">3%</td><td class="r">9% <span class='pill up'>rising</span></td><td><blockquote>I&#x27;m getting calling permission is disabled as per company policy</blockquote></td></tr><tr><td>Notification spam / wrong notifications</td><td><span class="pill app">app</span></td><td class="r">22</td><td class="r">3%</td><td class="r">3%</td><td class="r">8% <span class='pill up'>rising</span></td><td><blockquote>06-10-2026 even after booked the trip it keep sends the push notification that trip is not booked. old: Bring monthly view ,not just day view...</blockquote></td></tr><tr><td>&#x27;Not installed from Play Store&#x27; / forced reinstall</td><td><span class="pill app">app</span></td><td class="r">18</td><td class="r">2%</td><td class="r">2%</td><td class="r">9% <span class='pill up'>rising</span></td><td><blockquote>Unable to view the schedule for the whole month even though the schedule is done a month prior. Only the following / next schedule is shown. Reinstalled app multiple times!</blockquote></td></tr><tr><td>Driver behaviour &amp; professionalism</td><td><span class="pill ops">ops</span></td><td class="r">15</td><td class="r">2%</td><td class="r">1%</td><td class="r">4% <span class='pill up'>rising</span></td><td><blockquote>drivers and management are extremely rude and they talk in an inappropriate and disrespectful manner. Drivers shout during the conversation. Such behavior is unacceptable and that </blockquote></td></tr><tr><td>Boarding: QR scan &amp; OTP screen</td><td><span class="pill app">app</span></td><td class="r">12</td><td class="r">2%</td><td class="r">1%</td><td class="r">4% <span class='pill up'>rising</span></td><td><blockquote>Qr code scanner not working very difficult to scan .only in some angles it&#x27;s scanning .issue happening from past few weeks before it was fine no issue with my other qr code scanner</blockquote></td></tr><tr><td>Safety concerns</td><td><span class="pill ops">ops</span></td><td class="r">12</td><td class="r">2%</td><td class="r">2%</td><td class="r">0% </td><td><blockquote>drivers and management are extremely rude and they talk in an inappropriate and disrespectful manner. Drivers shout during the conversation. Such behavior is unacceptable and that </blockquote></td></tr><tr><td>Trip details / OTP / cab no. unavailable when needed</td><td><span class="pill app">app</span></td><td class="r">6</td><td class="r">1%</td><td class="r">1%</td><td class="r">1% <span class='pill up'>rising</span></td><td><blockquote>it doesn&#x27;t work when you are connected to WiFi it keeps on saying that &quot;we&#x27;re nothing without internet please check your internet connection&quot;.</blockquote></td></tr></tbody></table></div></section>
-<section class="panel"><h2>Releases</h2><p class="fine">A release is flagged when its 1★ share is at least 8 points above the 90 days before it shipped, with 20 or more reviews.</p>
-<div class="tbl"><table><thead><tr><th>Version</th><th>First seen</th><th class="r">Reviews</th><th class="r">Avg</th><th class="r">1★</th><th class="r">Baseline 1★</th><th></th><th>Top negative themes</th></tr></thead><tbody><tr><td>12.19.0</td><td>2026-09-21</td><td class="r">102</td><td class="r">3.58</td><td class="r">32%</td><td class="r">25%</td><td></td><td>Crashes, won&#x27;t open, slow / blank screen, Booking, cancel, waitlist &amp; schedule flow, Generic (e.g. &#x27;worst app&#x27;, no detail)</td></tr><tr><td>12.18.1</td><td>2026-09-09</td><td class="r">94</td><td class="r">3.90</td><td class="r">24%</td><td class="r">26%</td><td></td><td>Generic (e.g. &#x27;worst app&#x27;, no detail), Crashes, won&#x27;t open, slow / blank screen, Late cabs, no-shows, cab not assigned</td></tr><tr><td>12.18.0</td><td>2026-08-22</td><td class="r">65</td><td class="r">4.11</td><td class="r">20%</td><td class="r">26%</td><td></td><td>Late cabs, no-shows, cab not assigned, Can&#x27;t reach driver / helpdesk from the app, Booking, cancel, waitlist &amp; schedule flow</td></tr><tr><td>12.17.0</td><td>2026-08-07</td><td class="r">141</td><td class="r">3.76</td><td class="r">27%</td><td class="r">24%</td><td></td><td>Crashes, won&#x27;t open, slow / blank screen, Booking, cancel, waitlist &amp; schedule flow, Live tracking, GPS, ETA &amp; location accuracy</td></tr><tr><td>12.16.1</td><td>2026-07-29</td><td class="r">38</td><td class="r">3.53</td><td class="r">34%</td><td class="r">24%</td><td><span class='pill flag'>regression</span></td><td>Crashes, won&#x27;t open, slow / blank screen, Routing, clubbing, nodal points &amp; trip length, New UI / update made it harder to use</td></tr><tr><td>12.16.0</td><td>2026-07-23</td><td class="r">89</td><td class="r">3.87</td><td class="r">20%</td><td class="r">24%</td><td></td><td>Generic (e.g. &#x27;worst app&#x27;, no detail), Live tracking, GPS, ETA &amp; location accuracy, Crashes, won&#x27;t open, slow / blank screen</td></tr><tr><td>12.15.0</td><td>2026-07-09</td><td class="r">83</td><td class="r">4.04</td><td class="r">19%</td><td class="r">25%</td><td></td><td>Booking, cancel, waitlist &amp; schedule flow, Generic (e.g. &#x27;worst app&#x27;, no detail), Transport service / vendor / desk (general)</td></tr><tr><td>12.14.1</td><td>2026-06-28</td><td class="r">142</td><td class="r">3.82</td><td class="r">25%</td><td class="r">23%</td><td></td><td>Generic (e.g. &#x27;worst app&#x27;, no detail), Crashes, won&#x27;t open, slow / blank screen, Late cabs, no-shows, cab not assigned</td></tr><tr><td>12.14.0</td><td>2026-06-22</td><td class="r">38</td><td class="r">3.37</td><td class="r">37%</td><td class="r">22%</td><td><span class='pill flag'>regression</span></td><td>Crashes, won&#x27;t open, slow / blank screen, Generic (e.g. &#x27;worst app&#x27;, no detail), Booking, cancel, waitlist &amp; schedule flow</td></tr><tr><td>12.13.2</td><td>2026-06-08</td><td class="r">29</td><td class="r">3.90</td><td class="r">24%</td><td class="r">22%</td><td></td><td>Transport service / vendor / desk (general), Late cabs, no-shows, cab not assigned, Live tracking, GPS, ETA &amp; location accuracy</td></tr><tr><td>12.13.1</td><td>2026-06-05</td><td class="r">95</td><td class="r">3.68</td><td class="r">31%</td><td class="r">22%</td><td><span class='pill flag'>regression</span></td><td>Generic (e.g. &#x27;worst app&#x27;, no detail), Crashes, won&#x27;t open, slow / blank screen, Live tracking, GPS, ETA &amp; location accuracy</td></tr><tr><td>12.13.0</td><td>2026-05-31</td><td class="r">36</td><td class="r">3.69</td><td class="r">28%</td><td class="r">21%</td><td></td><td>Generic (e.g. &#x27;worst app&#x27;, no detail), Crashes, won&#x27;t open, slow / blank screen, Live tracking, GPS, ETA &amp; location accuracy</td></tr></tbody></table></div></section>
-<section class="panel"><h2>Other MoveInSync apps</h2><div class="tbl"><table><thead><tr><th>App</th><th class="r">Rating</th><th class="r">Ratings</th><th class="r">Installs</th></tr></thead><tbody><tr><td>Moveinsync Partner - Lite</td><td class="r">4.29</td><td class="r">701</td><td class="r">100,000+</td></tr><tr><td>MoveInSync - Driver Partner</td><td class="r">3.50</td><td class="r">46</td><td class="r">10,000+</td></tr><tr><td>MoveInSync - Field app</td><td class="r">4.08</td><td class="r">24</td><td class="r">5,000+</td></tr></tbody></table></div></section>
-<p class="fine">Source: public Google Play reviews and listings (India, English). Themes come from the rule-based classifier in pipeline/taxonomy.py. Reply triage queue: data/triage_queue.csv.</p>
-</div>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<!-- Tailwind play CDN: no CORS headers, so it cannot carry an SRI hash -->
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <script>
-const M=[["2023-10", 3.51, 0.294, 0.959], ["2023-11", 3.722, 0.225, 0.982], ["2023-12", 3.63, 0.246, 0.991], ["2024-01", 3.608, 0.269, 0.971], ["2024-02", 3.531, 0.297, 0.986], ["2024-03", 3.453, 0.312, 0.969], ["2024-04", 3.564, 0.303, 0.327], ["2024-05", 3.706, 0.257, 1.0], ["2024-06", 3.624, 0.277, 0.249], ["2024-07", 3.559, 0.278, 0.024], ["2024-08", 3.607, 0.288, 0.005], ["2024-09", 3.644, 0.276, 0.022], ["2024-10", 3.729, 0.259, 0.015], ["2024-11", 3.706, 0.267, 0.018], ["2024-12", 3.775, 0.249, 0.01], ["2025-01", 3.414, 0.331, 0.014], ["2025-02", 3.463, 0.314, 0.057], ["2025-03", 3.796, 0.243, 0.018], ["2025-04", 3.842, 0.232, 0.022], ["2025-05", 3.798, 0.226, 0.008], ["2025-06", 3.561, 0.292, 0.013], ["2025-07", 3.778, 0.225, 0.048], ["2025-08", 3.676, 0.27, 0.033], ["2025-09", 3.517, 0.298, 0.024], ["2025-10", 3.791, 0.246, 0.074], ["2025-11", 3.688, 0.263, 0.163], ["2025-12", 3.837, 0.219, 0.092], ["2026-01", 3.768, 0.232, 0.043], ["2026-02", 3.739, 0.275, 0.0], ["2026-03", 3.98, 0.208, 0.01], ["2026-04", 4.034, 0.209, 0.003], ["2026-05", 4.016, 0.202, 0.004], ["2026-06", 3.56, 0.311, 0.007], ["2026-07", 4.014, 0.193, 0.004], ["2026-08", 3.653, 0.285, 0.004], ["2026-09", 3.846, 0.248, 0.004], ["2026-10", 3.692, 0.295, 0.013]];const NS="http://www.w3.org/2000/svg";function e(t,a,p,x){const n=document.createElementNS(NS,t);for(const k in a)n.setAttribute(k,a[k]);if(x!=null)n.textContent=x;p&&p.appendChild(n);return n}
-(function(){const W=900,H=240,L=40,R=10,T=10,B=28,iw=W-L-R,ih=H-T-B,s=e("svg",{viewBox:`0 0 ${W} ${H}`});const x=i=>L+i/(M.length-1)*iw,y=v=>T+ih-v*ih;
-[0,.25,.5,.75,1].forEach(v=>{e("line",{x1:L,x2:W-R,y1:y(v),y2:y(v),class:"g"},s);e("text",{x:L-6,y:y(v)+4,"text-anchor":"end"},s,Math.round(v*100)+"%")});
-M.forEach((m,i)=>{if(m[0].endsWith("-01"))e("text",{x:x(i),y:H-8,"text-anchor":"middle"},s,m[0].slice(0,4))});
-e("path",{d:M.map((m,i)=>(i?"L":"M")+x(i)+","+y(m[3])).join(" "),class:"la"},s);e("path",{d:M.map((m,i)=>(i?"L":"M")+x(i)+","+y(m[2])).join(" "),class:"lb"},s);
-document.getElementById("trend").appendChild(s)})();
-</script></body></html>
+tailwind.config = { theme: { extend: {
+  fontFamily: {
+    manrope: ['Manrope', 'system-ui', 'sans-serif'],
+    cabin: ['Cabin', 'system-ui', 'sans-serif'],
+    instrument: ['"Instrument Serif"', 'Georgia', 'serif'],
+    inter: ['Inter', 'system-ui', 'sans-serif'],
+  },
+} } };
+</script>
+<style>
+  :root { color-scheme: dark; }
+  body { background: #0c0916; color: #f4f2fa; }
+  .hero-fallback { background:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(123,57,252,0.55), transparent 60%),
+    radial-gradient(ellipse 70% 60% at 15% 85%, rgba(94,200,242,0.18), transparent 60%),
+    linear-gradient(180deg, #1b1430 0%, #2b2344 55%, #0c0916 100%); }
+  .num { font-variant-numeric: tabular-nums; }
+  @media (prefers-reduced-motion: reduce) { video { display: none; } }
+</style>
+</head>
+<body class="font-inter antialiased">
+<div id="hero"></div>
+<main id="app"></main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js" integrity="sha384-toVdrLSMaw7Y55MowcKqkmFL/Ek6Sky62NOk0b5sDDZBu2wcoPyyQUt9unDVjXhL" crossorigin="anonymous"></script>
+<script>
+/* MoveInRate hero: full-screen video background, navbar, tagline pill, headline, CTAs.
+   Shared by the report and the dashboard. Needs React, ReactDOM and htm loaded first.
+   Usage: mountHero(element, config) — see the config objects in each page. */
+(function () {
+  const { useState, useEffect, useRef } = React;
+  const html = htm.bind(React.createElement);
+
+  const VIDEO = "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260210_031346_d87182fb-b0af-4273-84d1-c6fd17d6bf0f.mp4";
+
+  // MoveInRate mark: a five-point rating star on a rounded tile
+  const Logo = () => html`
+    <svg width="30" height="30" viewBox="0 0 28 28" fill="none" aria-hidden="true" className="block">
+      <rect x="0.5" y="0.5" width="27" height="27" rx="8" fill="white" fill-opacity="0.12" stroke="white" stroke-opacity="0.35"/>
+      <path d="M14 4.5L16.4 10.9L23.2 11.2L17.9 15.4L19.7 22L14 18.2L8.3 22L10.1 15.4L4.8 11.2L11.6 10.9Z" fill="white"/>
+    </svg>`;
+
+  const Chevron = ({ open }) => html`
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+      aria-hidden="true" className=${"block transition-transform " + (open ? "rotate-180" : "")}><path d="m6 9 6 6 6-6"/></svg>`;
+
+  const MenuIcon = () => html`
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" aria-hidden="true" className="block">
+      <path d="M4 7h16M4 12h16M4 17h16"/></svg>`;
+
+  const CloseIcon = () => html`
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" aria-hidden="true" className="block">
+      <path d="M6 6l12 12M18 6L6 18"/></svg>`;
+
+  function Navbar({ brand, links, secondary, primary }) {
+    const [menu, setMenu] = useState(false);
+    const [dropdown, setDropdown] = useState(false);
+    const ddRef = useRef(null);
+
+    useEffect(() => {
+      const close = (e) => { if (ddRef.current && !ddRef.current.contains(e.target)) setDropdown(false); };
+      const esc = (e) => { if (e.key === "Escape") { setDropdown(false); setMenu(false); } };
+      document.addEventListener("click", close);
+      document.addEventListener("keydown", esc);
+      return () => { document.removeEventListener("click", close); document.removeEventListener("keydown", esc); };
+    }, []);
+
+    useEffect(() => { document.body.style.overflow = menu ? "hidden" : ""; }, [menu]);
+
+    return html`
+      <nav className="relative z-20 w-full bg-transparent px-6 lg:px-[120px] py-[16px] flex items-center justify-between">
+        <div className="flex items-center gap-12">
+          <a href="#top" className="flex items-center gap-2.5 text-white hover:opacity-80 transition-opacity" aria-label=${brand + " home"}>
+            <${Logo} />
+            <span className="font-manrope font-bold text-[16px] tracking-[-0.01em] text-white">${brand}</span>
+          </a>
+          <ul className="hidden lg:flex items-center gap-8 list-none m-0 p-0">
+            ${links.map((l) => l.children
+              ? html`<li key=${l.label} className="relative" ref=${ddRef}>
+                  <button type="button" onClick=${(e) => { e.stopPropagation(); setDropdown(!dropdown); }}
+                    aria-expanded=${dropdown} aria-haspopup="true"
+                    className="flex items-center gap-1 bg-transparent border-0 p-0 cursor-pointer font-manrope font-medium text-[14px] text-white hover:opacity-80 transition-opacity">
+                    ${l.label}<${Chevron} open=${dropdown} />
+                  </button>
+                  ${dropdown && html`<div role="menu"
+                      className="absolute left-0 top-[calc(100%+12px)] min-w-[220px] rounded-[10px] border border-[rgba(164,132,215,0.5)] bg-[rgba(43,35,68,0.92)] backdrop-blur-md p-1.5 shadow-xl">
+                    ${l.children.map((c) => html`<a key=${c.label} role="menuitem" href=${c.href} onClick=${() => setDropdown(false)}
+                        className="block rounded-[6px] px-3 py-2 font-manrope font-medium text-[14px] text-white hover:bg-white/10">
+                        ${c.label}${c.note && html`<span className="block text-[12px] font-normal text-white/60">${c.note}</span>`}</a>`)}
+                  </div>`}
+                </li>`
+              : html`<li key=${l.label}><a href=${l.href} className="font-manrope font-medium text-[14px] text-white hover:opacity-80 transition-opacity">${l.label}</a></li>`)}
+          </ul>
+        </div>
+
+        <div className="hidden lg:flex items-center gap-3">
+          <a href=${secondary.href} target=${secondary.external ? "_blank" : undefined} rel="noopener"
+            className="inline-flex items-center bg-white border border-solid border-[#d4d4d4] rounded-[8px] px-4 py-2 font-manrope font-semibold text-[14px] text-[#171717] hover:bg-neutral-100 transition-colors">${secondary.label}</a>
+          <a href=${primary.href} target=${primary.external ? "_blank" : undefined} rel="noopener"
+            className="inline-flex items-center bg-[#7b39fc] rounded-[8px] px-4 py-2 font-manrope font-semibold text-[14px] text-[#fafafa] shadow-[0_1px_2px_rgba(16,24,40,0.25)] hover:bg-[#8a4ffd] transition-colors">${primary.label}</a>
+        </div>
+
+        <button type="button" onClick=${() => setMenu(true)} aria-label="Open menu"
+          className="mobile-only lg:hidden bg-transparent border-0 p-1 cursor-pointer"><${MenuIcon} /></button>
+
+        ${menu && html`
+          <div className="fixed inset-0 z-50 bg-black flex flex-col px-6 py-[16px]" role="dialog" aria-modal="true" aria-label="Menu">
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-2.5"><${Logo} /><span className="font-manrope font-bold text-[16px] text-white">${brand}</span></span>
+              <button type="button" onClick=${() => setMenu(false)} aria-label="Close menu" className="bg-transparent border-0 p-1 cursor-pointer"><${CloseIcon} /></button>
+            </div>
+            <ul className="list-none m-0 p-0 mt-12 flex flex-col gap-6">
+              ${links.flatMap((l) => l.children ? l.children : [l]).map((l) => html`
+                <li key=${l.label}><a href=${l.href} onClick=${() => setMenu(false)} className="font-manrope font-medium text-[22px] text-white hover:opacity-80">${l.label}</a></li>`)}
+            </ul>
+            <div className="mt-auto flex flex-col gap-3 pb-6">
+              <a href=${secondary.href} target=${secondary.external ? "_blank" : undefined} rel="noopener" className="text-center bg-white border border-solid border-[#d4d4d4] rounded-[8px] px-4 py-3 font-manrope font-semibold text-[14px] text-[#171717]">${secondary.label}</a>
+              <a href=${primary.href} target=${primary.external ? "_blank" : undefined} rel="noopener" onClick=${() => setMenu(false)} className="text-center bg-[#7b39fc] rounded-[8px] px-4 py-3 font-manrope font-semibold text-[14px] text-[#fafafa]">${primary.label}</a>
+            </div>
+          </div>`}
+      </nav>`;
+  }
+
+  function Hero(c) {
+    const [videoOk, setVideoOk] = useState(true);
+    const [before, italic, after] = c.headline;
+    return html`
+      <section id="top" className="hero-fallback relative min-h-screen w-full overflow-hidden flex flex-col pb-24">
+        ${videoOk && html`<video className="absolute inset-0 w-full h-full min-h-screen object-cover" src=${VIDEO}
+            autoPlay loop muted playsInline preload="auto" aria-hidden="true" onError=${() => setVideoOk(false)} />`}
+        <${Navbar} brand=${c.brand} links=${c.links} secondary=${c.navSecondary} primary=${c.navPrimary} />
+        <div className="relative z-10 mt-32 flex flex-col items-center text-center px-6">
+          <div className="inline-flex items-center gap-2.5 h-[38px] rounded-[10px] bg-[rgba(85,80,110,0.4)] backdrop-blur-md border border-solid border-[rgba(164,132,215,0.5)] pl-1 pr-3.5">
+            <span className="bg-[#7b39fc] rounded-[6px] px-2 py-[5px] font-cabin font-medium text-[14px] leading-none text-white">${c.badge}</span>
+            <span className="font-cabin font-medium text-[14px] text-white whitespace-nowrap">${c.taglineShort ? html`<span className="sm:hidden">${c.taglineShort}</span><span className="hidden sm:inline">${c.tagline}</span>` : c.tagline}</span>
+          </div>
+          <h1 className="font-instrument font-normal text-white text-5xl md:text-7xl lg:text-[96px] leading-[1.1] tracking-[-0.01em] max-w-[1100px] mt-8 mb-0">
+            ${before}<em className="italic font-instrument mx-[0.06em] tracking-[0.01em]">${italic}</em>${after}
+          </h1>
+          <p className="font-inter font-normal text-[18px] leading-[1.6] text-white/70 max-w-[662px] mt-6 mb-0">${c.subtext}</p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <a href=${c.cta1.href} className="inline-flex items-center bg-[#7b39fc] hover:bg-[#8f57fd] transition-colors rounded-[10px] px-6 py-3.5 font-cabin font-medium text-[16px] text-white">${c.cta1.label}</a>
+            <a href=${c.cta2.href} target=${c.cta2.external ? "_blank" : undefined} rel="noopener" className="inline-flex items-center bg-[#2b2344] hover:bg-[#3a3058] transition-colors rounded-[10px] px-6 py-3.5 font-cabin font-medium text-[16px] text-[#f6f7f9]">${c.cta2.label}</a>
+          </div>
+        </div>
+      </section>`;
+  }
+
+  // Re-mounting reuses the same root, so live pages can re-render the hero with fresh data
+  window.mountHero = (el, config) => { (el._heroRoot ||= ReactDOM.createRoot(el)).render(html`<${Hero} ...${config} />`); };
+})();
+
+</script>
+<script>
+let M = {"generated_at": "2026-10-10T15:24+00:00", "data_through": "2026-10-09", "store": {"title": "MoveInSync", "score": 4.6374946, "ratings": 114849, "reviews": 23617, "installs": "1,000,000+", "version": "12.19.0", "histogram": [7338, 837, 1231, 7297, 98141], "written_histogram": [6352, 1165, 1089, 2794, 12914], "star_only_histogram": [986, 0, 142, 4503, 85227]}, "corpus": {"reviews_total": 24314, "first": "2014-03-14"}, "last_12m": {"reviews": 2857, "avg": 3.8347917395869793, "one_star": 0.24011200560028, "negative": 772, "negative_share": 0.2702135106755338, "reply_rate": 0.0280014000700035, "negative_by_owner": {"app": 0.48186528497409326, "generic": 0.29015544041450775, "ops": 0.11528497409326424, "both": 0.11269430051813471}}, "most_relevant": {"avg": 1.4, "n": 40, "reply_rate": 0.375, "one_or_two_star": 0.925}, "monthly": [{"month": "2023-10", "n": 242, "avg": 3.5165289256198347, "one_star": 0.29338842975206614, "reply_rate": 0.9586776859504132}, {"month": "2023-11", "n": 227, "avg": 3.7224669603524227, "one_star": 0.22466960352422907, "reply_rate": 0.9823788546255506}, {"month": "2023-12", "n": 211, "avg": 3.6303317535545023, "one_star": 0.24644549763033174, "reply_rate": 0.990521327014218}, {"month": "2024-01", "n": 245, "avg": 3.6081632653061226, "one_star": 0.2693877551020408, "reply_rate": 0.9714285714285714}, {"month": "2024-02", "n": 209, "avg": 3.5311004784688995, "one_star": 0.2966507177033493, "reply_rate": 0.9856459330143541}, {"month": "2024-03", "n": 192, "avg": 3.453125, "one_star": 0.3125, "reply_rate": 0.96875}, {"month": "2024-04", "n": 211, "avg": 3.5639810426540284, "one_star": 0.3033175355450237, "reply_rate": 0.32701421800947866}, {"month": "2024-05", "n": 218, "avg": 3.706422018348624, "one_star": 0.25688073394495414, "reply_rate": 1.0}, {"month": "2024-06", "n": 213, "avg": 3.624413145539906, "one_star": 0.27699530516431925, "reply_rate": 0.24882629107981222}, {"month": "2024-07", "n": 295, "avg": 3.559322033898305, "one_star": 0.27796610169491526, "reply_rate": 0.023728813559322035}, {"month": "2024-08", "n": 191, "avg": 3.607329842931937, "one_star": 0.2879581151832461, "reply_rate": 0.005235602094240838}, {"month": "2024-09", "n": 225, "avg": 3.6444444444444444, "one_star": 0.27555555555555555, "reply_rate": 0.022222222222222223}, {"month": "2024-10", "n": 266, "avg": 3.7293233082706765, "one_star": 0.2593984962406015, "reply_rate": 0.015037593984962405}, {"month": "2024-11", "n": 221, "avg": 3.7058823529411766, "one_star": 0.2669683257918552, "reply_rate": 0.01809954751131222}, {"month": "2024-12", "n": 209, "avg": 3.77511961722488, "one_star": 0.24880382775119617, "reply_rate": 0.009569377990430622}, {"month": "2025-01", "n": 290, "avg": 3.413793103448276, "one_star": 0.3310344827586207, "reply_rate": 0.013793103448275862}, {"month": "2025-02", "n": 229, "avg": 3.462882096069869, "one_star": 0.314410480349345, "reply_rate": 0.056768558951965066}, {"month": "2025-03", "n": 226, "avg": 3.7964601769911503, "one_star": 0.24336283185840707, "reply_rate": 0.017699115044247787}, {"month": "2025-04", "n": 228, "avg": 3.8421052631578947, "one_star": 0.2324561403508772, "reply_rate": 0.021929824561403508}, {"month": "2025-05", "n": 257, "avg": 3.7976653696498053, "one_star": 0.22568093385214008, "reply_rate": 0.007782101167315175}, {"month": "2025-06", "n": 301, "avg": 3.5614617940199333, "one_star": 0.292358803986711, "reply_rate": 0.013289036544850499}, {"month": "2025-07", "n": 293, "avg": 3.7781569965870307, "one_star": 0.22525597269624573, "reply_rate": 0.04778156996587031}, {"month": "2025-08", "n": 241, "avg": 3.676348547717842, "one_star": 0.2697095435684647, "reply_rate": 0.03319502074688797}, {"month": "2025-09", "n": 205, "avg": 3.5170731707317073, "one_star": 0.2975609756097561, "reply_rate": 0.024390243902439025}, {"month": "2025-10", "n": 297, "avg": 3.791245791245791, "one_star": 0.24579124579124578, "reply_rate": 0.07407407407407407}, {"month": "2025-11", "n": 160, "avg": 3.6875, "one_star": 0.2625, "reply_rate": 0.1625}, {"month": "2025-12", "n": 196, "avg": 3.836734693877551, "one_star": 0.2193877551020408, "reply_rate": 0.09183673469387756}, {"month": "2026-01", "n": 211, "avg": 3.7677725118483414, "one_star": 0.23222748815165878, "reply_rate": 0.04265402843601896}, {"month": "2026-02", "n": 207, "avg": 3.739130434782609, "one_star": 0.2753623188405797, "reply_rate": 0.0}, {"month": "2026-03", "n": 197, "avg": 3.979695431472081, "one_star": 0.20812182741116753, "reply_rate": 0.01015228426395939}, {"month": "2026-04", "n": 292, "avg": 4.034246575342466, "one_star": 0.2089041095890411, "reply_rate": 0.003424657534246575}, {"month": "2026-05", "n": 247, "avg": 4.016194331983805, "one_star": 0.20242914979757085, "reply_rate": 0.004048582995951417}, {"month": "2026-06", "n": 273, "avg": 3.5604395604395602, "one_star": 0.31135531135531136, "reply_rate": 0.007326007326007326}, {"month": "2026-07", "n": 285, "avg": 4.014035087719298, "one_star": 0.19298245614035087, "reply_rate": 0.0035087719298245615}, {"month": "2026-08", "n": 242, "avg": 3.652892561983471, "one_star": 0.28512396694214875, "reply_rate": 0.004132231404958678}, {"month": "2026-09", "n": 245, "avg": 3.8448979591836734, "one_star": 0.24897959183673468, "reply_rate": 0.004081632653061225}, {"month": "2026-10", "n": 79, "avg": 3.6962025316455698, "one_star": 0.2911392405063291, "reply_rate": 0.012658227848101266}], "themes": [{"key": "unspecified", "label": "Generic (e.g. 'worst app', no detail)", "owner": "-", "reviews": 224, "share_of_negative": 0.29015544041450775, "upvotes": 4, "share_last_30d": 0.24, "share_trailing_180d": 0.2814070351758794, "spiking": false, "quotes": [{"text": "The app is by far the worst.. when navigation etc is concerned. the number of selections, drop downs etc that need to be selected.. even before you reach the main page...", "stars": 1, "date": "2026-04-16", "version": "12.11.2"}, {"text": "This application is a disaster. Worst application ever. this application does not show the can timings correctly and they did not improve it even after complaining multiple times", "stars": 1, "date": "2026-05-27", "version": "12.12.3"}, {"text": "worst app. no feedback link. message comes wrongly before the vehicle arrives or reaches destination", "stars": 1, "date": "2026-09-04", "version": "12.17.0"}]}, {"key": "crash_not_opening", "label": "Crashes, won't open, slow / blank screen", "owner": "app", "reviews": 173, "share_of_negative": 0.22409326424870465, "upvotes": 62, "share_last_30d": 0.28, "share_trailing_180d": 0.24371859296482412, "spiking": false, "quotes": [{"text": "Worst user interface. App doesn't even load once you login using your official id. It just says \"Something went wrong\". Tried uninstalling and installing a couple of times but getting the same error message.", "stars": 1, "date": "2026-04-15", "version": "12.11.2"}, {"text": "again and again it's getting stopped.. showing that it can't open as it is not downloaded from playstore. in last 3 weeks I uninstall an installed it for 10 times due to the same error", "stars": 2, "date": "2026-08-02", "version": null}, {"text": "most of the time app keeps loading even in good internet connectivity.", "stars": 1, "date": "2026-06-23", "version": "12.14.0"}]}, {"key": "login_otp_session", "label": "Login, OTP \u0026 forced logouts", "owner": "app", "reviews": 109, "share_of_negative": 0.1411917098445596, "upvotes": 29, "share_last_30d": 0.12, "share_trailing_180d": 0.12311557788944724, "spiking": false, "quotes": [{"text": "Worst user interface. App doesn't even load once you login using your official id. It just says \"Something went wrong\". Tried uninstalling and installing a couple of times but getting the same error message.", "stars": 1, "date": "2026-04-15", "version": "12.11.2"}, {"text": "the new update looks confusing including the font color of \"logout\" is red like the font color of \"cancel\" Also the \"book\" tab became smaller", "stars": 2, "date": "2026-07-15", "version": null}, {"text": "cab is never assigned on time...always late ..no value of others time...after logout every day we have to wait for 40+ mins for cab the 20 mins distance route...which is totally waste of time...third class", "stars": 1, "date": "2026-06-22", "version": "12.13.1"}]}, {"key": "booking_flow", "label": "Booking, cancel, waitlist \u0026 schedule flow", "owner": "app", "reviews": 102, "share_of_negative": 0.13212435233160622, "upvotes": 33, "share_last_30d": 0.14666666666666667, "share_trailing_180d": 0.1407035175879397, "spiking": false, "quotes": [{"text": "Unable to view the schedule for the whole month even though the schedule is done a month prior. Only the following / next schedule is shown. Reinstalled app multiple times!", "stars": 1, "date": "2026-01-29", "version": "12.9.1"}, {"text": "the new update looks confusing including the font color of \"logout\" is red like the font color of \"cancel\" Also the \"book\" tab became smaller", "stars": 2, "date": "2026-07-15", "version": null}, {"text": "Eventhough my cab well within 4 hours of booking timing and my trip started, it shows error and cant track cab location. needs fix asap", "stars": 1, "date": "2026-06-22", "version": "12.14.0"}]}, {"key": "tracking_eta", "label": "Live tracking, GPS, ETA \u0026 location accuracy", "owner": "app", "reviews": 91, "share_of_negative": 0.11787564766839378, "upvotes": 44, "share_last_30d": 0.12, "share_trailing_180d": 0.11809045226130653, "spiking": false, "quotes": [{"text": "when we have zoomed in the map to track a vehicle what's the necessity to zoom out and show the ETA", "stars": 2, "date": "2026-08-03", "version": "12.16.0"}, {"text": "Eventhough my cab well within 4 hours of booking timing and my trip started, it shows error and cant track cab location. needs fix asap", "stars": 1, "date": "2026-06-22", "version": "12.14.0"}, {"text": "This app doesn't work properly. it always shows 'SESSION EXPIRED. YOU ARE UNAUTHORISED. going back in 2seconds'. No location is suggested in the search.", "stars": 1, "date": "2026-06-11", "version": "12.13.1"}]}, {"key": "punctuality_noshow", "label": "Late cabs, no-shows, cab not assigned", "owner": "ops", "reviews": 73, "share_of_negative": 0.09455958549222798, "upvotes": 47, "share_last_30d": 0.10666666666666667, "share_trailing_180d": 0.10301507537688442, "spiking": false, "quotes": [{"text": "it was good till 2 days back but now we are not able to see the people who are aligned to our pickup or drop. the app is not showing pickup timing as well now. only via msg we are getting the information which is most of the time is wrong", "stars": 2, "date": "2026-02-04", "version": "12.9.2"}, {"text": "so much ridiculous app. After 3 no show cab facility nahi milti... shiiii Ganda app", "stars": 1, "date": "2026-01-06", "version": "12.8.3"}, {"text": "Pathetic app. My office is using their service and driver doesn't come on time for pickup. Most of the time driver doesn't pick the call. Their customer care is also not easy to connect.", "stars": 1, "date": "2025-12-09", "version": "12.7.2"}]}, {"key": "service_general", "label": "Transport service / vendor / desk (general)", "owner": "ops", "reviews": 69, "share_of_negative": 0.08937823834196891, "upvotes": 20, "share_last_30d": 0.05333333333333334, "share_trailing_180d": 0.10050251256281408, "spiking": false, "quotes": [{"text": "so much ridiculous app. After 3 no show cab facility nahi milti... shiiii Ganda app", "stars": 1, "date": "2026-01-06", "version": "12.8.3"}, {"text": "Pathetic app. My office is using their service and driver doesn't come on time for pickup. Most of the time driver doesn't pick the call. Their customer care is also not easy to connect.", "stars": 1, "date": "2025-12-09", "version": "12.7.2"}, {"text": "Complaint Regarding Pathetic Transport Service I would like to raise a complaint regarding the pathetic transport service provided today.", "stars": 1, "date": "2026-07-15", "version": "12.15.0"}]}, {"key": "contact_support", "label": "Can't reach driver / helpdesk from the app", "owner": "app", "reviews": 64, "share_of_negative": 0.08290155440414508, "upvotes": 33, "share_last_30d": 0.08, "share_trailing_180d": 0.0829145728643216, "spiking": false, "quotes": [{"text": "Pathetic app. My office is using their service and driver doesn't come on time for pickup. Most of the time driver doesn't pick the call. Their customer care is also not easy to connect.", "stars": 1, "date": "2025-12-09", "version": "12.7.2"}, {"text": "I'm getting calling permission is disabled as per company policy", "stars": 1, "date": "2026-08-19", "version": "12.17.0"}, {"text": "Not worth it - worst ever employee complaints are ignoring by transportation \u0026 Cab owners worst facilities.", "stars": 2, "date": "2026-07-16", "version": "12.14.1"}]}, {"key": "routing_clubbing", "label": "Routing, clubbing, nodal points \u0026 trip length", "owner": "ops", "reviews": 49, "share_of_negative": 0.06347150259067358, "upvotes": 25, "share_last_30d": 0.05333333333333334, "share_trailing_180d": 0.07035175879396985, "spiking": false, "quotes": [{"text": "cab is never assigned on time...always late ..no value of others time...after logout every day we have to wait for 40+ mins for cab the 20 mins distance route...which is totally waste of time...third class", "stars": 1, "date": "2026-06-22", "version": "12.13.1"}, {"text": "Worst Transport App ever, none of the teams have coordination, Routing Team is pethic, tracking team and Helpdesk will not help at all, instead they will blame each other teams. No point in writing email or raising complaint, they behave the same.", "stars": 1, "date": "2026-03-17", "version": "12.10.2"}, {"text": "the new update of the pop up to rate the previous ride is the most inconvenient feature as if it doesnt load it doesnt let you access your route details. Its especially irritating when you're cutting it close with your cab timings", "stars": 1, "date": "2026-02-20", "version": "12.9.4"}]}, {"key": "ui_redesign", "label": "New UI / update made it harder to use", "owner": "app", "reviews": 48, "share_of_negative": 0.06217616580310881, "upvotes": 9, "share_last_30d": 0.05333333333333334, "share_trailing_180d": 0.06281407035175879, "spiking": false, "quotes": [{"text": "Worst user interface. App doesn't even load once you login using your official id. It just says \"Something went wrong\". Tried uninstalling and installing a couple of times but getting the same error message.", "stars": 1, "date": "2026-04-15", "version": "12.11.2"}, {"text": "dislike the new update. Bring the old version back. It was simple and minimalist.", "stars": 1, "date": "2026-10-08", "version": "12.19.0"}, {"text": "the new update looks confusing including the font color of \"logout\" is red like the font color of \"cancel\" Also the \"book\" tab became smaller", "stars": 2, "date": "2026-07-15", "version": null}]}, {"key": "forced_prompts", "label": "Forced trip rating, review nags, policy re-accept, permissions, banners", "owner": "app", "reviews": 30, "share_of_negative": 0.038860103626943004, "upvotes": 13, "share_last_30d": 0.08, "share_trailing_180d": 0.03015075376884422, "spiking": true, "quotes": [{"text": "I'm getting calling permission is disabled as per company policy", "stars": 1, "date": "2026-08-19", "version": "12.17.0"}, {"text": "I am forced to rate every trip which is twice a day. There should be an option to skip the step", "stars": 1, "date": "2026-05-19", "version": "12.12.2"}, {"text": "there is no option to skip the feedback for the trips. Its forcing us to give the feedback. better to add the skip option in that screen", "stars": 1, "date": "2026-05-10", "version": "12.12.0"}]}, {"key": "notifications", "label": "Notification spam / wrong notifications", "owner": "app", "reviews": 22, "share_of_negative": 0.02849740932642487, "upvotes": 14, "share_last_30d": 0.06666666666666667, "share_trailing_180d": 0.02763819095477387, "spiking": true, "quotes": [{"text": "06-10-2026 even after booked the trip it keep sends the push notification that trip is not booked. old: Bring monthly view ,not just day view...", "stars": 1, "date": "2026-10-06", "version": "12.19.0"}, {"text": "you guys keep giving notifications to cancel the ride if not available for the same, but you don't even bother to remind the user regarding the default cancellation of logout trip if login trip is marked \"Noshow\", this is not fair at all", "stars": 2, "date": "2026-09-17", "version": "12.18.1"}, {"text": "I keep getting pop-ups regarding cab delay notification. one notification would be sufficient but I keep getting pop-ups every few minutes.", "stars": 1, "date": "2026-09-16", "version": "12.18.1"}]}, {"key": "play_integrity_reinstall", "label": "'Not installed from Play Store' / forced reinstall", "owner": "app", "reviews": 18, "share_of_negative": 0.023316062176165803, "upvotes": 8, "share_last_30d": 0.09333333333333334, "share_trailing_180d": 0.020100502512562814, "spiking": true, "quotes": [{"text": "Unable to view the schedule for the whole month even though the schedule is done a month prior. Only the following / next schedule is shown. Reinstalled app multiple times!", "stars": 1, "date": "2026-01-29", "version": "12.9.1"}, {"text": "Worst user interface. App doesn't even load once you login using your official id. It just says \"Something went wrong\". Tried uninstalling and installing a couple of times but getting the same error message.", "stars": 1, "date": "2026-04-15", "version": "12.11.2"}, {"text": "again and again it's getting stopped.. showing that it can't open as it is not downloaded from playstore. in last 3 weeks I uninstall an installed it for 10 times due to the same error", "stars": 2, "date": "2026-08-02", "version": null}]}, {"key": "driver_behaviour", "label": "Driver behaviour \u0026 professionalism", "owner": "ops", "reviews": 15, "share_of_negative": 0.019430051813471502, "upvotes": 11, "share_last_30d": 0.04, "share_trailing_180d": 0.01256281407035176, "spiking": true, "quotes": [{"text": "drivers and management are extremely rude and they talk in an inappropriate and disrespectful manner. Drivers shout during the conversation. Such behavior is unacceptable and that makes feel very uncomfortable and unsafe", "stars": 1, "date": "2026-06-13", "version": "12.13.2"}, {"text": "very bad app . it was showing me to cancel whole booking I cancelled it on Friday.now I called transport they are very rudely telling that I didn't cancel before cut off so it didn't cancel.however the app showed me whole booking is cancelled", "stars": 1, "date": "2025-12-08", "version": "12.7.2"}, {"text": "The physical experience is extremely poor. drivers are unprofessional. The digital experience is pathetic. The customer care is worst. The app has basic UX issues. For eg. to edit a booking you first have to cancel it.", "stars": 1, "date": "2025-12-08", "version": "12.7.2"}]}, {"key": "boarding_qr", "label": "Boarding: QR scan \u0026 OTP screen", "owner": "app", "reviews": 12, "share_of_negative": 0.015544041450777202, "upvotes": 2, "share_last_30d": 0.04, "share_trailing_180d": 0.010050251256281407, "spiking": true, "quotes": [{"text": "Qr code scanner not working very difficult to scan .only in some angles it's scanning .issue happening from past few weeks before it was fine no issue with my other qr code scanner only movensync has issue", "stars": 2, "date": "2026-03-24", "version": "12.11.0"}, {"text": "The new feature and very annoying feature which you have introduced - when you click view otp , it pops up the seat belt safely first. Why do you ask for user input one more click . very annoying I should be able to see the otp in one click.", "stars": 2, "date": "2026-10-09", "version": "12.19.0"}, {"text": "not as good as efmfm, scanning qr to board cab was really cool", "stars": 1, "date": "2026-06-28", "version": "12.14.0"}]}, {"key": "safety", "label": "Safety concerns", "owner": "ops", "reviews": 12, "share_of_negative": 0.015544041450777202, "upvotes": 2, "share_last_30d": 0.0, "share_trailing_180d": 0.020100502512562814, "spiking": false, "quotes": [{"text": "drivers and management are extremely rude and they talk in an inappropriate and disrespectful manner. Drivers shout during the conversation. Such behavior is unacceptable and that makes feel very uncomfortable and unsafe", "stars": 1, "date": "2026-06-13", "version": "12.13.2"}, {"text": "most terible service no customer support and no safety .. worst cab providers no credebility and worst drivers onboarded", "stars": 1, "date": "2026-08-19", "version": "12.17.0"}, {"text": "very bad second night .where the driver was late..and to top it off .wher drove from old Mutual to meet the driver at shell garage in epping. where its very dangerous . clearly they must sort out themselves .going to escalate it further", "stars": 1, "date": "2026-07-08", "version": "12.14.1"}]}, {"key": "offline_info", "label": "Trip details / OTP / cab no. unavailable when needed", "owner": "app", "reviews": 6, "share_of_negative": 0.007772020725388601, "upvotes": 5, "share_last_30d": 0.013333333333333334, "share_trailing_180d": 0.005025125628140704, "spiking": true, "quotes": [{"text": "it doesn't work when you are connected to WiFi it keeps on saying that \"we're nothing without internet please check your internet connection\".", "stars": 1, "date": "2026-05-06", "version": "12.12.0"}, {"text": "App logout if internet connection is not available for a moment and switched. also app should retain the cab data even got offline as in parking there is no internet connection. After update app gets bad.", "stars": 2, "date": "2025-10-28", "version": "12.6"}, {"text": "there is no chat/ call option to the driver, cab number is not available in notification message, every time loing issue . too slow . update this things please", "stars": 1, "date": "2025-10-26", "version": "12.6"}]}], "releases": [{"version": "12.5", "first_seen": "2025-10-09", "reviews": 38, "avg": 4.0, "one_star": 0.21052631578947367, "baseline_one_star": 0.26166902404526166, "regression": false, "watch": false, "top_negative_themes": ["Live tracking, GPS, ETA \u0026 location accuracy", "Login, OTP \u0026 forced logouts", "Crashes, won't open, slow / blank screen"]}, {"version": "12.4", "first_seen": "2025-10-10", "reviews": 10, "avg": 3.8, "one_star": 0.3, "baseline_one_star": 0.2623413258110014, "regression": false, "watch": false, "top_negative_themes": ["Notification spam / wrong notifications", "Late cabs, no-shows, cab not assigned", "Transport service / vendor / desk (general)"]}, {"version": "12.6", "first_seen": "2025-10-14", "reviews": 285, "avg": 3.8105263157894735, "one_star": 0.22807017543859648, "baseline_one_star": 0.26695526695526695, "regression": false, "watch": false, "top_negative_themes": ["Login, OTP \u0026 forced logouts", "Booking, cancel, waitlist \u0026 schedule flow", "New UI / update made it harder to use"]}, {"version": "11.4.29", "first_seen": "2025-10-15", "reviews": 2, "avg": 4.5, "one_star": 0.0, "baseline_one_star": 0.26255380200860834, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "11.5.21", "first_seen": "2025-10-15", "reviews": 4, "avg": 1.75, "one_star": 0.75, "baseline_one_star": 0.2629310344827586, "regression": false, "watch": false, "top_negative_themes": ["Login, OTP \u0026 forced logouts", "Can't reach driver / helpdesk from the app", "Routing, clubbing, nodal points \u0026 trip length"]}, {"version": "11.5.5", "first_seen": "2025-10-16", "reviews": 2, "avg": 3.0, "one_star": 0.5, "baseline_one_star": 0.25968436154949787, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "12.3", "first_seen": "2025-10-22", "reviews": 3, "avg": 3.6666666666666665, "one_star": 0.3333333333333333, "baseline_one_star": 0.25862068965517243, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen"]}, {"version": "11.3.9", "first_seen": "2025-10-23", "reviews": 1, "avg": 1.0, "one_star": 1.0, "baseline_one_star": 0.26368876080691644, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Forced trip rating, review nags, policy re-accept, permissions, banners", "Live tracking, GPS, ETA \u0026 location accuracy"]}, {"version": "11.5.20", "first_seen": "2025-10-29", "reviews": 3, "avg": 2.3333333333333335, "one_star": 0.6666666666666666, "baseline_one_star": 0.27221438645980256, "regression": false, "watch": false, "top_negative_themes": ["Routing, clubbing, nodal points \u0026 trip length"]}, {"version": "11.5.17", "first_seen": "2025-11-04", "reviews": 2, "avg": 5.0, "one_star": 0.0, "baseline_one_star": 0.2672292545710267, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "12.2.1", "first_seen": "2025-11-04", "reviews": 3, "avg": 3.6666666666666665, "one_star": 0.3333333333333333, "baseline_one_star": 0.2661064425770308, "regression": false, "watch": false, "top_negative_themes": ["Late cabs, no-shows, cab not assigned", "Transport service / vendor / desk (general)"]}, {"version": "12.7", "first_seen": "2025-11-20", "reviews": 38, "avg": 3.5, "one_star": 0.3157894736842105, "baseline_one_star": 0.25970149253731345, "regression": false, "watch": true, "top_negative_themes": ["Live tracking, GPS, ETA \u0026 location accuracy", "Crashes, won't open, slow / blank screen", "Boarding: QR scan \u0026 OTP screen"]}, {"version": "12.7.2", "first_seen": "2025-12-01", "reviews": 93, "avg": 3.6236559139784945, "one_star": 0.27956989247311825, "baseline_one_star": 0.26717557251908397, "regression": false, "watch": false, "top_negative_themes": ["Booking, cancel, waitlist \u0026 schedule flow", "Late cabs, no-shows, cab not assigned", "Login, OTP \u0026 forced logouts"]}, {"version": "12.1.2", "first_seen": "2025-12-10", "reviews": 2, "avg": 5.0, "one_star": 0.0, "baseline_one_star": 0.2713864306784661, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "12.8", "first_seen": "2025-12-15", "reviews": 21, "avg": 3.857142857142857, "one_star": 0.19047619047619047, "baseline_one_star": 0.26804123711340205, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Live tracking, GPS, ETA \u0026 location accuracy", "Transport service / vendor / desk (general)"]}, {"version": "12.8.2", "first_seen": "2025-12-18", "reviews": 60, "avg": 4.016666666666667, "one_star": 0.13333333333333333, "baseline_one_star": 0.25748502994011974, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "'Not installed from Play Store' / forced reinstall", "Booking, cancel, waitlist \u0026 schedule flow"]}, {"version": "12.8.3", "first_seen": "2026-01-01", "reviews": 105, "avg": 3.676190476190476, "one_star": 0.23809523809523808, "baseline_one_star": 0.2379471228615863, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Booking, cancel, waitlist \u0026 schedule flow", "Login, OTP \u0026 forced logouts"]}, {"version": "11.5.19", "first_seen": "2026-01-11", "reviews": 2, "avg": 2.5, "one_star": 0.5, "baseline_one_star": 0.2345679012345679, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Late cabs, no-shows, cab not assigned"]}, {"version": "12.8.4", "first_seen": "2026-01-13", "reviews": 3, "avg": 4.666666666666667, "one_star": 0.0, "baseline_one_star": 0.2375, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "12.1", "first_seen": "2026-01-15", "reviews": 1, "avg": 5.0, "one_star": 0.0, "baseline_one_star": 0.2368839427662957, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "12.9.0", "first_seen": "2026-01-17", "reviews": 31, "avg": 4.548387096774194, "one_star": 0.0967741935483871, "baseline_one_star": 0.24247226624405704, "regression": false, "watch": false, "top_negative_themes": ["Booking, cancel, waitlist \u0026 schedule flow", "Live tracking, GPS, ETA \u0026 location accuracy"]}, {"version": "12.9.1", "first_seen": "2026-01-22", "reviews": 14, "avg": 3.142857142857143, "one_star": 0.35714285714285715, "baseline_one_star": 0.24098360655737705, "regression": false, "watch": false, "top_negative_themes": ["Booking, cancel, waitlist \u0026 schedule flow", "'Not installed from Play Store' / forced reinstall"]}, {"version": "12.9.2", "first_seen": "2026-01-27", "reviews": 48, "avg": 3.9166666666666665, "one_star": 0.22916666666666666, "baseline_one_star": 0.23275862068965517, "regression": false, "watch": false, "top_negative_themes": ["Transport service / vendor / desk (general)", "Crashes, won't open, slow / blank screen", "Can't reach driver / helpdesk from the app"]}, {"version": "11.4.11", "first_seen": "2026-02-01", "reviews": 1, "avg": 4.0, "one_star": 0.0, "baseline_one_star": 0.23835125448028674, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "12.9.3", "first_seen": "2026-02-01", "reviews": 8, "avg": 3.5, "one_star": 0.375, "baseline_one_star": 0.2375, "regression": false, "watch": false, "top_negative_themes": ["Live tracking, GPS, ETA \u0026 location accuracy", "Forced trip rating, review nags, policy re-accept, permissions, banners"]}, {"version": "12.9.4", "first_seen": "2026-02-04", "reviews": 81, "avg": 3.7037037037037037, "one_star": 0.2716049382716049, "baseline_one_star": 0.24007220216606498, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Routing, clubbing, nodal points \u0026 trip length", "Login, OTP \u0026 forced logouts"]}, {"version": "11.5.4", "first_seen": "2026-02-12", "reviews": 2, "avg": 2.0, "one_star": 0.5, "baseline_one_star": 0.24734982332155478, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "12.10", "first_seen": "2026-02-18", "reviews": 82, "avg": 4.109756097560975, "one_star": 0.18292682926829268, "baseline_one_star": 0.2495697074010327, "regression": false, "watch": false, "top_negative_themes": ["Transport service / vendor / desk (general)", "Login, OTP \u0026 forced logouts", "Booking, cancel, waitlist \u0026 schedule flow"]}, {"version": "12.10.1", "first_seen": "2026-02-23", "reviews": 4, "avg": 5.0, "one_star": 0.0, "baseline_one_star": 0.24829931972789115, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "12.10.2", "first_seen": "2026-03-03", "reviews": 100, "avg": 3.89, "one_star": 0.22, "baseline_one_star": 0.24, "regression": false, "watch": false, "top_negative_themes": ["Login, OTP \u0026 forced logouts", "Can't reach driver / helpdesk from the app", "Crashes, won't open, slow / blank screen"]}, {"version": "12.11.0", "first_seen": "2026-03-19", "reviews": 67, "avg": 4.104477611940299, "one_star": 0.19402985074626866, "baseline_one_star": 0.23168654173764908, "regression": false, "watch": false, "top_negative_themes": ["Login, OTP \u0026 forced logouts", "Crashes, won't open, slow / blank screen", "Transport service / vendor / desk (general)"]}, {"version": "5.0.6", "first_seen": "2026-03-25", "reviews": 1, "avg": 1.0, "one_star": 1.0, "baseline_one_star": 0.23578595317725753, "regression": false, "watch": false, "top_negative_themes": ["Routing, clubbing, nodal points \u0026 trip length"]}, {"version": "12.11.1", "first_seen": "2026-03-31", "reviews": 99, "avg": 4.171717171717172, "one_star": 0.1717171717171717, "baseline_one_star": 0.238562091503268, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Login, OTP \u0026 forced logouts", "Booking, cancel, waitlist \u0026 schedule flow"]}, {"version": "12.11.2", "first_seen": "2026-04-10", "reviews": 144, "avg": 3.9791666666666665, "one_star": 0.2222222222222222, "baseline_one_star": 0.2230769230769231, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Booking, cancel, waitlist \u0026 schedule flow", "Can't reach driver / helpdesk from the app"]}, {"version": "12.12.0", "first_seen": "2026-04-27", "reviews": 70, "avg": 3.9571428571428573, "one_star": 0.22857142857142856, "baseline_one_star": 0.22431259044862517, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Transport service / vendor / desk (general)", "Booking, cancel, waitlist \u0026 schedule flow"]}, {"version": "12.12.2", "first_seen": "2026-05-08", "reviews": 76, "avg": 4.184210526315789, "one_star": 0.15789473684210525, "baseline_one_star": 0.21678321678321677, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Login, OTP \u0026 forced logouts", "Forced trip rating, review nags, policy re-accept, permissions, banners"]}, {"version": "12.12.3", "first_seen": "2026-05-15", "reviews": 112, "avg": 4.017857142857143, "one_star": 0.20535714285714285, "baseline_one_star": 0.20473537604456823, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Transport service / vendor / desk (general)", "Login, OTP \u0026 forced logouts"]}, {"version": "11.4.12", "first_seen": "2026-05-22", "reviews": 1, "avg": 5.0, "one_star": 0.0, "baseline_one_star": 0.20410958904109588, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "12.13.0", "first_seen": "2026-05-31", "reviews": 36, "avg": 3.6944444444444446, "one_star": 0.2777777777777778, "baseline_one_star": 0.2073669849931787, "regression": false, "watch": true, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Live tracking, GPS, ETA \u0026 location accuracy", "Login, OTP \u0026 forced logouts"]}, {"version": "12.13.1", "first_seen": "2026-06-05", "reviews": 95, "avg": 3.6842105263157894, "one_star": 0.30526315789473685, "baseline_one_star": 0.21739130434782608, "regression": true, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Live tracking, GPS, ETA \u0026 location accuracy", "Late cabs, no-shows, cab not assigned"]}, {"version": "12.13.2", "first_seen": "2026-06-08", "reviews": 29, "avg": 3.896551724137931, "one_star": 0.2413793103448276, "baseline_one_star": 0.22192513368983957, "regression": false, "watch": false, "top_negative_themes": ["Transport service / vendor / desk (general)", "Late cabs, no-shows, cab not assigned", "Live tracking, GPS, ETA \u0026 location accuracy"]}, {"version": "12.14.0", "first_seen": "2026-06-22", "reviews": 38, "avg": 3.3684210526315788, "one_star": 0.3684210526315789, "baseline_one_star": 0.22306717363751585, "regression": true, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Booking, cancel, waitlist \u0026 schedule flow", "Late cabs, no-shows, cab not assigned"]}, {"version": "12.14.1", "first_seen": "2026-06-28", "reviews": 142, "avg": 3.816901408450704, "one_star": 0.24647887323943662, "baseline_one_star": 0.23275862068965517, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Late cabs, no-shows, cab not assigned", "Live tracking, GPS, ETA \u0026 location accuracy"]}, {"version": "12.15.0", "first_seen": "2026-07-09", "reviews": 83, "avg": 4.036144578313253, "one_star": 0.1927710843373494, "baseline_one_star": 0.25030826140567203, "regression": false, "watch": false, "top_negative_themes": ["Booking, cancel, waitlist \u0026 schedule flow", "Transport service / vendor / desk (general)", "Late cabs, no-shows, cab not assigned"]}, {"version": "11.4.13", "first_seen": "2026-07-21", "reviews": 1, "avg": 5.0, "one_star": 0.0, "baseline_one_star": 0.2430025445292621, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "12.16.0", "first_seen": "2026-07-23", "reviews": 89, "avg": 3.865168539325843, "one_star": 0.20224719101123595, "baseline_one_star": 0.24015247776365947, "regression": false, "watch": false, "top_negative_themes": ["Live tracking, GPS, ETA \u0026 location accuracy", "Crashes, won't open, slow / blank screen", "Late cabs, no-shows, cab not assigned"]}, {"version": "12.16.1", "first_seen": "2026-07-29", "reviews": 38, "avg": 3.526315789473684, "one_star": 0.34210526315789475, "baseline_one_star": 0.24010217113665389, "regression": true, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Routing, clubbing, nodal points \u0026 trip length", "New UI / update made it harder to use"]}, {"version": "12.17.0", "first_seen": "2026-08-07", "reviews": 141, "avg": 3.7588652482269502, "one_star": 0.2695035460992908, "baseline_one_star": 0.24466750313676286, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Booking, cancel, waitlist \u0026 schedule flow", "Live tracking, GPS, ETA \u0026 location accuracy"]}, {"version": "12.18.0", "first_seen": "2026-08-22", "reviews": 65, "avg": 4.107692307692307, "one_star": 0.2, "baseline_one_star": 0.2563131313131313, "regression": false, "watch": false, "top_negative_themes": ["Late cabs, no-shows, cab not assigned", "Can't reach driver / helpdesk from the app", "Booking, cancel, waitlist \u0026 schedule flow"]}, {"version": "12.18.1", "first_seen": "2026-09-09", "reviews": 94, "avg": 3.904255319148936, "one_star": 0.24468085106382978, "baseline_one_star": 0.2574772431729519, "regression": false, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Late cabs, no-shows, cab not assigned", "Forced trip rating, review nags, policy re-accept, permissions, banners"]}, {"version": "11.0.2", "first_seen": "2026-09-21", "reviews": 1, "avg": 2.0, "one_star": 0.0, "baseline_one_star": 0.24603174603174602, "regression": false, "watch": false, "top_negative_themes": ["'Not installed from Play Store' / forced reinstall"]}, {"version": "12.1.1", "first_seen": "2026-09-21", "reviews": 1, "avg": 5.0, "one_star": 0.0, "baseline_one_star": 0.24603174603174602, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "12.19.0", "first_seen": "2026-09-21", "reviews": 102, "avg": 3.5784313725490198, "one_star": 0.3235294117647059, "baseline_one_star": 0.24603174603174602, "regression": false, "watch": true, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Booking, cancel, waitlist \u0026 schedule flow", "Live tracking, GPS, ETA \u0026 location accuracy"]}, {"version": "11.4.34", "first_seen": "2026-09-23", "reviews": 1, "avg": 5.0, "one_star": 0.0, "baseline_one_star": 0.24869791666666666, "regression": false, "watch": false, "top_negative_themes": []}, {"version": "12.20.0", "first_seen": "2026-10-07", "reviews": 4, "avg": 4.0, "one_star": 0.25, "baseline_one_star": 0.24225352112676057, "regression": false, "watch": false, "top_negative_themes": ["Transport service / vendor / desk (general)"]}], "alerts": {"release_regressions": [{"version": "12.16.1", "first_seen": "2026-07-29", "reviews": 38, "avg": 3.526315789473684, "one_star": 0.34210526315789475, "baseline_one_star": 0.24010217113665389, "regression": true, "watch": false, "top_negative_themes": ["Crashes, won't open, slow / blank screen", "Routing, clubbing, nodal points \u0026 trip length", "New UI / update made it harder to use"]}], "spiking_themes": ["Forced trip rating, review nags, policy re-accept, permissions, banners", "Notification spam / wrong notifications", "'Not installed from Play Store' / forced reinstall", "Driver behaviour \u0026 professionalism", "Boarding: QR scan \u0026 OTP screen", "Trip details / OTP / cab no. unavailable when needed"], "safety_last_30d": [{"date": "2026-10-08", "stars": 1, "text": "your new update is a threat to person with medical condition. it just books you without informing if he's on waitlist or not. so annoying"}, {"date": "2026-10-02", "stars": 1, "text": "👎👎👎👎👎👎👎👎👎👎👎👎👎👎👎👎who the hell is giving them 5 star ⭐ rating worst punctuation, my cab has to assign on 2:30 am and it's 3:30 am and still no updates. I called twice to there Customer support they are not receiving the call . i have a lots of abusive words for them. i have edited "}, {"date": "2026-09-16", "stars": 1, "text": "Extremely disappointing experience with Move In Sync. Why does the company keep assigning rude, disrespectful, and abusive cab drivers? Is there no proper qualification, screening, or behavioural training before hiring drivers? I have repeatedly faced issues with drivers, especia"}]}, "benchmark": {"title": "Safetrax Commuter", "score": 4.719634, "ratings": 24142, "last_12m_reviews": 114, "last_12m_avg": 2.8859649122807016, "last_12m_one_star": 0.4649122807017544, "last_12m_reply_rate": 0.9824561403508771}, "other_apps": [{"app_id": "com.moveinsync.driver.lite", "title": "Moveinsync Partner - Lite", "score": 4.29, "ratings": 701, "installs": "100,000+"}, {"app_id": "com.moveinsync.driver.dco", "title": "MoveInSync - Driver Partner", "score": 3.5, "ratings": 46, "installs": "10,000+"}, {"app_id": "field.moveinsync.ets", "title": "MoveInSync - Field app", "score": 4.0833335, "ratings": 24, "installs": "5,000+"}]};
+const REPORT_URL = location.protocol === "file:" ? "../report/index.html" : "report/";
+const REPO_URL = "https://github.com/ankan00V/MoveInRate";
+const POLL_MS = 5 * 60 * 1000;   // check for fresh data every 5 minutes (pipeline refreshes hourly)
+const html = htm.bind(React.createElement);
+const { useState, useEffect } = React;
+
+const pct = (x) => (x == null ? "–" : Math.round(x * 100) + "%");
+const fmt = (n) => Number(n).toLocaleString("en-US");
+const fmtMonth = (m) => new Date(m + "-01T00:00:00").toLocaleDateString("en-GB", { month: "short", year: "numeric" });
+const fmtDate = (d) => new Date(d + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+const fmtStamp = (iso) => new Date(iso).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+const plural = (n, w) => n + " " + w + (n === 1 ? "" : "s");
+
+let a, s, y, rel, b;
+function derive() { a = M.alerts; s = M.store; y = M.last_12m; rel = M.most_relevant; b = M.benchmark; }
+
+// "Updated 12 min ago", ticking on its own so the page never needs a full re-render
+function ago(iso) {
+  const mins = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
+  if (mins < 1) return "just now";
+  if (mins < 60) return mins + " min ago";
+  const h = Math.floor(mins / 60);
+  return h < 48 ? h + " h ago" : Math.floor(h / 24) + " days ago";
+}
+function LiveAgo({ prefix = "Updated ", suffix = "" }) {
+  const [, tick] = useState(0);
+  useEffect(() => { const id = setInterval(() => tick((n) => n + 1), 30000); return () => clearInterval(id); }, []);
+  return html`<span title=${"Generated " + fmtStamp(M.generated_at)}>${prefix}${ago(M.generated_at)}${suffix}</span>`;
+}
+const LiveBadge = () => html`<span className="inline-flex items-center gap-1.5">
+  <span className="relative flex h-1.5 w-1.5"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white"></span></span>Live</span>`;
+
+function renderHero() {
+  mountHero(document.getElementById("hero"), {
+    brand: "MoveInRate",
+    links: [
+      { label: "Overview", href: "#overview" },
+      { label: "Signals", children: [
+        { label: "Needs attention", note: "Release regressions, rising themes, safety", href: "#alerts" },
+        { label: "What reviews are about", note: "Themes by owner, last 12 months", href: "#themes" },
+        { label: "Releases", note: "1★ share per version vs baseline", href: "#releases" },
+      ] },
+      { label: "Trend", href: "#trend" },
+      { label: "Apps", href: "#apps" },
+    ],
+    navSecondary: { label: "Full report", href: REPORT_URL },
+    navPrimary: { label: "Run history", href: REPO_URL + "/actions", external: true },
+    badge: html`<${LiveBadge} />`,
+    tagline: html`<${LiveAgo} suffix=" · Play Store checked hourly" />`,
+    taglineShort: html`<${LiveAgo} />`,
+    headline: ["Know where the rating stands, ", "and", " why it moves"],
+    subtext: "Store rating " + s.score.toFixed(2) + " from " + fmt(s.ratings) + " ratings. Written reviews over the last 12 months average "
+      + y.avg.toFixed(2) + "★, with " + pct(y.one_star) + " at 1★. Right now: " + plural(a.release_regressions.length, "release regression")
+      + ", " + plural(a.spiking_themes.length, "rising theme") + " and " + plural(a.safety_last_30d.length, "safety review") + ".",
+    cta1: { label: "See what needs attention", href: "#alerts" },
+    cta2: { label: "View the code", href: REPO_URL, external: true },
+  });
+}
+
+/* ---------- building blocks ---------- */
+const Section = ({ id, eyebrow, title, children, aside }) => html`
+  <section id=${id} className="scroll-mt-6 py-14 border-t border-[#2a2340] first:border-t-0">
+    <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
+      <div>
+        <p className="font-manrope font-semibold text-[12px] uppercase tracking-[0.1em] text-[#a39cb8] m-0">${eyebrow}</p>
+        <h2 className="font-instrument font-normal text-[40px] leading-[1.1] text-white mt-2 mb-0">${title}</h2>
+      </div>
+      ${aside}
+    </div>
+    ${children}
+  </section>`;
+
+const Card = ({ className = "", children }) => html`
+  <div className=${"rounded-[10px] bg-[#151026] border border-[#2a2340] " + className}>${children}</div>`;
+
+const Tag = ({ tone = "neutral", children }) => {
+  const tones = {
+    app: "border border-[#7b39fc] text-[#b994ff]",
+    ops: "border border-[#5ec8f2] text-[#5ec8f2]",
+    neutral: "bg-[#231c3a] text-[#d6d0e6]",
+    bad: "bg-[#ff7b6b] text-[#1a0d0b]",
+    warn: "bg-[#f0ac3a] text-[#1b1404]",
+  };
+  return html`<span className=${"inline-block whitespace-nowrap rounded-[6px] px-2 py-[3px] font-cabin font-medium text-[12px] " + tones[tone]}>${children}</span>`;
+};
+
+const Kpi = ({ label, value, unit, detail, tone }) => html`
+  <${Card} className="p-5 flex flex-col gap-2 min-w-0">
+    <span className="font-manrope font-semibold text-[11px] uppercase tracking-[0.1em] text-[#a39cb8]">${label}</span>
+    <span className=${"font-instrument text-[44px] leading-none num " + (tone === "bad" ? "text-[#ff7b6b]" : tone === "good" ? "text-[#b994ff]" : "text-white")}>
+      ${value}${unit && html`<span className="text-[22px] text-white/50 ml-0.5">${unit}</span>`}</span>
+    <span className="font-inter text-[13px] leading-snug text-white/60">${detail}</span>
+  <//>`;
+
+/* ---------- trend chart ---------- */
+function Trend() {
+  const rows = M.monthly, W = 900, H = 260, L = 44, R = 12, T = 14, B = 30, iw = W - L - R, ih = H - T - B;
+  const x = (i) => L + (i / (rows.length - 1)) * iw, yv = (v) => T + ih - v * ih;
+  const line = (k) => rows.map((r, i) => (i ? "L" : "M") + x(i) + "," + yv(r[k])).join(" ");
+  const area = "M" + x(0) + "," + yv(0) + " " + rows.map((r, i) => "L" + x(i) + "," + yv(r.reply_rate)).join(" ") + " L" + x(rows.length - 1) + "," + yv(0) + " Z";
+  const last = rows[rows.length - 1];
+  return html`
+    <${Card} className="p-5">
+      <div className="flex flex-wrap gap-5 mb-3 font-manrope text-[13px] text-white/70">
+        <span className="inline-flex items-center gap-2"><i className="inline-block w-3 h-3 rounded-sm bg-[#ff7b6b]"></i>Share of written reviews that are 1★</span>
+        <span className="inline-flex items-center gap-2"><i className="inline-block w-3 h-3 rounded-sm bg-[#7b39fc] opacity-70"></i>Share of reviews with a developer reply</span>
+      </div>
+      <div className="overflow-x-auto">
+        <svg viewBox=${"0 0 " + W + " " + H} className="block w-full h-auto min-w-[560px]" role="img" aria-label="Monthly 1-star share and reply rate">
+          ${[0, 0.25, 0.5, 0.75, 1].map((v) => html`<g key=${v}>
+            <line x1=${L} x2=${W - R} y1=${yv(v)} y2=${yv(v)} stroke="#2a2340" />
+            <text x=${L - 8} y=${yv(v) + 4} textAnchor="end" fill="#a39cb8" fontSize="11" fontFamily="Manrope">${Math.round(v * 100)}%</text></g>`)}
+          ${rows.map((r, i) => r.month.endsWith("-01") && html`<text key=${r.month} x=${x(i)} y=${H - 8} textAnchor="middle" fill="#a39cb8" fontSize="11" fontFamily="Manrope">Jan ${r.month.slice(0, 4)}</text>`)}
+          <path d=${area} fill="#7b39fc" opacity="0.35" />
+          <path d=${line("reply_rate")} fill="none" stroke="#7b39fc" strokeWidth="1.5" />
+          <path d=${line("one_star")} fill="none" stroke="#ff7b6b" strokeWidth="2" />
+          <circle cx=${x(rows.length - 1)} cy=${yv(last.one_star)} r="4" fill="#ff7b6b" />
+          <text x=${x(rows.length - 1) - 8} y=${yv(last.one_star) - 10} textAnchor="end" fill="#f4f2fa" fontSize="12" fontFamily="Inter">${pct(last.one_star)} 1★ in ${fmtMonth(last.month)}</text>
+        </svg>
+      </div>
+    <//>`;
+}
+
+/* ---------- page ---------- */
+// One example per theme, never repeating a quote already shown higher up the table
+let usedQuotes = new Set();
+let exampleCache = {};
+function exampleFor(t) {
+  if (t.key in exampleCache) return exampleCache[t.key];
+  const q = t.quotes.find((q) => !usedQuotes.has(q.text));
+  if (q) usedQuotes.add(q.text);
+  return (exampleCache[t.key] = q ? q.text : "");
+}
+
+function Dashboard() {
+  const maxShare = Math.max(...M.themes.map((t) => Math.max(t.share_of_negative, t.share_last_30d)));
+  const releases = M.releases.filter((r) => r.reviews >= 10).slice(-12).reverse();
+  const alertsEmpty = !a.release_regressions.length && !a.spiking_themes.length && !a.safety_last_30d.length;
+
+  return html`
+  <div className="px-6 lg:px-[120px] pb-20">
+    <${Section} id="overview" eyebrow="Overview" title="This week in numbers">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+        <${Kpi} label="Store rating" value=${s.score.toFixed(2)} detail=${fmt(s.ratings) + " ratings · v" + s.version} />
+        <${Kpi} label="Written, 12 mo" value=${y.avg.toFixed(2)} unit="★" tone="bad" detail=${fmt(y.reviews) + " reviews · " + pct(y.one_star) + " are 1★"} />
+        <${Kpi} label=${"Most relevant, top " + rel.n} value=${rel.avg.toFixed(1)} unit="★" tone=${rel.avg < 3 ? "bad" : "good"} detail=${pct(rel.one_or_two_star) + " are 1–2★ · " + pct(rel.reply_rate) + " replied"} />
+        <${Kpi} label="Reply rate, 12 mo" value=${pct(y.reply_rate)} tone=${y.reply_rate < 0.5 ? "bad" : "good"} detail="Target: 90% of 1–3★ within 48 hours" />
+        <${Kpi} label="Benchmark" value=${b.score.toFixed(2)} detail=${b.title + " · " + pct(b.last_12m_reply_rate) + " replied"} />
+      </div>
+    <//>
+
+    <${Section} id="alerts" eyebrow="Signals" title="Needs attention">
+      <div className="flex flex-col gap-3">
+        ${alertsEmpty && html`<${Card} className="p-5 border-l-4 border-l-[#b994ff]"><p className="m-0 text-white/80">No release regressions, rising themes or safety reviews this week.</p><//>`}
+        ${a.release_regressions.map((r) => html`
+          <${Card} key=${r.version} className="p-5 border-l-4 border-l-[#ff7b6b]">
+            <div className="flex flex-wrap items-center gap-2 mb-2"><${Tag} tone="bad">Release regression<//><span className="font-manrope font-bold text-white">v${r.version}</span>
+              <span className="font-manrope text-[13px] text-white/60">since ${fmtDate(r.first_seen)} · ${r.reviews} reviews</span></div>
+            <p className="m-0 text-white/80 text-[15px]">1★ share is <strong className="text-white num">${pct(r.one_star)}</strong> against a <span className="num">${pct(r.baseline_one_star)}</span> baseline. Top issues: ${r.top_negative_themes.join(", ")}.</p>
+          <//>`)}
+        ${a.spiking_themes.length > 0 && html`
+          <${Card} className="p-5 border-l-4 border-l-[#f0ac3a]">
+            <div className="mb-3"><${Tag} tone="warn">Rising in the last 30 days<//></div>
+            <div className="flex flex-wrap gap-2">${a.spiking_themes.map((t) => html`<${Tag} key=${t}>${t}<//>`)}</div>
+          <//>`}
+        ${a.safety_last_30d.map((r, i) => html`
+          <${Card} key=${i} className="p-5 border-l-4 border-l-[#ff7b6b]">
+            <div className="flex flex-wrap items-center gap-2 mb-2"><${Tag} tone="bad">Safety · route to Ops today<//><span className="font-manrope text-[13px] text-white/60">${fmtDate(r.date)} · ${r.stars}★</span></div>
+            <p className="m-0 italic text-white/70 text-[15px]">“${r.text}”</p>
+          <//>`)}
+      </div>
+    <//>
+
+    <${Section} id="trend" eyebrow="Trend" title="Monthly 1★ share and reply rate"><${Trend} /><//>
+
+    <${Section} id="themes" eyebrow="Signals" title="What negative reviews are about"
+      aside=${html`<span className="font-manrope text-[13px] text-white/60">1–2★ reviews, last 12 months · n = ${fmt(y.negative)}</span>`}>
+      <${Card} className="overflow-x-auto">
+        <table className="w-full min-w-[860px] border-collapse text-left text-[14px]">
+          <thead><tr className="font-manrope text-[11px] uppercase tracking-[0.1em] text-[#a39cb8]">
+            <th className="font-semibold whitespace-nowrap px-4 py-3">Theme</th><th className="font-semibold whitespace-nowrap px-4 py-3">Owner</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Reviews</th><th className="font-semibold whitespace-nowrap px-4 py-3 w-[200px]">Share, 12 mo</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Prior 180d</th><th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Last 30d</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3">Most upvoted example</th></tr></thead>
+          <tbody>${M.themes.map((t) => html`
+            <tr key=${t.key} className="border-t border-[#2a2340] align-middle">
+              <td className="px-4 py-3 text-white font-medium">${t.label}</td>
+              <td className="px-4 py-3">${t.owner === "app" ? html`<${Tag} tone="app">App<//>` : t.owner === "ops" ? html`<${Tag} tone="ops">Ops<//>`   : html`<${Tag}>Unclear<//>`}</td>
+              <td className="px-4 py-3 text-right num text-white/80">${t.reviews}</td>
+              <td className="px-4 py-3"><div className="flex items-center gap-2">
+                <div className="h-2 flex-1 rounded-full bg-[#231c3a] overflow-hidden"><div className=${"h-full rounded-full " + (t.owner === "ops" ? "bg-[#5ec8f2]" : t.owner === "app" ? "bg-[#7b39fc]" : "bg-white/30")} style=${{ width: (t.share_of_negative / maxShare) * 100 + "%" }}></div></div>
+                <span className="num text-white/80 w-10 text-right">${pct(t.share_of_negative)}</span></div></td>
+              <td className="px-4 py-3 text-right num text-white/60">${pct(t.share_trailing_180d)}</td>
+              <td className="px-4 py-3 text-right"><span className="num text-white/80">${pct(t.share_last_30d)}</span>${t.spiking && html` <${Tag} tone="warn">Rising<//>`}</td>
+              <td className="px-4 py-3 italic text-white/55 text-[13px] w-[300px]"><span className="line-clamp-2">${exampleFor(t) ? "“" + exampleFor(t) + "”" : ""}</span></td>
+            </tr>`)}</tbody>
+        </table>
+      <//>
+    <//>
+
+    <${Section} id="releases" eyebrow="Signals" title="Releases"
+      aside=${html`<span className="font-manrope text-[13px] text-white/60 max-w-[420px]">Regression: 1★ share 8+ points above the 90 days before release (20+ reviews). Watch: 5–8 points.</span>`}>
+      <${Card} className="overflow-x-auto">
+        <table className="w-full min-w-[760px] border-collapse text-left text-[14px]">
+          <thead><tr className="font-manrope text-[11px] uppercase tracking-[0.1em] text-[#a39cb8]">
+            <th className="font-semibold whitespace-nowrap px-4 py-3">Version</th><th className="font-semibold whitespace-nowrap px-4 py-3">First seen</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Reviews</th><th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Avg</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3 text-right">1★</th><th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Baseline 1★</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3">Status</th><th className="font-semibold whitespace-nowrap px-4 py-3">Top negative themes</th></tr></thead>
+          <tbody>${releases.map((r) => html`
+            <tr key=${r.version} className="border-t border-[#2a2340] align-middle">
+              <td className="px-4 py-3 font-manrope font-bold text-white whitespace-nowrap">${r.version}</td>
+              <td className="px-4 py-3 text-white/70 whitespace-nowrap">${fmtDate(r.first_seen)}</td>
+              <td className="px-4 py-3 text-right num text-white/80">${r.reviews}</td>
+              <td className="px-4 py-3 text-right num text-white/80">${r.avg.toFixed(2)}</td>
+              <td className=${"px-4 py-3 text-right num " + (r.regression ? "text-[#ff7b6b] font-semibold" : "text-white/80")}>${pct(r.one_star)}</td>
+              <td className="px-4 py-3 text-right num text-white/60">${pct(r.baseline_one_star)}</td>
+              <td className="px-4 py-3">${r.regression ? html`<${Tag} tone="bad">Regression<//>` : r.watch ? html`<${Tag} tone="warn">Watch<//>` : html`<span className="text-white/40">–</span>`}</td>
+              <td className="px-4 py-3 text-white/60 text-[13px]">${r.top_negative_themes.join(", ")}</td>
+            </tr>`)}</tbody>
+        </table>
+      <//>
+    <//>
+
+    <${Section} id="apps" eyebrow="Context" title="Other MoveInSync apps and the benchmark">
+      <${Card} className="overflow-x-auto">
+        <table className="w-full min-w-[560px] border-collapse text-left text-[14px]">
+          <thead><tr className="font-manrope text-[11px] uppercase tracking-[0.1em] text-[#a39cb8]">
+            <th className="font-semibold whitespace-nowrap px-4 py-3">App</th><th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Rating</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Ratings</th><th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Installs</th></tr></thead>
+          <tbody>
+            <tr className="border-t border-[#2a2340]"><td className="px-4 py-3 text-white font-medium">${s.title} (employee app)</td><td className="px-4 py-3 text-right num">${s.score.toFixed(2)}</td><td className="px-4 py-3 text-right num text-white/70">${fmt(s.ratings)}</td><td className="px-4 py-3 text-right text-white/70">${s.installs}</td></tr>
+            ${M.other_apps.map((o) => html`<tr key=${o.app_id} className="border-t border-[#2a2340]"><td className="px-4 py-3 text-white">${o.title}</td><td className="px-4 py-3 text-right num">${o.score ? o.score.toFixed(2) : "–"}</td><td className="px-4 py-3 text-right num text-white/70">${fmt(o.ratings || 0)}</td><td className="px-4 py-3 text-right text-white/70">${o.installs}</td></tr>`)}
+            <tr className="border-t border-[#2a2340]"><td className="px-4 py-3 text-white">${b.title} <${Tag}>Benchmark<//></td><td className="px-4 py-3 text-right num">${b.score.toFixed(2)}</td><td className="px-4 py-3 text-right num text-white/70">${fmt(b.ratings)}</td><td className="px-4 py-3 text-right text-white/40">–</td></tr>
+          </tbody>
+        </table>
+      <//>
+    <//>
+
+    <footer className="pt-8 border-t border-[#2a2340] font-manrope text-[13px] text-white/50 flex flex-wrap gap-x-6 gap-y-2">
+      <span>Data generated ${fmtStamp(M.generated_at)} · <${LiveAgo} prefix="" /></span>
+      <span>Source: public Google Play reviews and listings (India, English)</span>
+      <span>Themes: rule-based classifier in pipeline/taxonomy.py</span>
+      <span>Reply queue: data/triage_queue.csv</span>
+    </footer>
+  </div>`;
+}
+
+const appRoot = ReactDOM.createRoot(document.getElementById("app"));
+function renderAll() {
+  derive();
+  usedQuotes = new Set();
+  exampleCache = {};
+  renderHero();
+  appRoot.render(html`<${Dashboard} version=${M.generated_at} />`);
+}
+renderAll();
+
+// Live updates: pick up each hourly refresh without a reload
+async function refresh() {
+  try {
+    const res = await fetch("metrics.json?t=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) return;
+    const next = await res.json();
+    if (next.generated_at !== M.generated_at) { M = next; renderAll(); }
+  } catch (e) { /* offline or opened as a local file: keep showing the embedded data */ }
+}
+setInterval(refresh, POLL_MS);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) refresh(); });
+</script>
+</body>
+</html>

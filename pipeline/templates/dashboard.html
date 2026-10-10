@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MoveInSync Ratings Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<!-- Tailwind play CDN: no CORS headers, so it cannot carry an SRI hash -->
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  fontFamily: {
+    manrope: ['Manrope', 'system-ui', 'sans-serif'],
+    cabin: ['Cabin', 'system-ui', 'sans-serif'],
+    instrument: ['"Instrument Serif"', 'Georgia', 'serif'],
+    inter: ['Inter', 'system-ui', 'sans-serif'],
+  },
+} } };
+</script>
+<style>
+  :root { color-scheme: dark; }
+  body { background: #0c0916; color: #f4f2fa; }
+  .hero-fallback { background:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(123,57,252,0.55), transparent 60%),
+    radial-gradient(ellipse 70% 60% at 15% 85%, rgba(94,200,242,0.18), transparent 60%),
+    linear-gradient(180deg, #1b1430 0%, #2b2344 55%, #0c0916 100%); }
+  .num { font-variant-numeric: tabular-nums; }
+  @media (prefers-reduced-motion: reduce) { video { display: none; } }
+</style>
+</head>
+<body class="font-inter antialiased">
+<div id="hero"></div>
+<main id="app"></main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js" integrity="sha384-toVdrLSMaw7Y55MowcKqkmFL/Ek6Sky62NOk0b5sDDZBu2wcoPyyQUt9unDVjXhL" crossorigin="anonymous"></script>
+<script>
+/*__HERO_JS__*/
+</script>
+<script>
+let M = /*__METRICS__*/null;
+const REPORT_URL = location.protocol === "file:" ? "../report/index.html" : "report/";
+const REPO_URL = "https://github.com/ankan00V/MoveInRate";
+const POLL_MS = 5 * 60 * 1000;   // check for fresh data every 5 minutes (pipeline refreshes hourly)
+const html = htm.bind(React.createElement);
+const { useState, useEffect } = React;
+
+const pct = (x) => (x == null ? "–" : Math.round(x * 100) + "%");
+const fmt = (n) => Number(n).toLocaleString("en-US");
+const fmtMonth = (m) => new Date(m + "-01T00:00:00").toLocaleDateString("en-GB", { month: "short", year: "numeric" });
+const fmtDate = (d) => new Date(d + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+const fmtStamp = (iso) => new Date(iso).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+const plural = (n, w) => n + " " + w + (n === 1 ? "" : "s");
+
+let a, s, y, rel, b;
+function derive() { a = M.alerts; s = M.store; y = M.last_12m; rel = M.most_relevant; b = M.benchmark; }
+
+// "Updated 12 min ago", ticking on its own so the page never needs a full re-render
+function ago(iso) {
+  const mins = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
+  if (mins < 1) return "just now";
+  if (mins < 60) return mins + " min ago";
+  const h = Math.floor(mins / 60);
+  return h < 48 ? h + " h ago" : Math.floor(h / 24) + " days ago";
+}
+function LiveAgo({ prefix = "Updated ", suffix = "" }) {
+  const [, tick] = useState(0);
+  useEffect(() => { const id = setInterval(() => tick((n) => n + 1), 30000); return () => clearInterval(id); }, []);
+  return html`<span title=${"Generated " + fmtStamp(M.generated_at)}>${prefix}${ago(M.generated_at)}${suffix}</span>`;
+}
+const LiveBadge = () => html`<span className="inline-flex items-center gap-1.5">
+  <span className="relative flex h-1.5 w-1.5"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white"></span></span>Live</span>`;
+
+function renderHero() {
+  mountHero(document.getElementById("hero"), {
+    brand: "MoveInRate",
+    links: [
+      { label: "Overview", href: "#overview" },
+      { label: "Signals", children: [
+        { label: "Needs attention", note: "Release regressions, rising themes, safety", href: "#alerts" },
+        { label: "What reviews are about", note: "Themes by owner, last 12 months", href: "#themes" },
+        { label: "Releases", note: "1★ share per version vs baseline", href: "#releases" },
+      ] },
+      { label: "Trend", href: "#trend" },
+      { label: "Apps", href: "#apps" },
+    ],
+    navSecondary: { label: "Full report", href: REPORT_URL },
+    navPrimary: { label: "Run history", href: REPO_URL + "/actions", external: true },
+    badge: html`<${LiveBadge} />`,
+    tagline: html`<${LiveAgo} suffix=" · Play Store checked hourly" />`,
+    taglineShort: html`<${LiveAgo} />`,
+    headline: ["Know where the rating stands, ", "and", " why it moves"],
+    subtext: "Store rating " + s.score.toFixed(2) + " from " + fmt(s.ratings) + " ratings. Written reviews over the last 12 months average "
+      + y.avg.toFixed(2) + "★, with " + pct(y.one_star) + " at 1★. Right now: " + plural(a.release_regressions.length, "release regression")
+      + ", " + plural(a.spiking_themes.length, "rising theme") + " and " + plural(a.safety_last_30d.length, "safety review") + ".",
+    cta1: { label: "See what needs attention", href: "#alerts" },
+    cta2: { label: "View the code", href: REPO_URL, external: true },
+  });
+}
+
+/* ---------- building blocks ---------- */
+const Section = ({ id, eyebrow, title, children, aside }) => html`
+  <section id=${id} className="scroll-mt-6 py-14 border-t border-[#2a2340] first:border-t-0">
+    <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
+      <div>
+        <p className="font-manrope font-semibold text-[12px] uppercase tracking-[0.1em] text-[#a39cb8] m-0">${eyebrow}</p>
+        <h2 className="font-instrument font-normal text-[40px] leading-[1.1] text-white mt-2 mb-0">${title}</h2>
+      </div>
+      ${aside}
+    </div>
+    ${children}
+  </section>`;
+
+const Card = ({ className = "", children }) => html`
+  <div className=${"rounded-[10px] bg-[#151026] border border-[#2a2340] " + className}>${children}</div>`;
+
+const Tag = ({ tone = "neutral", children }) => {
+  const tones = {
+    app: "border border-[#7b39fc] text-[#b994ff]",
+    ops: "border border-[#5ec8f2] text-[#5ec8f2]",
+    neutral: "bg-[#231c3a] text-[#d6d0e6]",
+    bad: "bg-[#ff7b6b] text-[#1a0d0b]",
+    warn: "bg-[#f0ac3a] text-[#1b1404]",
+  };
+  return html`<span className=${"inline-block whitespace-nowrap rounded-[6px] px-2 py-[3px] font-cabin font-medium text-[12px] " + tones[tone]}>${children}</span>`;
+};
+
+const Kpi = ({ label, value, unit, detail, tone }) => html`
+  <${Card} className="p-5 flex flex-col gap-2 min-w-0">
+    <span className="font-manrope font-semibold text-[11px] uppercase tracking-[0.1em] text-[#a39cb8]">${label}</span>
+    <span className=${"font-instrument text-[44px] leading-none num " + (tone === "bad" ? "text-[#ff7b6b]" : tone === "good" ? "text-[#b994ff]" : "text-white")}>
+      ${value}${unit && html`<span className="text-[22px] text-white/50 ml-0.5">${unit}</span>`}</span>
+    <span className="font-inter text-[13px] leading-snug text-white/60">${detail}</span>
+  <//>`;
+
+/* ---------- trend chart ---------- */
+function Trend() {
+  const rows = M.monthly, W = 900, H = 260, L = 44, R = 12, T = 14, B = 30, iw = W - L - R, ih = H - T - B;
+  const x = (i) => L + (i / (rows.length - 1)) * iw, yv = (v) => T + ih - v * ih;
+  const line = (k) => rows.map((r, i) => (i ? "L" : "M") + x(i) + "," + yv(r[k])).join(" ");
+  const area = "M" + x(0) + "," + yv(0) + " " + rows.map((r, i) => "L" + x(i) + "," + yv(r.reply_rate)).join(" ") + " L" + x(rows.length - 1) + "," + yv(0) + " Z";
+  const last = rows[rows.length - 1];
+  return html`
+    <${Card} className="p-5">
+      <div className="flex flex-wrap gap-5 mb-3 font-manrope text-[13px] text-white/70">
+        <span className="inline-flex items-center gap-2"><i className="inline-block w-3 h-3 rounded-sm bg-[#ff7b6b]"></i>Share of written reviews that are 1★</span>
+        <span className="inline-flex items-center gap-2"><i className="inline-block w-3 h-3 rounded-sm bg-[#7b39fc] opacity-70"></i>Share of reviews with a developer reply</span>
+      </div>
+      <div className="overflow-x-auto">
+        <svg viewBox=${"0 0 " + W + " " + H} className="block w-full h-auto min-w-[560px]" role="img" aria-label="Monthly 1-star share and reply rate">
+          ${[0, 0.25, 0.5, 0.75, 1].map((v) => html`<g key=${v}>
+            <line x1=${L} x2=${W - R} y1=${yv(v)} y2=${yv(v)} stroke="#2a2340" />
+            <text x=${L - 8} y=${yv(v) + 4} textAnchor="end" fill="#a39cb8" fontSize="11" fontFamily="Manrope">${Math.round(v * 100)}%</text></g>`)}
+          ${rows.map((r, i) => r.month.endsWith("-01") && html`<text key=${r.month} x=${x(i)} y=${H - 8} textAnchor="middle" fill="#a39cb8" fontSize="11" fontFamily="Manrope">Jan ${r.month.slice(0, 4)}</text>`)}
+          <path d=${area} fill="#7b39fc" opacity="0.35" />
+          <path d=${line("reply_rate")} fill="none" stroke="#7b39fc" strokeWidth="1.5" />
+          <path d=${line("one_star")} fill="none" stroke="#ff7b6b" strokeWidth="2" />
+          <circle cx=${x(rows.length - 1)} cy=${yv(last.one_star)} r="4" fill="#ff7b6b" />
+          <text x=${x(rows.length - 1) - 8} y=${yv(last.one_star) - 10} textAnchor="end" fill="#f4f2fa" fontSize="12" fontFamily="Inter">${pct(last.one_star)} 1★ in ${fmtMonth(last.month)}</text>
+        </svg>
+      </div>
+    <//>`;
+}
+
+/* ---------- page ---------- */
+// One example per theme, never repeating a quote already shown higher up the table
+let usedQuotes = new Set();
+let exampleCache = {};
+function exampleFor(t) {
+  if (t.key in exampleCache) return exampleCache[t.key];
+  const q = t.quotes.find((q) => !usedQuotes.has(q.text));
+  if (q) usedQuotes.add(q.text);
+  return (exampleCache[t.key] = q ? q.text : "");
+}
+
+function Dashboard() {
+  const maxShare = Math.max(...M.themes.map((t) => Math.max(t.share_of_negative, t.share_last_30d)));
+  const releases = M.releases.filter((r) => r.reviews >= 10).slice(-12).reverse();
+  const alertsEmpty = !a.release_regressions.length && !a.spiking_themes.length && !a.safety_last_30d.length;
+
+  return html`
+  <div className="px-6 lg:px-[120px] pb-20">
+    <${Section} id="overview" eyebrow="Overview" title="This week in numbers">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+        <${Kpi} label="Store rating" value=${s.score.toFixed(2)} detail=${fmt(s.ratings) + " ratings · v" + s.version} />
+        <${Kpi} label="Written, 12 mo" value=${y.avg.toFixed(2)} unit="★" tone="bad" detail=${fmt(y.reviews) + " reviews · " + pct(y.one_star) + " are 1★"} />
+        <${Kpi} label=${"Most relevant, top " + rel.n} value=${rel.avg.toFixed(1)} unit="★" tone=${rel.avg < 3 ? "bad" : "good"} detail=${pct(rel.one_or_two_star) + " are 1–2★ · " + pct(rel.reply_rate) + " replied"} />
+        <${Kpi} label="Reply rate, 12 mo" value=${pct(y.reply_rate)} tone=${y.reply_rate < 0.5 ? "bad" : "good"} detail="Target: 90% of 1–3★ within 48 hours" />
+        <${Kpi} label="Benchmark" value=${b.score.toFixed(2)} detail=${b.title + " · " + pct(b.last_12m_reply_rate) + " replied"} />
+      </div>
+    <//>
+
+    <${Section} id="alerts" eyebrow="Signals" title="Needs attention">
+      <div className="flex flex-col gap-3">
+        ${alertsEmpty && html`<${Card} className="p-5 border-l-4 border-l-[#b994ff]"><p className="m-0 text-white/80">No release regressions, rising themes or safety reviews this week.</p><//>`}
+        ${a.release_regressions.map((r) => html`
+          <${Card} key=${r.version} className="p-5 border-l-4 border-l-[#ff7b6b]">
+            <div className="flex flex-wrap items-center gap-2 mb-2"><${Tag} tone="bad">Release regression<//><span className="font-manrope font-bold text-white">v${r.version}</span>
+              <span className="font-manrope text-[13px] text-white/60">since ${fmtDate(r.first_seen)} · ${r.reviews} reviews</span></div>
+            <p className="m-0 text-white/80 text-[15px]">1★ share is <strong className="text-white num">${pct(r.one_star)}</strong> against a <span className="num">${pct(r.baseline_one_star)}</span> baseline. Top issues: ${r.top_negative_themes.join(", ")}.</p>
+          <//>`)}
+        ${a.spiking_themes.length > 0 && html`
+          <${Card} className="p-5 border-l-4 border-l-[#f0ac3a]">
+            <div className="mb-3"><${Tag} tone="warn">Rising in the last 30 days<//></div>
+            <div className="flex flex-wrap gap-2">${a.spiking_themes.map((t) => html`<${Tag} key=${t}>${t}<//>`)}</div>
+          <//>`}
+        ${a.safety_last_30d.map((r, i) => html`
+          <${Card} key=${i} className="p-5 border-l-4 border-l-[#ff7b6b]">
+            <div className="flex flex-wrap items-center gap-2 mb-2"><${Tag} tone="bad">Safety · route to Ops today<//><span className="font-manrope text-[13px] text-white/60">${fmtDate(r.date)} · ${r.stars}★</span></div>
+            <p className="m-0 italic text-white/70 text-[15px]">“${r.text}”</p>
+          <//>`)}
+      </div>
+    <//>
+
+    <${Section} id="trend" eyebrow="Trend" title="Monthly 1★ share and reply rate"><${Trend} /><//>
+
+    <${Section} id="themes" eyebrow="Signals" title="What negative reviews are about"
+      aside=${html`<span className="font-manrope text-[13px] text-white/60">1–2★ reviews, last 12 months · n = ${fmt(y.negative)}</span>`}>
+      <${Card} className="overflow-x-auto">
+        <table className="w-full min-w-[860px] border-collapse text-left text-[14px]">
+          <thead><tr className="font-manrope text-[11px] uppercase tracking-[0.1em] text-[#a39cb8]">
+            <th className="font-semibold whitespace-nowrap px-4 py-3">Theme</th><th className="font-semibold whitespace-nowrap px-4 py-3">Owner</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Reviews</th><th className="font-semibold whitespace-nowrap px-4 py-3 w-[200px]">Share, 12 mo</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Prior 180d</th><th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Last 30d</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3">Most upvoted example</th></tr></thead>
+          <tbody>${M.themes.map((t) => html`
+            <tr key=${t.key} className="border-t border-[#2a2340] align-middle">
+              <td className="px-4 py-3 text-white font-medium">${t.label}</td>
+              <td className="px-4 py-3">${t.owner === "app" ? html`<${Tag} tone="app">App<//>` : t.owner === "ops" ? html`<${Tag} tone="ops">Ops<//>`   : html`<${Tag}>Unclear<//>`}</td>
+              <td className="px-4 py-3 text-right num text-white/80">${t.reviews}</td>
+              <td className="px-4 py-3"><div className="flex items-center gap-2">
+                <div className="h-2 flex-1 rounded-full bg-[#231c3a] overflow-hidden"><div className=${"h-full rounded-full " + (t.owner === "ops" ? "bg-[#5ec8f2]" : t.owner === "app" ? "bg-[#7b39fc]" : "bg-white/30")} style=${{ width: (t.share_of_negative / maxShare) * 100 + "%" }}></div></div>
+                <span className="num text-white/80 w-10 text-right">${pct(t.share_of_negative)}</span></div></td>
+              <td className="px-4 py-3 text-right num text-white/60">${pct(t.share_trailing_180d)}</td>
+              <td className="px-4 py-3 text-right"><span className="num text-white/80">${pct(t.share_last_30d)}</span>${t.spiking && html` <${Tag} tone="warn">Rising<//>`}</td>
+              <td className="px-4 py-3 italic text-white/55 text-[13px] w-[300px]"><span className="line-clamp-2">${exampleFor(t) ? "“" + exampleFor(t) + "”" : ""}</span></td>
+            </tr>`)}</tbody>
+        </table>
+      <//>
+    <//>
+
+    <${Section} id="releases" eyebrow="Signals" title="Releases"
+      aside=${html`<span className="font-manrope text-[13px] text-white/60 max-w-[420px]">Regression: 1★ share 8+ points above the 90 days before release (20+ reviews). Watch: 5–8 points.</span>`}>
+      <${Card} className="overflow-x-auto">
+        <table className="w-full min-w-[760px] border-collapse text-left text-[14px]">
+          <thead><tr className="font-manrope text-[11px] uppercase tracking-[0.1em] text-[#a39cb8]">
+            <th className="font-semibold whitespace-nowrap px-4 py-3">Version</th><th className="font-semibold whitespace-nowrap px-4 py-3">First seen</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Reviews</th><th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Avg</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3 text-right">1★</th><th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Baseline 1★</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3">Status</th><th className="font-semibold whitespace-nowrap px-4 py-3">Top negative themes</th></tr></thead>
+          <tbody>${releases.map((r) => html`
+            <tr key=${r.version} className="border-t border-[#2a2340] align-middle">
+              <td className="px-4 py-3 font-manrope font-bold text-white whitespace-nowrap">${r.version}</td>
+              <td className="px-4 py-3 text-white/70 whitespace-nowrap">${fmtDate(r.first_seen)}</td>
+              <td className="px-4 py-3 text-right num text-white/80">${r.reviews}</td>
+              <td className="px-4 py-3 text-right num text-white/80">${r.avg.toFixed(2)}</td>
+              <td className=${"px-4 py-3 text-right num " + (r.regression ? "text-[#ff7b6b] font-semibold" : "text-white/80")}>${pct(r.one_star)}</td>
+              <td className="px-4 py-3 text-right num text-white/60">${pct(r.baseline_one_star)}</td>
+              <td className="px-4 py-3">${r.regression ? html`<${Tag} tone="bad">Regression<//>` : r.watch ? html`<${Tag} tone="warn">Watch<//>` : html`<span className="text-white/40">–</span>`}</td>
+              <td className="px-4 py-3 text-white/60 text-[13px]">${r.top_negative_themes.join(", ")}</td>
+            </tr>`)}</tbody>
+        </table>
+      <//>
+    <//>
+
+    <${Section} id="apps" eyebrow="Context" title="Other MoveInSync apps and the benchmark">
+      <${Card} className="overflow-x-auto">
+        <table className="w-full min-w-[560px] border-collapse text-left text-[14px]">
+          <thead><tr className="font-manrope text-[11px] uppercase tracking-[0.1em] text-[#a39cb8]">
+            <th className="font-semibold whitespace-nowrap px-4 py-3">App</th><th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Rating</th>
+            <th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Ratings</th><th className="font-semibold whitespace-nowrap px-4 py-3 text-right">Installs</th></tr></thead>
+          <tbody>
+            <tr className="border-t border-[#2a2340]"><td className="px-4 py-3 text-white font-medium">${s.title} (employee app)</td><td className="px-4 py-3 text-right num">${s.score.toFixed(2)}</td><td className="px-4 py-3 text-right num text-white/70">${fmt(s.ratings)}</td><td className="px-4 py-3 text-right text-white/70">${s.installs}</td></tr>
+            ${M.other_apps.map((o) => html`<tr key=${o.app_id} className="border-t border-[#2a2340]"><td className="px-4 py-3 text-white">${o.title}</td><td className="px-4 py-3 text-right num">${o.score ? o.score.toFixed(2) : "–"}</td><td className="px-4 py-3 text-right num text-white/70">${fmt(o.ratings || 0)}</td><td className="px-4 py-3 text-right text-white/70">${o.installs}</td></tr>`)}
+            <tr className="border-t border-[#2a2340]"><td className="px-4 py-3 text-white">${b.title} <${Tag}>Benchmark<//></td><td className="px-4 py-3 text-right num">${b.score.toFixed(2)}</td><td className="px-4 py-3 text-right num text-white/70">${fmt(b.ratings)}</td><td className="px-4 py-3 text-right text-white/40">–</td></tr>
+          </tbody>
+        </table>
+      <//>
+    <//>
+
+    <footer className="pt-8 border-t border-[#2a2340] font-manrope text-[13px] text-white/50 flex flex-wrap gap-x-6 gap-y-2">
+      <span>Data generated ${fmtStamp(M.generated_at)} · <${LiveAgo} prefix="" /></span>
+      <span>Source: public Google Play reviews and listings (India, English)</span>
+      <span>Themes: rule-based classifier in pipeline/taxonomy.py</span>
+      <span>Reply queue: data/triage_queue.csv</span>
+    </footer>
+  </div>`;
+}
+
+const appRoot = ReactDOM.createRoot(document.getElementById("app"));
+function renderAll() {
+  derive();
+  usedQuotes = new Set();
+  exampleCache = {};
+  renderHero();
+  appRoot.render(html`<${Dashboard} version=${M.generated_at} />`);
+}
+renderAll();
+
+// Live updates: pick up each hourly refresh without a reload
+async function refresh() {
+  try {
+    const res = await fetch("metrics.json?t=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) return;
+    const next = await res.json();
+    if (next.generated_at !== M.generated_at) { M = next; renderAll(); }
+  } catch (e) { /* offline or opened as a local file: keep showing the embedded data */ }
+}
+setInterval(refresh, POLL_MS);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) refresh(); });
+</script>
+</body>
+</html>

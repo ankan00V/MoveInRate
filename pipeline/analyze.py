@@ -19,6 +19,7 @@ BENCH = "in.mtap.iincube.safetrax.commuter"
 # Alert thresholds (tune with the team)
 RELEASE_MIN_REVIEWS = 20          # don't judge a release on fewer reviews than this
 RELEASE_ONE_STAR_DELTA = 0.08     # flag if 1-star share is 8pp above trailing baseline
+RELEASE_WATCH_DELTA = 0.05       # mark "watch" from 5pp up to the flag line
 THEME_SPIKE_RATIO = 1.5           # flag theme if last-30d share >= 1.5x trailing 180d share
 SAFETY_PATTERN = r"safety|unsafe|not safe|harass|misbehav|molest|drunk|rash driv|abusive|threat|sos"
 
@@ -93,11 +94,12 @@ def main():
         first = g["at"].min()
         base = df[(df["at"] < first) & (df["at"] >= first - pd.Timedelta(days=90))]
         one, base_one = (g.score == 1).mean(), (base.score == 1).mean() if len(base) else None
-        top = g[g.score <= 2].explode("tags").tags.value_counts().head(3).index.tolist()
+        top = g[g.score <= 2].explode("tags").tags.value_counts().drop("unspecified", errors="ignore").head(3).index.tolist()
         releases.append({
             "version": str(ver), "first_seen": str(first.date()), "reviews": len(g), "avg": g.score.mean(),
             "one_star": one, "baseline_one_star": base_one,
             "regression": bool(len(g) >= RELEASE_MIN_REVIEWS and base_one is not None and one - base_one >= RELEASE_ONE_STAR_DELTA),
+            "watch": bool(len(g) >= RELEASE_MIN_REVIEWS and base_one is not None and RELEASE_WATCH_DELTA <= one - base_one < RELEASE_ONE_STAR_DELTA),
             "top_negative_themes": [LABELS[t] for t in top],
         })
     releases.sort(key=lambda r: r["first_seen"])
@@ -118,7 +120,7 @@ def main():
                            "installs": a["installs"]})
 
     out = {
-        "generated_at": pd.Timestamp.now().isoformat(timespec="minutes"),
+        "generated_at": pd.Timestamp.now(tz="UTC").isoformat(timespec="minutes"),
         "data_through": str(now.date()),
         "store": {"title": meta["title"], "score": meta["score"], "ratings": meta["ratings"],
                   "reviews": meta["reviews"], "installs": meta["installs"], "version": meta.get("version"),
