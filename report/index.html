@@ -26,6 +26,7 @@ tailwind.config = {
   --bg: #0c0916;
   --surface: #151026;
   --ink: #f4f2fa;
+  --text: #d4cfe2;      /* running text */
   --muted: #a39cb8;
   --rule: #2a2340;
   --accent: #a684ff;      /* readable purple on dark */
@@ -43,114 +44,154 @@ tailwind.config = {
 }
 
 * { box-sizing: border-box; }
-body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: var(--step-0); line-height: 1.6; }
-.wrap { max-width: 60rem; margin: 0 auto; padding-inline: 1.25rem; padding-block: 3.5rem 4rem; }
-.col { max-width: 42rem; }
-h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; text-wrap: balance; margin: 0; font-weight: 400; }
-h1 { font-size: var(--step-4); font-weight: 700; letter-spacing: -0.02em; }
-h2 { font-size: var(--step-3); font-weight: 400; letter-spacing: -0.005em; }
-h2 em { font-style: italic; }
-h3 { font-family: var(--font-data); font-size: var(--step-1); font-weight: 700; letter-spacing: -0.01em; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
 p { margin: 0; }
-a { color: var(--accent); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: #c4adff; }
 strong { color: var(--ink); font-weight: 600; }
-.memo-meta a { color: var(--accent); }
-.eyebrow { font-family: var(--font-data); font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.25rem, 1.6rem + 1.6vw, 3.25rem); line-height: 1.08; letter-spacing: -0.01em; color: var(--ink); }
+h3 { font-family: var(--font-data); font-weight: 700; font-size: 1.25rem; line-height: 1.35; letter-spacing: -0.01em; color: var(--ink); }
+code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.85em; background: var(--chip); padding: 0.1rem 0.4rem; border-radius: 6px; color: var(--ink); }
+pre { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.8125rem; line-height: 1.7; background: #0f0b1d; border: 1px solid var(--rule); border-radius: 12px; padding: 1.25rem 1.5rem; overflow-x: auto; margin: 0; color: #d9d4e8; }
 .num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+.eyebrow { font-family: var(--font-data); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.fine { font-size: 0.875rem; line-height: 1.65; color: var(--muted); }
 .stack { display: flex; flex-direction: column; gap: 1rem; }
-section { display: flex; flex-direction: column; gap: 1.25rem; padding-block: 2.75rem; border-top: 1px solid var(--rule); }
 
-/* Header */
-.memo-head { display: flex; flex-direction: column; gap: 1.25rem; padding-bottom: 2rem; }
-.memo-meta { display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 1rem; font-size: var(--step--1); color: var(--muted); }
-.memo-meta dt { font-family: var(--font-data); text-transform: uppercase; letter-spacing: 0.06em; }
-.memo-meta dd { margin: 0; color: var(--ink); }
-.lede { font-size: var(--step-1); max-width: 40rem; }
+/* Page frame: same side gutters as the hero navbar */
+.wrap { max-width: 1440px; margin: 0 auto; padding-inline: 24px; padding-block: 0 2rem; }
+@media (min-width: 1024px) { .wrap { padding-inline: 120px; } }
 
-/* Summary */
-.summary { background: linear-gradient(180deg, rgba(123,57,252,0.14), rgba(123,57,252,0.04)); border: 1px solid rgba(164,132,215,0.35); border-radius: 10px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
-.summary ol { margin: 0; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
-.summary ol { list-style: decimal; }
-.summary li::marker { font-family: var(--font-data); color: var(--accent); font-weight: 700; }
-.ticket ul, ul.stack { list-style: disc; }
+/* Document header */
+.doc-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+.doc-meta > div { display: flex; flex-direction: column; gap: 0.4rem; padding: 2.25rem 2rem 2.25rem 0; min-width: 0; }
+.doc-meta > div + div { padding-left: 2rem; border-left: 1px solid var(--rule); }
+.doc-meta .label { font-family: var(--font-data); font-weight: 700; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.doc-meta .value { font-size: 0.9375rem; line-height: 1.55; color: var(--ink); }
 
-/* KPI strip */
-.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
-.kpi { background: var(--surface); padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
-.kpi .v { font-family: var(--font-display); font-size: 2.75rem; font-weight: 400; line-height: 1; }
-.kpi .v small { font-size: var(--step-0); color: var(--muted); font-weight: 500; }
-.kpi .d { font-size: var(--step--1); color: var(--muted); }
+/* Sections: title column (sticky) + content column */
+.sec { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding-block: 6rem; border-bottom: 1px solid var(--rule); }
+.sec-head { display: flex; flex-direction: column; gap: 1.25rem; max-width: 40rem; }
+.sec-head p:not(.eyebrow) { color: var(--text); }
+.sec-body { display: flex; flex-direction: column; gap: 2rem; min-width: 0; }
+.sec-body { container-type: inline-size; }
+@media (min-width: 1100px) {
+  .sec { grid-template-columns: 320px minmax(0, 1fr); gap: 5rem; }
+  .sec-head { position: sticky; top: 2.5rem; align-self: start; }
+}
+
+/* What to do first */
+.first-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; counter-reset: first; }
+.first-card { counter-increment: first; position: relative; display: flex; flex-direction: column; gap: 0.75rem; padding: 1.75rem; border-radius: 14px; background: linear-gradient(180deg, rgba(123,57,252,0.12), rgba(123,57,252,0.03)); border: 1px solid rgba(164,132,215,0.28); }
+.first-card::before { content: counter(first, decimal-leading-zero); position: absolute; top: 1.5rem; right: 1.75rem; font-family: var(--font-display); font-size: 1.75rem; line-height: 1; color: rgba(185,148,255,0.5); }
+.first-card p { font-size: 0.9375rem; line-height: 1.65; color: var(--text); }
+
+/* KPIs */
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.kpi { display: flex; flex-direction: column; gap: 0.6rem; padding: 1.5rem; border-radius: 14px; background: var(--surface); border: 1px solid var(--rule); min-width: 0; }
+.kpi .eyebrow { color: var(--muted); font-size: 0.6875rem; }
+.kpi .v { font-family: var(--font-display); font-size: 3rem; font-weight: 400; line-height: 1; color: var(--ink); }
+.kpi .v small { font-size: 1.25rem; color: var(--muted); margin-left: 0.1rem; }
+.kpi .d { font-size: 0.875rem; line-height: 1.5; color: var(--muted); }
 .kpi.bad .v { color: var(--bad); }
-.kpi.good .v { color: var(--accent); }
 
-/* Figures */
-figure { margin: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
-figcaption { font-size: var(--step--1); color: var(--muted); }
+/* Figures and charts */
+figure { margin: 0; display: flex; flex-direction: column; gap: 1rem; padding: 1.75rem; border-radius: 14px; background: var(--surface); border: 1px solid var(--rule); min-width: 0; }
+figcaption { font-size: 0.875rem; line-height: 1.6; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-family: var(--font-data); font-size: 0.8125rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 0.5rem; }
+.legend i { width: 0.75rem; height: 0.75rem; border-radius: 3px; display: inline-block; }
 .chart { width: 100%; overflow-x: auto; }
 .chart svg { display: block; width: 100%; height: auto; min-width: 34rem; }
 .chart text { fill: var(--muted); font-family: var(--font-data); font-size: 11px; }
 .chart .grid { stroke: var(--rule); stroke-width: 1; }
 .chart .line-bad { fill: none; stroke: var(--bad); stroke-width: 2; }
 .chart .area-reply { fill: var(--primary); opacity: 0.35; }
-.chart .line-reply { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+.chart .line-reply { fill: none; stroke: #9a6bff; stroke-width: 1.5; }
 .chart .dot-bad { fill: var(--bad); }
 .chart .bar-app { fill: var(--primary); }
 .chart .bar-ops { fill: var(--ops); }
-.chart .bar-gen { fill: var(--muted); opacity: 0.45; }
+.chart .bar-gen { fill: var(--muted); opacity: 0.4; }
 .chart .tick30 { stroke: var(--signal); stroke-width: 3; }
 .chart .lbl { fill: var(--ink); font-family: var(--font-body); font-size: 12px; }
-.chart .s1 { fill: var(--bad); } .chart .s2 { fill: var(--bad); opacity: .55; } .chart .s3 { fill: var(--muted); opacity: .45; } .chart .s4 { fill: var(--primary); opacity: .55; } .chart .s5 { fill: var(--primary); }
-.legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: var(--step--1); color: var(--muted); }
-.legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
-.legend i { width: 0.8rem; height: 0.8rem; border-radius: 2px; display: inline-block; }
+#split svg { max-width: 460px; margin-inline: auto; }
+.chart .s1 { fill: var(--bad); } .chart .s2 { fill: var(--bad); opacity: .55; } .chart .s3 { fill: var(--muted); opacity: .45; } .chart .s4 { fill: var(--primary); opacity: .6; } .chart .s5 { fill: var(--primary); }
 
-.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1rem; }
-.callout { border-left: 3px solid var(--signal); padding: 0.25rem 0 0.25rem 1rem; }
-.callout strong { color: var(--ink); }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: start; }
+.callout { display: flex; flex-direction: column; gap: 1.25rem; padding: 1.75rem; border-radius: 14px; background: var(--surface); border: 1px solid var(--rule); box-shadow: inset 3px 0 0 var(--signal); }
+.callout p { font-size: 0.9375rem; line-height: 1.7; }
+.panel { display: flex; flex-direction: column; gap: 1rem; padding: 1.75rem; border-radius: 14px; background: var(--surface); border: 1px solid var(--rule); }
+.panel ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.75rem; list-style: disc; }
+.panel li { font-size: 0.9375rem; line-height: 1.65; }
+.panel li::marker { color: var(--accent); }
+.panel > p { font-size: 0.9375rem; line-height: 1.7; }
+.panel > p.fine { font-size: 0.875rem; }
+.stack-lg { display: flex; flex-direction: column; gap: 1rem; }
+.panel ul.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem 2.5rem; padding-left: 1.1rem; }
+@container (max-width: 700px) { .panel ul.cols { grid-template-columns: minmax(0, 1fr); } }
 
-/* Ticket queue */
-.phase { display: flex; flex-direction: column; gap: 0.9rem; }
-.phase-head { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
-.pill { font-family: var(--font-tag); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; padding: 0.15rem 0.5rem; border-radius: 3px; background: var(--chip); color: var(--ink); white-space: nowrap; }
+/* Tags */
+.pill { display: inline-flex; align-items: center; font-family: var(--font-tag); font-weight: 500; font-size: 0.8125rem; line-height: 1; padding: 0.4rem 0.65rem; border-radius: 6px; background: var(--chip); color: var(--ink); white-space: nowrap; }
 .pill.p0 { background: var(--bad); color: #1a0d0b; }
 .pill.p1 { background: var(--signal); color: #1b1404; }
 .pill.p2 { background: var(--primary); color: #fafafa; }
-.pill.own-app { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
-.pill.own-ops { background: transparent; border: 1px solid var(--ops); color: var(--ops); }
-.pill.own-cs { background: transparent; border: 1px solid var(--muted); color: var(--muted); }
-.ticket { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem; display: grid; grid-template-columns: 2.5rem 1fr; gap: 0 1rem; }
-.ticket .rank { font-family: var(--font-display); font-size: 2.75rem; font-weight: 400; color: var(--accent); line-height: 1; }
-.ticket .body { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
-.ticket .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.ticket dl { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.5rem 1rem; margin: 0; font-size: 0.9375rem; }
-.ticket dt { font-family: var(--font-data); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding-top: 0.2rem; }
-.ticket dd { margin: 0; min-width: 0; }
-.ticket ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.3rem; }
-blockquote { margin: 0; font-style: italic; color: var(--muted); font-size: 0.9375rem; }
-blockquote + blockquote { margin-top: 0.35rem; }
-blockquote cite { font-style: normal; font-family: var(--font-data); font-size: 0.6875rem; }
+.pill.own-app { background: rgba(123,57,252,0.14); box-shadow: inset 0 0 0 1px rgba(164,132,255,0.55); color: #c9b2ff; }
+.pill.own-ops { background: rgba(94,200,242,0.1); box-shadow: inset 0 0 0 1px rgba(94,200,242,0.55); color: var(--ops); }
+.pill.own-cs { background: rgba(255,255,255,0.05); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25); color: var(--text); }
+
+/* Ticket queue */
+.phase { display: flex; flex-direction: column; gap: 1rem; }
+.phase + .phase { margin-top: 2.5rem; }
+.phase-head { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; padding-bottom: 0.25rem; }
+.phase-head .fine { font-size: 0.9375rem; }
+.ticket { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 0 1.25rem; padding: 2rem 2.25rem 2.25rem 1.75rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--rule); }
+.ticket .rank { font-family: var(--font-display); font-size: 3.5rem; line-height: 0.9; color: var(--accent); text-align: center; }
+.ticket .body { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+.ticket h3 { font-size: 1.375rem; }
+.ticket .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ticket dl { margin: 0.5rem 0 0; display: flex; flex-direction: column; border-top: 1px solid var(--rule); }
+.ticket dt { font-family: var(--font-data); font-weight: 700; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-top: 1.25rem; }
+.ticket dd { margin: 0.5rem 0 0; font-size: 0.9375rem; line-height: 1.7; color: var(--text); }
+.ticket ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.6rem; list-style: disc; }
+.ticket li::marker { color: var(--accent); }
+blockquote { margin: 0.9rem 0 0; padding: 0.9rem 1.15rem; border-left: 2px solid var(--primary); border-radius: 0 10px 10px 0; background: rgba(123,57,252,0.07); font-style: italic; color: #d8d0ee; font-size: 0.9375rem; line-height: 1.6; }
+blockquote cite { display: block; margin-top: 0.4rem; font-style: normal; font-family: var(--font-data); font-size: 0.75rem; color: var(--muted); }
 
 /* Tables */
-.tbl { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+.tbl { overflow-x: auto; border-radius: 14px; background: var(--surface); border: 1px solid var(--rule); }
 table { border-collapse: collapse; width: 100%; font-size: 0.9375rem; }
-th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
-th { font-family: var(--font-data); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+th, td { text-align: left; padding: 1rem 1.25rem; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+th { font-family: var(--font-data); font-weight: 700; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
 tr:last-child td { border-bottom: 0; }
 td.r, th.r { text-align: right; font-family: var(--font-data); font-variant-numeric: tabular-nums; white-space: nowrap; }
-tr.hl td { background: var(--chip); }
+tr.hl td { background: rgba(123,57,252,0.12); color: var(--ink); }
+tr.hl td:first-child { box-shadow: inset 3px 0 0 var(--primary); }
 
-code { font-family: var(--font-data); font-size: 0.875em; background: var(--chip); padding: 0.05rem 0.3rem; border-radius: 3px; }
-pre { font-family: var(--font-data); font-size: 0.8125rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 1rem; overflow-x: auto; margin: 0; }
-.fine { font-size: var(--step--1); color: var(--muted); }
-footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
+.rise { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.rise li { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.7rem 0; border-top: 1px solid var(--rule); font-size: 0.9375rem; }
+.rise li:first-child { border-top: 0; padding-top: 0.25rem; }
+.rise li span:first-child { display: inline-flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.rise .num { color: var(--muted); white-space: nowrap; }
+.rise .num strong { color: var(--signal); }
+footer.doc-foot { padding-block: 3rem 2rem; font-size: 0.8125rem; color: var(--muted); }
 
-@media (max-width: 44rem) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 34rem) {
-  .ticket { grid-template-columns: 1fr; }
-  .ticket .rank { font-size: var(--step-2); margin-bottom: 0.5rem; }
-  .ticket dl { grid-template-columns: 1fr; gap: 0.15rem; }
-  .ticket dd { margin-bottom: 0.5rem; }
-  h1 { font-size: var(--step-3); }
+@media (max-width: 1099px) { .sec { padding-block: 4.5rem; } }
+@container (max-width: 880px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .two, .first-grid { grid-template-columns: minmax(0, 1fr); }
+  .doc-meta { grid-template-columns: minmax(0, 1fr); }
+  .doc-meta > div { padding: 1.25rem 0; }
+  .doc-meta > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule); }
+}
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .ticket { grid-template-columns: minmax(0, 1fr); padding: 1.5rem; }
+  .ticket .rank { text-align: left; font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .kpi .v { font-size: 2.5rem; }
+  figure, .callout, .panel, .first-card { padding: 1.25rem; }
 }
 
 /* Hero */
@@ -174,34 +215,41 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
 
 <div class="wrap">
 
-<dl class="memo-strip">
-  <dt>For</dt><dd>Product, Engineering, Customer Success · MoveInSync</dd>
-  <dt>From</dt><dd>Ankan Ghosh · <a href="https://github.com/ankan00V/MoveInRate">github.com/ankan00V/MoveInRate</a></dd>
-  <dt>Data</dt><dd>All 24,314 public Play Store reviews of the MoveInSync employee app (<code>com.moveinsync.ets</code>), March 2014 – 9 Oct 2026, plus store metadata for every MoveInSync app and one competitor</dd>
-</dl>
-
-<div class="summary">
-  <p class="eyebrow">What to do first</p>
-  <ol>
-    <li><strong>This week:</strong> stop the unskippable trip-rating screen and review nags. They send annoyed users straight to the Play Store, and complaints about them doubled in the last 30 days.</li>
-    <li><strong>This week:</strong> fix the false <em>"app not installed from Play Store"</em> lockout. It caused 9% of negative reviews in the last 30 days, up from 2%.</li>
-    <li><strong>This week:</strong> restart replying to reviews, with real answers this time. The reply rate fell from about 95% to 3% in mid-2024, and the first reviews a store visitor sees average 1.4★.</li>
-    <li><strong>Next two sprints:</strong> keep people signed in, open straight to an offline-cached "today's trip" card, and gate every release on review signals with a staged rollout.</li>
-  </ol>
-  <p class="fine">Halving the app-caused 1–2★ reviews takes the estimated rating from about 4.68 to about 4.74, which passes Safetrax at 4.72 (<a href="#impact">model and assumptions</a>). The pipeline behind this memo re-runs every hour, so the question "how are our Play Store ratings?" has a <a href="https://ankan00v.github.io/MoveInRate/">live answer</a> (<a href="#monitor">how</a>).</p>
+<div class="doc-meta">
+  <div><span class="label">Prepared for</span><span class="value">Product, Engineering and Customer Success, MoveInSync</span></div>
+  <div><span class="label">Prepared by</span><span class="value">Ankan Ghosh · <a href="https://github.com/ankan00V/MoveInRate">github.com/ankan00V/MoveInRate</a></span></div>
+  <div><span class="label">Data</span><span class="value">24,314 public Play Store reviews of the employee app (<code>com.moveinsync.ets</code>), Mar 2014 – 9 Oct 2026</span></div>
 </div>
 
-<section id="where">
-  <div class="col stack">
+<section id="first" class="sec">
+  <header class="sec-head">
+    <p class="eyebrow">Summary</p>
+    <h2>What to do first</h2>
+    <p>Halving the app-caused 1–2★ reviews takes the estimated rating from about 4.68 to about 4.74, past Safetrax at 4.72 (<a href="#impact">model</a>).</p>
+    <p class="fine">The pipeline behind this memo re-runs every hour, so “how are our Play Store ratings?” has a <a href="https://ankan00v.github.io/MoveInRate/">live answer</a>.</p>
+  </header>
+  <div class="sec-body">
+    <ol class="first-grid">
+      <li class="first-card"><span><span class="pill p0">This week</span></span><h3>Make trip feedback skippable</h3><p>The unskippable rating screen and review nags send annoyed users straight to the Play Store. Complaints about them doubled in the last 30 days.</p></li>
+      <li class="first-card"><span><span class="pill p0">This week</span></span><h3>Fix the false install lockout</h3><p>The “app not installed from Play Store” error locks users out. It caused 9% of negative reviews in the last 30 days, up from 2%.</p></li>
+      <li class="first-card"><span><span class="pill p0">This week</span></span><h3>Reply to reviews again</h3><p>The reply rate fell from about 95% to 3% in mid-2024, and the first reviews a store visitor sees average 1.4★. Reply with real answers.</p></li>
+      <li class="first-card"><span><span class="pill p1">Next two sprints</span></span><h3>Remove friction at the kerb</h3><p>Keep people signed in, open straight to a cached “today’s trip” card, and gate every release on review signals with a staged rollout.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="where" class="sec">
+  <header class="sec-head">
     <p class="eyebrow">1 · Where the rating stands</p>
     <h2>A 4.6 average with one in four reviewers giving 1★</h2>
     <p>The store score is held up by people who tap five stars and leave. The people who take the time to write are far less happy, and their reviews are what a new user reads first.</p>
-  </div>
+  </header>
+  <div class="sec-body">
   <div class="kpis">
     <div class="kpi"><span class="eyebrow">Store rating</span><span class="v num">4.64</span><span class="d">114,849 ratings · 1M+ installs</span></div>
-    <div class="kpi bad"><span class="eyebrow">Written reviews, last 12 mo</span><span class="v num">3.83<small>★</small></span><span class="d">2,857 reviews · 24% are 1★</span></div>
-    <div class="kpi bad"><span class="eyebrow">"Most relevant" reviews</span><span class="v num">1.4<small>★</small></span><span class="d">avg of top 40 shown on the store page; 37 of 40 are 1–2★</span></div>
-    <div class="kpi bad"><span class="eyebrow">Developer reply rate</span><span class="v num">3%</span><span class="d">last 12 mo · was 92% of 1★ reviews in 2022–24</span></div>
+    <div class="kpi bad"><span class="eyebrow">Written reviews</span><span class="v num">3.83<small>★</small></span><span class="d">Last 12 months · 2,857 reviews · 24% are 1★</span></div>
+    <div class="kpi bad"><span class="eyebrow">Most relevant</span><span class="v num">1.4<small>★</small></span><span class="d">Top 40 on the store page · 37 are 1–2★</span></div>
+    <div class="kpi bad"><span class="eyebrow">Reply rate</span><span class="v num">3%</span><span class="d">Last 12 months · was 92% of 1★ in 2022–24</span></div>
   </div>
   <figure>
     <div class="legend">
@@ -216,19 +264,21 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
       <div class="chart" id="split"></div>
       <figcaption>Ratings by star, split into ratings that came with a written review and star-only taps. 92% of all 1–2★ ratings come with text, but only 13% of 5★ ratings do. Star-only raters are about 94% 5★. Estimate: store histogram minus scraped reviews.</figcaption>
     </figure>
-    <div class="stack callout">
+    <div class="callout">
       <p><strong>What this means.</strong> The silent majority is happy. The rating is pulled down by a vocal group who are angry enough to leave the app, open the Play Store and type. Their triggers are specific and repeated, so fixing those triggers moves the number.</p>
       <p><strong>Competitor check.</strong> Safetrax Commuter shows 4.72★. Its written reviews are actually worse than ours (2.9★, 46% 1★ in the last 12 months), but it replies to 98% of them and gets far fewer written reviews. MoveInSync's experience is not worse than the market; its rating management is.</p>
     </div>
   </div>
+  </div>
 </section>
 
-<section id="why">
-  <div class="col stack">
+<section id="why" class="sec">
+  <header class="sec-head">
     <p class="eyebrow">2 · Why</p>
     <h2>Most negative reviews are about the app getting in the way, not the cab</h2>
     <p>I classified every review from the last 12 months into 17 themes. The negative reviews (1–2★, n = 772) break down like this. One review can carry more than one theme.</p>
-  </div>
+  </header>
+  <div class="sec-body">
   <figure>
     <div class="legend">
       <span><i style="background:var(--primary)"></i>App (Product &amp; Engineering can fix)</span>
@@ -240,30 +290,35 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
     <figcaption>Share of the 772 negative reviews (last 12 months) mentioning each theme. The amber tick marks the last 30 days, to show what is rising right now.</figcaption>
   </figure>
   <div class="two">
-    <div class="stack">
+    <div class="panel">
       <h3>Who owns the fix</h3>
       <p>Of negative reviews that name a cause, <strong>84% involve the app</strong>: 48% app only plus 11% app and ops, out of the 71% that give any detail. Only 12% are purely about the ride itself: late cabs, routing, driver behaviour. The app is the main lever.</p>
     </div>
-    <div class="stack callout">
+    <div class="callout">
       <h3>Rising in the last 30 days</h3>
-      <p><strong>"Not installed from Play Store" lockouts</strong>: 9.3% of negative reviews, up from 2.0%.<br>
-      <strong>Forced rating and prompts</strong>: 8.0%, up from 3.0%.<br>
-      <strong>Notification spam</strong>: 6.7%, up from 2.8%.<br>
-      <strong>Driver behaviour</strong>: 4.0%, up from 1.3%. Routed to ops.</p>
+      <p class="fine">Share of negative reviews, prior 180 days → last 30 days</p>
+      <ul class="rise">
+        <li><span>“Not installed from Play Store” lockouts</span><span class="num">2.0% → <strong>9.3%</strong></span></li>
+        <li><span>Forced rating and prompts</span><span class="num">3.0% → <strong>8.0%</strong></span></li>
+        <li><span>Notification spam</span><span class="num">2.8% → <strong>6.7%</strong></span></li>
+        <li><span>Driver behaviour <span class="pill own-ops">Ops</span></span><span class="num">1.3% → <strong>4.0%</strong></span></li>
+      </ul>
     </div>
   </div>
-  <div class="col stack">
+  <div class="panel">
     <h3>Releases are a repeat cause</h3>
     <p>Three releases in the last 12 months pushed the 1★ share at least 8 points above the 90 days before them: <span class="num">12.13.1</span> (31% vs 22%), <span class="num">12.14.0</span> (37% vs 22%) and <span class="num">12.16.1</span> (34% vs 24%). The current version, <span class="num">12.19.0</span>, is at 32% against a 25% baseline, just under the line. A staged rollout gated on these signals would have caught each of them at 10% of users.</p>
   </div>
+  </div>
 </section>
 
-<section id="plan">
-  <div class="col stack">
+<section id="plan" class="sec">
+  <header class="sec-head">
     <p class="eyebrow">3 · What to do, in order</p>
     <h2>Ten tickets, ranked by rating impact per week of effort</h2>
     <p>Each ticket is written so a team can pick it up tomorrow. The evidence counts are from the last 12 months of negative reviews unless stated otherwise. Quotes are verbatim from public reviews.</p>
-  </div>
+  </header>
+  <div class="sec-body">
 
   <div class="phase" id="p0">
     <div class="phase-head"><span class="pill p0">P0 · THIS WEEK</span><span class="fine">Small code or configuration changes. Stops new damage.</span></div>
@@ -439,14 +494,16 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
       </div>
     </article>
   </div>
+  </div>
 </section>
 
-<section id="impact">
-  <div class="col stack">
+<section id="impact" class="sec">
+  <header class="sec-head">
     <p class="eyebrow">4 · Expected impact</p>
     <h2>Halving app-caused 1–2★ reviews passes the competitor</h2>
     <p>Google weights recent ratings, so I model a 12-month window. About 21% of ratings come with a written review. That puts last year's total at about 13,500 ratings, of which 2,857 were written (3.83★ average) and the rest were star-only taps (4.90★ average). This model gives <strong>4.68</strong> against the 4.64 the store shows, close enough to use for comparisons.</p>
-  </div>
+  </header>
+  <div class="sec-body">
   <div class="tbl">
     <table>
       <thead><tr><th>Scenario (12-month window)</th><th class="r">Est. rating</th><th class="r">Change</th></tr></thead>
@@ -460,8 +517,8 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
       </tbody>
     </table>
   </div>
-  <p class="fine col">Assumptions: an avoided negative review is replaced by a typical star-only rating (4.9★). The ratio of written reviews to ratings is assumed constant. Google's exact recency weighting is not public, so treat these as directional. The bigger visible win is the store page: answering and resolving the "most relevant" reviews changes what every new user reads first.</p>
-  <div class="col stack">
+  <p class="fine">Assumptions: an avoided negative review is replaced by a typical star-only rating (4.9★). The ratio of written reviews to ratings is assumed constant. Google's exact recency weighting is not public, so treat these as directional. The bigger visible win is the store page: answering and resolving the "most relevant" reviews changes what every new user reads first.</p>
+  <div class="stack">
     <h3>Targets for two quarters</h3>
     <div class="tbl">
       <table>
@@ -476,25 +533,27 @@ footer { padding-top: 2rem; border-top: 1px solid var(--rule); }
       </table>
     </div>
   </div>
+  </div>
 </section>
 
-<section id="monitor">
-  <div class="col stack">
+<section id="monitor" class="sec">
+  <header class="sec-head">
     <p class="eyebrow">5 · Keeping the answer current</p>
     <h2>"How are our Play Store ratings?" now has a live answer</h2>
     <p>The brief says this question will come up again. So the analysis above is a small pipeline, not a one-off notebook. It runs every hour, costs nothing to operate, and gives each team its own view. This memo is dated; the <a href="https://ankan00v.github.io/MoveInRate/">live dashboard</a> always shows the current numbers.</p>
-  </div>
-  <div class="two">
-    <div class="stack">
+  </header>
+  <div class="sec-body">
+  <div class="stack-lg">
+    <div class="panel">
       <h3>What it does every hour</h3>
-      <ul class="stack" style="padding-left:1.1rem;margin:0;gap:.4rem">
+      <ul class="cols">
         <li><strong>Fetches</strong> new reviews and the store snapshot for every MoveInSync app, incrementally, plus the benchmark app.</li>
         <li><strong>Tags</strong> each review with theme and owner using a rule-based classifier. On a hand-checked holdout of 80 negative reviews, about 91% of tags were correct and about 88% of themes present were caught.</li>
         <li><strong>Alerts</strong> in Slack the moment something new appears, and flags three things: release regressions, themes rising sharply in the last 30 days, and safety mentions, listed one by one.</li>
         <li><strong>Publishes</strong> the live dashboard and a reply triage queue, and keeps a history of store-rating snapshots so the trend builds up over time.</li>
       </ul>
     </div>
-    <div class="stack">
+    <div class="panel">
       <h3>Run it</h3>
 <pre>pip install -r requirements.txt
 python pipeline/run_weekly.py            # weekly summary
@@ -504,20 +563,25 @@ python pipeline/run_weekly.py --hourly   # new alerts only
       <p class="fine">Live dashboard: <a href="https://ankan00v.github.io/MoveInRate/">ankan00v.github.io/MoveInRate</a>. Code and data: <a href="https://github.com/ankan00V/MoveInRate">github.com/ankan00V/MoveInRate</a>. A GitHub Actions workflow checks the Play Store every hour, redeploys the dashboard and posts anything new to Slack. Every Monday at 07:00 IST it also posts the weekly summary and commits a data snapshot. If an LLM key is added, the rule-based tagger can be swapped for an LLM classifier with the same output columns.</p>
     </div>
   </div>
-</section>
-
-<section id="method">
-  <div class="col stack">
-    <p class="eyebrow">6 · How I got here</p>
-    <h2>Method, tools and limits</h2>
-    <p><strong>Data.</strong> I searched the Play Store for the developer "MoveInSync: Enabling Hybrid Workplaces" and found six apps. The employee app has 99% of the ratings, so the analysis focuses on it. I pulled every public review (24,314) with the open-source <code>google-play-scraper</code> library, along with the store histogram, the "most relevant" ordering a visitor sees, and the same data for Safetrax Commuter as a benchmark.</p>
-    <p><strong>Analysis.</strong> I read about 400 recent 1–2★ reviews by hand to build the 17-theme taxonomy. I encoded it as English and Hinglish patterns, checked it against a separate holdout sample, and fixed the misses. I then cut the data by month, release version and owner, compared the store histogram with the written reviews to separate star-only raters, and modelled the rating scenarios.</p>
-    <p><strong>Tools.</strong> Python (pandas, google-play-scraper). Claude Code as an AI pair for writing the scraper and pipeline, drafting regex patterns and building this page. Every number here comes from the pipeline output, and I made the theme definitions and priorities by reading the reviews myself. Google's Android developer documentation for the In-App Review API and Android Vitals thresholds.</p>
-    <p><strong>Limits.</strong> Public reviews only. I could not see Play Console data (rating breakdown by version or device, Android Vitals, the Play Integrity verdict mix), iOS, or internal tickets, and the root causes for tickets 2 and 4 are hypotheses to confirm against those. Reviews from 2014 to early 2018 reflect a much older product and are excluded from the conclusions. The driver apps (Partner Lite 4.29★, Driver Partner 3.5★) matter too, because tracking and ETA depend on the driver's phone, but they have under 1% of the employee app's review volume and are out of scope here.</p>
   </div>
 </section>
 
-<footer class="fine">Data through 9 October 2026. Source: public Google Play reviews and listings (India, English). Reviews are quoted verbatim, without reviewer names.</footer>
+<section id="method" class="sec">
+  <header class="sec-head">
+    <p class="eyebrow">6 · How I got here</p>
+    <h2>Method, tools and limits</h2>
+  </header>
+  <div class="sec-body">
+    <div class="two">
+      <div class="panel"><h3>Data</h3><p> I searched the Play Store for the developer "MoveInSync: Enabling Hybrid Workplaces" and found six apps. The employee app has 99% of the ratings, so the analysis focuses on it. I pulled every public review (24,314) with the open-source <code>google-play-scraper</code> library, along with the store histogram, the "most relevant" ordering a visitor sees, and the same data for Safetrax Commuter as a benchmark.</p></div>
+      <div class="panel"><h3>Analysis</h3><p> I read about 400 recent 1–2★ reviews by hand to build the 17-theme taxonomy. I encoded it as English and Hinglish patterns, checked it against a separate holdout sample, and fixed the misses. I then cut the data by month, release version and owner, compared the store histogram with the written reviews to separate star-only raters, and modelled the rating scenarios.</p></div>
+      <div class="panel"><h3>Tools</h3><p> Python (pandas, google-play-scraper). Claude Code as an AI pair for writing the scraper and pipeline, drafting regex patterns and building this page. Every number here comes from the pipeline output, and I made the theme definitions and priorities by reading the reviews myself. Google's Android developer documentation for the In-App Review API and Android Vitals thresholds.</p></div>
+      <div class="panel"><h3>Limits</h3><p> Public reviews only. I could not see Play Console data (rating breakdown by version or device, Android Vitals, the Play Integrity verdict mix), iOS, or internal tickets, and the root causes for tickets 2 and 4 are hypotheses to confirm against those. Reviews from 2014 to early 2018 reflect a much older product and are excluded from the conclusions. The driver apps (Partner Lite 4.29★, Driver Partner 3.5★) matter too, because tracking and ETA depend on the driver's phone, but they have under 1% of the employee app's review volume and are out of scope here.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="doc-foot">Data through 9 October 2026. Source: public Google Play reviews and listings (India, English). Reviews are quoted verbatim, without reviewer names.</footer>
 
 </div>
 
