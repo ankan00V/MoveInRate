@@ -94,9 +94,9 @@ function renderHero() {
     tagline: html`<${LiveAgo} suffix=" · Play Store checked hourly" />`,
     taglineShort: html`<${LiveAgo} />`,
     headline: ["Know where the rating stands, ", "and", " why it moves"],
-    subtext: "Store rating " + s.score.toFixed(2) + " from " + fmt(s.ratings) + " ratings. Written reviews over the last 12 months average "
-      + y.avg.toFixed(2) + "★, with " + pct(y.one_star) + " at 1★. Right now: " + plural(a.release_regressions.length, "release regression")
-      + ", " + plural(a.spiking_themes.length, "rising theme") + " and " + plural(a.safety_last_30d.length, "safety review") + ".",
+    subtext: "Store rating " + s.score.toFixed(2) + ", written reviews " + y.avg.toFixed(2) + ". Right now there "
+      + (a.release_regressions.length === 1 ? "is " : "are ") + plural(a.release_regressions.length, "release regression") + ", "
+      + plural(a.spiking_themes.length, "rising theme") + " and " + plural(a.safety_last_30d.length, "safety review") + " to look at.",
     cta1: { label: "See what needs attention", href: "#alerts" },
     cta2: { label: "View the code", href: REPO_URL, external: true },
   });

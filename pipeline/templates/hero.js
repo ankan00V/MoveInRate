@@ -111,7 +111,7 @@
           <h1 className="font-instrument font-normal text-white text-5xl md:text-7xl lg:text-[96px] leading-[1.1] tracking-[-0.01em] max-w-[1100px] mt-8 mb-0">
             ${before}<em className="italic font-instrument mx-[0.06em] tracking-[0.01em]">${italic}</em>${after}
           </h1>
-          <p className="font-inter font-normal text-[18px] leading-[1.6] text-white/70 max-w-[662px] mt-6 mb-0">${c.subtext}</p>
+          <p className="font-inter font-normal text-[18px] leading-[1.65] text-white/70 max-w-[662px] mt-7 mb-0 [text-wrap:balance] [text-shadow:0_1px_14px_rgba(12,9,22,0.65)]">${c.subtext}</p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a href=${c.cta1.href} className="inline-flex items-center bg-[#7b39fc] hover:bg-[#8f57fd] transition-colors rounded-[10px] px-6 py-3.5 font-cabin font-medium text-[16px] text-white">${c.cta1.label}</a>
             <a href=${c.cta2.href} target=${c.cta2.external ? "_blank" : undefined} rel="noopener" className="inline-flex items-center bg-[#2b2344] hover:bg-[#3a3058] transition-colors rounded-[10px] px-6 py-3.5 font-cabin font-medium text-[16px] text-[#f6f7f9]">${c.cta2.label}</a>
