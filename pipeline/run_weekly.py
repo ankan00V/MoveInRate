@@ -27,16 +27,21 @@ def load_env(path=ROOT / ".env"):
             os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
 
 
+def esc(text):
+    """Escape Slack mrkdwn control characters so review text can't add links or @-mentions."""
+    return str(text).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
 def weekly_text(m):
     a, s, y = m["alerts"], m["store"], m["last_12m"]
     lines = [f"*MoveInSync Play Store, week of {m['data_through']}*",
              f"Store rating {s['score']:.2f} ({s['ratings']:,} ratings) · written reviews last 12 mo {y['avg']:.2f}★, "
              f"{y['one_star']:.0%} 1★ · reply rate {y['reply_rate']:.0%}"]
     for r in a["release_regressions"]:
-        lines.append(f":rotating_light: Release {r['version']}: 1★ {r['one_star']:.0%} vs baseline {r['baseline_one_star']:.0%} "
-                     f"({r['reviews']} reviews). Top issues: {', '.join(r['top_negative_themes'])}")
+        lines.append(f":rotating_light: Release {esc(r['version'])}: 1★ {r['one_star']:.0%} vs baseline {r['baseline_one_star']:.0%} "
+                     f"({r['reviews']} reviews). Top issues: {esc(', '.join(r['top_negative_themes']))}")
     if a["spiking_themes"]:
-        lines.append(":chart_with_upwards_trend: Rising in last 30 days: " + "; ".join(a["spiking_themes"]))
+        lines.append(":chart_with_upwards_trend: Rising in last 30 days: " + esc("; ".join(a["spiking_themes"])))
     if a["safety_last_30d"]:
         lines.append(f":warning: {len(a['safety_last_30d'])} safety-related review(s) in last 30 days. Route to Ops today.")
     lines.append(f"Live dashboard: {PAGES_URL}")
@@ -60,14 +65,14 @@ def new_alerts_text(m, prev):
     old_versions = {r["version"] for r in pa["release_regressions"]}
     for r in a["release_regressions"]:
         if r["version"] not in old_versions:
-            lines.append(f":rotating_light: New release regression: {r['version']} at {r['one_star']:.0%} 1★ vs "
-                         f"{r['baseline_one_star']:.0%} baseline. Top issues: {', '.join(r['top_negative_themes'])}")
+            lines.append(f":rotating_light: New release regression: {esc(r['version'])} at {r['one_star']:.0%} 1★ vs "
+                         f"{r['baseline_one_star']:.0%} baseline. Top issues: {esc(', '.join(r['top_negative_themes']))}")
     for t in set(a["spiking_themes"]) - set(pa["spiking_themes"]):
-        lines.append(f":chart_with_upwards_trend: Now rising: {t}")
+        lines.append(f":chart_with_upwards_trend: Now rising: {esc(t)}")
     old_safety = {(x["date"], x["text"]) for x in pa["safety_last_30d"]}
     for x in a["safety_last_30d"]:
         if (x["date"], x["text"]) not in old_safety:
-            lines.append(f":warning: New safety review ({x['date']}, {x['stars']}★): \"{x['text'][:200]}\". Route to Ops now.")
+            lines.append(f":warning: New safety review ({x['date']}, {x['stars']}★): \"{esc(x['text'][:200])}\". Route to Ops now.")
     if not lines:
         return None
     return "\n".join([f"*MoveInSync Play Store, new since last hour*"] + lines + [f"Live dashboard: {PAGES_URL}"])
@@ -76,7 +81,7 @@ def new_alerts_text(m, prev):
 def post(text):
     hook = os.environ.get("SLACK_WEBHOOK_URL")
     if hook and text:
-        req = urllib.request.Request(hook, data=json.dumps({"text": text}).encode(), headers={"Content-Type": "application/json"})
+        req = urllib.request.Request(hook, data=json.dumps({"text": text, "link_names": False, "unfurl_links": False, "unfurl_media": False}).encode(), headers={"Content-Type": "application/json"})
         urllib.request.urlopen(req, timeout=20)
 
 
