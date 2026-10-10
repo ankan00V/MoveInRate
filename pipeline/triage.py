@@ -6,6 +6,7 @@ Output: data/triage_queue.csv, sorted so the reviews store visitors see most
 from pathlib import Path
 import pandas as pd
 from taxonomy import classify, LABELS, OWNER
+from csv_safe import escape_formulas
 
 DATA = Path(__file__).resolve().parent.parent / "data"
 ROUTE = {"app": "Product/Eng: answer with fix status", "ops": "Ops: forward to client transport desk",
@@ -23,7 +24,7 @@ def main(days=30):
     q["safety_flag"] = q.content.str.contains(r"safety|unsafe|harass|misbehav|molest|drunk|abusive|threat", case=False, na=False)
     q = q.sort_values(["safety_flag", "thumbsUpCount", "at"], ascending=False)
     cols = ["at", "score", "safety_flag", "owner", "route_to", "themes", "thumbsUpCount", "reviewCreatedVersion", "content", "reviewId"]
-    q[cols].to_csv(DATA / "triage_queue.csv", index=False)
+    escape_formulas(q[cols], ["content", "themes"]).to_csv(DATA / "triage_queue.csv", index=False)
     print(f"triage queue: {len(q)} unanswered 1-3★ reviews from the last {days} days "
           f"({int(q.safety_flag.sum())} safety-flagged)")
 

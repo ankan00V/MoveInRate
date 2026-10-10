@@ -10,6 +10,8 @@ from pathlib import Path
 import pandas as pd
 from google_play_scraper import reviews, Sort, app
 
+from csv_safe import escape_formulas
+
 APPS = {
     "com.moveinsync.ets": "MoveInSync (Employee)",
     "com.moveinsync.driver.lite": "Partner - Lite (Driver)",
@@ -51,7 +53,7 @@ def main(full=False):
         df = df.drop_duplicates("reviewId").sort_values("at", ascending=False)
         df = df.drop(columns="app", errors="ignore")
         df.insert(0, "app", label)
-        df.to_csv(path, index=False)
+        escape_formulas(df, ["userName", "content", "replyContent"]).to_csv(path, index=False)
         a = app(app_id, lang="en", country="in")
         meta.append({"app_id": app_id, "label": label, "score": a["score"],
                      "ratings": a["ratings"], "reviews": a["reviews"],
