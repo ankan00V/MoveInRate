@@ -20,7 +20,8 @@ APPS = {
     "in.mtap.iincube.safetrax.commuter": "Safetrax Commuter (benchmark)",
 }
 DATA = Path(__file__).resolve().parent.parent / "data"
-COLS = ["reviewId", "userName", "content", "score", "thumbsUpCount",
+# Reviewer names are deliberately not stored: the analysis never needs them.
+COLS = ["reviewId", "content", "score", "thumbsUpCount",
         "reviewCreatedVersion", "at", "replyContent", "repliedAt", "appVersion"]
 
 
@@ -51,9 +52,9 @@ def main(full=False):
         new = new[[c for c in COLS if c in new.columns]] if len(new) else new
         df = pd.concat([new, old]) if old is not None else new
         df = df.drop_duplicates("reviewId").sort_values("at", ascending=False)
-        df = df.drop(columns="app", errors="ignore")
+        df = df.drop(columns=["app", "userName"], errors="ignore")
         df.insert(0, "app", label)
-        escape_formulas(df, ["userName", "content", "replyContent"]).to_csv(path, index=False)
+        escape_formulas(df, ["content", "replyContent"]).to_csv(path, index=False)
         a = app(app_id, lang="en", country="in")
         meta.append({"app_id": app_id, "label": label, "score": a["score"],
                      "ratings": a["ratings"], "reviews": a["reviews"],
