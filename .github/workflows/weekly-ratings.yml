@@ -1,30 +1,61 @@
-name: Weekly Play Store ratings monitor
+name: Play Store ratings monitor
 
 on:
   schedule:
-    - cron: "30 1 * * 1"   # Mondays 07:00 IST
+    - cron: "7 * * * *"    # hourly: refresh the live dashboard, alert on anything new
+    - cron: "30 1 * * 1"   # Mondays 07:00 IST: weekly summary + commit a data snapshot
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "hourly or weekly"
+        default: weekly
+        type: choice
+        options: [weekly, hourly]
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ratings-monitor
+  cancel-in-progress: false
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    env:
+      WEEKLY: ${{ github.event.schedule == '30 1 * * 1' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'weekly') }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
       - run: pip install -r requirements.txt
-      - name: Fetch, analyze, build dashboard, post alerts
+
+      - name: Fetch, analyze, build dashboard, alert
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: python pipeline/run_weekly.py
-      - name: Commit refreshed data and dashboard
+        run: |
+          if [ "$WEEKLY" = "true" ]; then python pipeline/run_weekly.py; else python pipeline/run_weekly.py --hourly; fi
+
+      - name: Commit weekly snapshot
+        if: env.WEEKLY == 'true'
         run: |
           git config user.name "ratings-monitor"
           git config user.email "ratings-monitor@users.noreply.github.com"
           git add data dashboard
           git diff --cached --quiet || git commit -m "Weekly ratings refresh $(date -u +%Y-%m-%d)"
           git push
+
+      - run: python pipeline/build_site.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4

@@ -4,3 +4,5 @@ __pycache__/
 
 # local secrets
 .env
+_site/
+.claude/
