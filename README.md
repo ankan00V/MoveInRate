@@ -32,7 +32,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python pipeline/fetch_reviews.py --full  # full re-fetch from scratch
 ```
 
-`.github/workflows/weekly-ratings.yml` runs the pipeline every Monday at 07:00 IST and commits the refreshed data and dashboard. Add a `SLACK_WEBHOOK_URL` secret to post the alert summary to a channel.
+`.github/workflows/weekly-ratings.yml` runs the pipeline every Monday at 07:00 IST and commits the refreshed data and dashboard. Add a `SLACK_WEBHOOK_URL` repo secret to post the alert summary to a channel. For local runs, copy `.env.example` to `.env` (git-ignored) and fill it in.
 
 ## Pipeline
 

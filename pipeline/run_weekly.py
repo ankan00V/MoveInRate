@@ -11,6 +11,17 @@ import fetch_reviews, analyze, triage, build_dashboard
 ROOT = Path(__file__).resolve().parent.parent
 
 
+def load_env(path=ROOT / ".env"):
+    """Read KEY=VALUE lines from a local .env (git-ignored). Real env vars win."""
+    if not path.exists():
+        return
+    for line in path.read_text().splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            key, value = line.split("=", 1)
+            os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+
+
 def alert_text(m):
     a, s, y = m["alerts"], m["store"], m["last_12m"]
     lines = [f"*MoveInSync Play Store, week of {m['data_through']}*",
@@ -27,6 +38,7 @@ def alert_text(m):
 
 
 def main():
+    load_env()
     fetch_reviews.main()
     analyze.main()
     triage.main()
