@@ -1,0 +1,30 @@
+name: Weekly Play Store ratings monitor
+
+on:
+  schedule:
+    - cron: "30 1 * * 1"   # Mondays 07:00 IST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Fetch, analyze, build dashboard, post alerts
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: python pipeline/run_weekly.py
+      - name: Commit refreshed data and dashboard
+        run: |
+          git config user.name "ratings-monitor"
+          git config user.email "ratings-monitor@users.noreply.github.com"
+          git add data dashboard
+          git diff --cached --quiet || git commit -m "Weekly ratings refresh $(date -u +%Y-%m-%d)"
+          git push
