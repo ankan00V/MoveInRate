@@ -1,0 +1,81 @@
+reviewId,score,content,tags
+3f781b95-26ee-4822-9cea-a9ea9056d3e6,1,"it will not be properly, fix the bug",crash_not_opening
+845f2224-8d53-42b4-a4f0-1557dcdcf25b,1,Not loading properly. takes a lot of time.,crash_not_opening
+687a9573-d6cb-4801-8578-7eb948c6a722,1,"not able to open the app, automatic close in a sec. otp in mobile mail is not received. how will people use such a bad experience app. this will set very bad word of mouth experience",login_otp_session|crash_not_opening
+59b2d93c-4120-4fa4-acd3-8576f5d770d7,1,"Useless app showing wrong locations to both Drivers and Employees. This app doesn't even deserves that 1 star, -5 totally.",tracking_eta
+08e4433c-04e5-468d-a8d3-00e70aed60a2,1,very bad management..not priperly update the cab location,service_general
+a1e5d1c8-5b4f-46d3-a313-2070b7675515,1,I'm not sure how this app got a 4-star rating that doesn't even bother to get a 1star rating.,unspecified
+2383e87a-d144-4037-ab9d-51dc12ae0c65,1,"Very inaccurate app, estimated time of pickup is always wrong. it will waste your time. Does not update vehicle locations a lot of times. I've been using this app for 4-5 months now even after multiple complaints to the team to get it fixed there is no response or fix in the app. The edit pickup location doesn't work so once you fill in your details it's fixed. you'll have to email your handler every time. As I have no other option of commuting apart from the off shuttle i have to keep this app.",crash_not_opening|contact_support
+838886b7-234c-4097-9658-776058041253,1,most of the time this app functions don't even work properly especially when it's needed. always has some bugs or the other,crash_not_opening
+05046927-7db6-4d69-97e2-6612f33b6d5a,1,"worst app ever for first time users, they don't mention clear instructions that you need to goto a pickup location neither there is any instructions or navigation on the map, even basic apps have these features. also they disable driver call support that atleast you can ask them the location. worst app ever for first time users.",tracking_eta|contact_support
+2d6db443-45d2-4afd-bc5b-b9abe99b5d7d,1,"takes forever to verify via number and email,way too many glitches!",crash_not_opening
+c4c982a7-763c-4e2b-889a-17109a961dc7,1,why the hell no option of skip rating.if I don't want rate.,forced_prompts
+0abd010c-b148-4760-8241-2bf21e80714a,1,interface is very bad the past UI was much better and the web page is also looks like a mobile version,ui_redesign
+ca38a841-3abb-4859-8fe7-edf5e6f91f37,1,I tried to login through mobile and email as well. the OTP is not delivered to either. what to do?,login_otp_session
+c7d2fb3d-da87-413e-82ba-bb13c1349160,1,shows inaccurate timings of pick and drop.,unspecified
+20913973-ef3e-44e5-8245-a2c6d053ae85,1,"doesn't work at all, no OTP sent.",login_otp_session|crash_not_opening
+b564c76c-f553-4e4e-8d41-52d078721c31,1,"This app has been made too secure, it's hard to understand whether it's a travel app or a bank's application.",unspecified
+383fa10f-229c-43dd-bc1c-967cb8017a71,1,Does not open on click. Says 'it was not downloaded from play store'.,crash_not_opening|play_integrity_reinstall
+1d7aa4a5-419d-42f4-8be5-d9096c09746d,1,not avle to connect with helpdesk,contact_support
+f8e519ff-5304-4115-aba8-6362759693ae,1,"Bad bad bad experience, the fact that you cannot book the transport on the same day",booking_flow
+a15b858e-6cd4-4563-b9af-97e1438cf190,1,"initially it was fine, then few months back it started requiring otp for every login almost every time a person is opening app even sometimes in span of 30 min. this made it very tiresome to be honest",login_otp_session
+f45c5b5a-8e35-4eb3-810f-68cf9b992415,1,the app maps the longest possible route as the pooling size grows,tracking_eta|routing_clubbing
+7c1c81bb-548a-4647-bc83-3050c592b399,1,"such a worst application, here I can't see the locations assigned to co employees",unspecified
+a290e189-c7ba-4997-ac44-90de447a7448,2,Can not see booked cab schedule. Too much conservative and limited.,booking_flow
+6855f79d-f54e-4ce7-9a7f-213677cec9d1,1,Keeps logging out after every 5 to 10 mins of inactivity on the app. Logging in again requires authentication via company's app which is time consuming. Also this poses a problem especially for female passengers who want to report something urgently or send an SOS but are force logged out and have to do the whole long procedure of logging in,login_otp_session
+d0013885-22ce-4c15-b188-eb1b58d912d3,1,"doesn't send OTP, email, txt, WhatsApp no otps.",login_otp_session
+164f031c-cc25-4e1c-a5b0-d925b75e0b87,1,doesn't stay signed in. Have to login almost every alternate day.,login_otp_session
+6663f7b1-7087-45e5-9320-c8a7fbfc6307,1,"The recent updates in the UI have made the app very difficult to use. Booking a shuttle is now a 2 step process previously it used to be 1. I got confused and thought I had booked a cab while I hadn't. Was too late in realising that. Such major changes need to be released in a better way rather than just throwing them in the user's face. Another bad thing is even though I am in 1 cab but I can see all the ones available for that time. I don't need to see others, just show me mine.",crash_not_opening|booking_flow|ui_redesign|punctuality_noshow
+e2be6c41-20c7-40dd-9ce3-62dcdf8c0d57,1,"unpredictable app, it won't let me book a seat at all. by the time it's let me, all seat will be booked. constant server down, application crash. please fix the app",crash_not_opening|booking_flow
+ef2acf20-b61f-4d2a-ba57-23d5206d418b,1,everytime I download it won't open again after 1-2 days and I have to download it again,crash_not_opening
+ccba873d-c5c1-4c86-808d-d0b5885f1113,1,"I don't know which idiot has designed this app, whenever you see the location, it shows one or two hours ago, it does not show the accurate one.I don't know what I have done with this type of API, it never shows accurate location.",unspecified
+80c64ba7-dbc7-4db8-a8e4-28ad02190295,1,not giving real time tracking,tracking_eta
+fc3afa80-8281-4f29-b354-7c5d01645e1b,1,"goes down randomly, and there's no eta on when it'll be active again. seems like random days are chosen for deployments. terrible planning.",crash_not_opening|tracking_eta
+760cc5ba-26c9-48c6-8e86-13fdb106d7e7,1,Complaint Regarding Pathetic Transport Service I would like to raise a complaint regarding the pathetic transport service provided today.,contact_support|service_general
+aacca54a-b743-4829-8868-79bf96ebed62,1,very bad for handling. Disgusting,unspecified
+99a6f069-b1a1-4810-9377-c80b50b6d01c,1,cab are always late and track is also not available many time,tracking_eta|punctuality_noshow
+8000e4ad-b976-40f6-8e54-471b4f0d9388,1,"worst app to use, not user friendly most of the things does not work",crash_not_opening|ui_redesign
+db63c544-a491-4301-aa3f-829506c242a0,1,multiple times verify with otp challange from latest updates need to fix the problem,ui_redesign
+51ea04eb-3995-480a-856f-b69e1d9f3963,1,Login in this app is worst.,login_otp_session
+7dd834b0-8906-4e8d-88d8-bee85025334b,1,"after every 2 days getting error of ""not installed from play store even though I'm installing from play store"". do we have any other store to install? this is pathetic",crash_not_opening|play_integrity_reinstall
+852dfa4f-b414-4559-ae8d-5cc955fe97db,1,"app stopped working in oneplus 12 android, please look into it.",unspecified
+ce3caf19-188e-459f-a50d-0aae3c133aec,1,worst app after update it's showing validate identity each and every time so please solve the problem as soon as possible,ui_redesign
+822e3851-484e-4981-bb45-856b7728e790,2,mother of all the slowest app in the world !!,crash_not_opening
+c44c1a75-b3f2-4b2f-807b-9c5c4c3ef962,1,worst interface and worst service,ui_redesign|service_general
+76ce5941-ffa6-4581-bddc-f1d4162432ab,1,we don't have any edit options,unspecified
+875fdd33-588e-4c89-95d6-e7dba579adef,1,very bad app . it was showing me to cancel whole booking I cancelled it on Friday.now I called transport they are very rudely telling that I didn't cancel before cut off so it didn't cancel.however the app showed me whole booking is cancelled,booking_flow|driver_behaviour
+f37d4dfa-0e42-4dd4-8ef9-2102bda7dafd,1,"Update: I booked on a sunday and automatically the date was of tuesday instead of monday. What kind of logic are you putting here. if it is so difficult then let the person choose the date, why make things difficult for people. Do a testing of your application before adding features. please disable this feature of changing automatically to next day. This creates confusion and often ends up booking for a wrong day.",crash_not_opening|booking_flow
+edf9c82f-f269-4a7a-a3b4-a6342ea5afc3,1,"does give option to rate the trip, irrespective it's complete, no show or give any feedback",punctuality_noshow
+b85527d2-ce5e-4829-896c-e776d1b236bf,1,why does this app need so much permission. it's suspicious,unspecified
+0b1f3921-67f8-49fd-b329-f1fa6f3c615f,1,pick up location and home location is far and app not taking exact location,tracking_eta
+a2606d7b-6689-4224-9481-829dab688779,1,one of the worst applications I have ever used,unspecified
+439ab861-a02c-462c-a7dd-0c470be2e724,1,the worst app which always shows wrong destination in map to the drivers.,tracking_eta
+6e5d3497-9942-4dc6-8e6d-36a425c767c0,1,poor app maintenance and management.,service_general
+5c3337fe-90ec-4ecf-ab68-974dfed90eff,1,horrible..No OTP received and No Login.,login_otp_session
+e0d68839-6e59-4dd7-8f00-052cda79a063,1,I try to login to this app but it's not sending any otp to login without login how we can use this app 😤😤😤 technical team please check once about this issue,login_otp_session
+539679a5-9b64-4ce6-a908-32270d3b7f65,1,worst app as the driver without informing marked as no show,punctuality_noshow
+01a2771b-5f70-4893-b7ac-04116943221a,1,take too much time to load an application,crash_not_opening
+f5347b3d-f7ab-405d-a482-bae26ecd5368,1,"Total waste of time. Support is useless and the staff is incredibly rude. To make matters worse, the app is a mess—pickup times change constantly, so you never actually know when your ride is coming. Don't believe the high ratings; this service is untrustworthy and frustrating to use.",crash_not_opening|driver_behaviour|punctuality_noshow|service_general
+8d8321ba-4f48-46e5-bad5-6d99d070432b,1,wrost app I installed in my phone.Full of bugs. Not able to open whenever I need to check the status of cab.,crash_not_opening
+e12ed49a-d376-4cf2-9cfd-45cae0162feb,1,"This app is going from bad to horrible. The seat buckle verification is absolutely horrendous and the OTP keeps disappearing behind the seat belt check. To top it all, ads are being introduced. Why is there not some cache wherein a user has their ride details stored? instead it needs a network call every time you open the app which is annoying when you're underground without much internet",forced_prompts|booking_flow|boarding_qr|contact_support
+edd96d77-83f2-4a31-9a5e-b11c25b727a3,1,Daily showing wrong routes and High travel time. Not safety for employees. This worst app,routing_clubbing|safety
+8a180230-ee8f-47e9-956d-f4dfd80e26f9,1,this is a waste of app. always booking shows incorrect.,booking_flow
+e52012f4-4c66-48c9-a657-eb322988307d,1,Pathetic transport service by Move-in sync.,service_general
+f1efcfec-bc78-443f-ae48-0084c6eb3946,1,Pathetic app. My office is using their service and driver doesn't come on time for pickup. Most of the time driver doesn't pick the call. Their customer care is also not easy to connect.,contact_support|punctuality_noshow|service_general
+3eaa75e9-2fa4-47b8-853a-b30d962506d2,1,"force employee to rate then , forcefully because of we not do the star pop will not remove and cannot locate or track.cheap thought of this app to get good stars as like",tracking_eta
+462a1532-0196-4124-9a72-ed5777e832ff,1,The app log out automatically so this all happened after updating to the lastest version I don't know why It seems to be degrading,login_otp_session
+90bf938f-0b0e-4116-a5e7-07956b733b9d,1,the UX and UI of the app is poor...and why a fresh disclaimer statement every time when you minimize the app even for a second?,forced_prompts|ui_redesign
+4cde1e1f-27f5-4a03-8eb8-92a6c65bb064,1,worst app and worst facility.Their nodle point facility is worst. Toxic Company's toxic transport system.,unspecified
+325143c4-7276-4ca8-b5fc-58183a15041b,1,tries to load some notices on the welcome page and just gets stuck for me lately. cannot see anything now.,crash_not_opening
+5e6a17cf-4feb-45c1-8077-aa833205ecf9,1,"not getting otp, what is the fix ?",login_otp_session
+db17a7b4-524b-47a7-83b2-c6f34b2d9ee1,2,this app doesn't work most of the times!!,crash_not_opening
+3aa862df-73eb-4868-a695-42158aaced5e,1,"utter disaster, this app algorithm is worse, it took me 2.5 hr to reach my home to which I usually reach in 50 minutes if I take a long route. they have paired with people who belong to different areas. no one responded even after raising my concern.",contact_support|routing_clubbing
+310e295d-f489-4fe0-8f1c-6c4281063692,1,Worst app. Continuously getting carbon saving notifications which is annoying,notifications
+fd7c7bbc-c03c-438a-94da-a12f6328f7c5,1,"I've downloaded the app but it doesn't send the otp on all options, it's been 7 days now",login_otp_session|crash_not_opening
+13073509-d947-4ca0-ab47-9808d0e0344d,1,can't select the date range,booking_flow
+e7b4e10a-83af-4280-932d-5ecc6291d007,1,app needs lot of improvement in UI,ui_redesign
+31c4a837-4503-42db-baa6-6857ff954f03,1,after update this app us worst i have ever aeen any booking app,booking_flow|ui_redesign
+c8dd8ff6-e11d-4820-801f-67e4055ac1bc,1,This has terrible routing - picks the wrong and longer route,routing_clubbing
+85c20463-9df9-4d3b-9980-18e34d1b7581,1,worst allocation of cabs and no proper response,punctuality_noshow
+155c8dd0-561d-433d-b9b9-7d0a3751e451,1,worst transportation app I have ever seen,unspecified
+be18e247-13d7-4101-a679-2a2657aaf581,1,worst app ever ...its lags a lot I've missed my cabs so many times,crash_not_opening|punctuality_noshow
