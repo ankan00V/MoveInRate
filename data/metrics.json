@@ -1,51 +1,51 @@
 {
-  "generated_at": "2026-10-10T15:24+00:00",
-  "data_through": "2026-10-09",
+  "generated_at": "2026-10-12T07:35+00:00",
+  "data_through": "2026-10-11",
   "store": {
     "title": "MoveInSync",
-    "score": 4.6374946,
-    "ratings": 114849,
-    "reviews": 23617,
+    "score": 4.6386557,
+    "ratings": 114879,
+    "reviews": 23621,
     "installs": "1,000,000+",
     "version": "12.19.0",
     "histogram": [
-      7338,
-      837,
-      1231,
-      7297,
-      98141
+      7317,
+      840,
+      1224,
+      7266,
+      98228
     ],
     "written_histogram": [
       6352,
       1165,
       1089,
       2794,
-      12914
+      12917
     ],
     "star_only_histogram": [
-      986,
+      965,
       0,
-      142,
-      4503,
-      85227
+      135,
+      4472,
+      85311
     ]
   },
   "corpus": {
-    "reviews_total": 24314,
+    "reviews_total": 24317,
     "first": "2014-03-14"
   },
   "last_12m": {
-    "reviews": 2857,
-    "avg": 3.8347917395869793,
-    "one_star": 0.24011200560028,
-    "negative": 772,
-    "negative_share": 0.2702135106755338,
-    "reply_rate": 0.0280014000700035,
+    "reviews": 2848,
+    "avg": 3.835674157303371,
+    "one_star": 0.23981741573033707,
+    "negative": 769,
+    "negative_share": 0.2700140449438202,
+    "reply_rate": 0.02773876404494382,
     "negative_by_owner": {
-      "app": 0.48186528497409326,
-      "generic": 0.29015544041450775,
-      "ops": 0.11528497409326424,
-      "both": 0.11269430051813471
+      "app": 0.48244473342002603,
+      "generic": 0.28998699609882966,
+      "ops": 0.11573472041612484,
+      "both": 0.11183355006501951
     }
   },
   "most_relevant": {
@@ -57,10 +57,10 @@
   "monthly": [
     {
       "month": "2023-10",
-      "n": 242,
-      "avg": 3.5165289256198347,
-      "one_star": 0.29338842975206614,
-      "reply_rate": 0.9586776859504132
+      "n": 213,
+      "avg": 3.488262910798122,
+      "one_star": 0.3004694835680751,
+      "reply_rate": 0.9671361502347418
     },
     {
       "month": "2023-11",
@@ -302,17 +302,17 @@
     },
     {
       "month": "2026-09",
-      "n": 245,
-      "avg": 3.8448979591836734,
-      "one_star": 0.24897959183673468,
-      "reply_rate": 0.004081632653061225
+      "n": 246,
+      "avg": 3.845528455284553,
+      "one_star": 0.24796747967479674,
+      "reply_rate": 0.0040650406504065045
     },
     {
       "month": "2026-10",
-      "n": 79,
-      "avg": 3.6962025316455698,
-      "one_star": 0.2911392405063291,
-      "reply_rate": 0.012658227848101266
+      "n": 81,
+      "avg": 3.740740740740741,
+      "one_star": 0.2839506172839506,
+      "reply_rate": 0.012345679012345678
     }
   ],
   "themes": [
@@ -320,11 +320,11 @@
       "key": "unspecified",
       "label": "Generic (e.g. 'worst app', no detail)",
       "owner": "-",
-      "reviews": 224,
-      "share_of_negative": 0.29015544041450775,
+      "reviews": 223,
+      "share_of_negative": 0.28998699609882966,
       "upvotes": 4,
-      "share_last_30d": 0.24,
-      "share_trailing_180d": 0.2814070351758794,
+      "share_last_30d": 0.2328767123287671,
+      "share_trailing_180d": 0.2807017543859649,
       "spiking": false,
       "quotes": [
         {
@@ -352,10 +352,10 @@
       "label": "Crashes, won't open, slow / blank screen",
       "owner": "app",
       "reviews": 173,
-      "share_of_negative": 0.22409326424870465,
+      "share_of_negative": 0.22496749024707413,
       "upvotes": 62,
-      "share_last_30d": 0.28,
-      "share_trailing_180d": 0.24371859296482412,
+      "share_last_30d": 0.2876712328767123,
+      "share_trailing_180d": 0.24310776942355888,
       "spiking": false,
       "quotes": [
         {
@@ -382,11 +382,11 @@
       "key": "login_otp_session",
       "label": "Login, OTP & forced logouts",
       "owner": "app",
-      "reviews": 109,
-      "share_of_negative": 0.1411917098445596,
+      "reviews": 108,
+      "share_of_negative": 0.14044213263979194,
       "upvotes": 29,
-      "share_last_30d": 0.12,
-      "share_trailing_180d": 0.12311557788944724,
+      "share_last_30d": 0.1232876712328767,
+      "share_trailing_180d": 0.12280701754385964,
       "spiking": false,
       "quotes": [
         {
@@ -414,10 +414,10 @@
       "label": "Booking, cancel, waitlist & schedule flow",
       "owner": "app",
       "reviews": 102,
-      "share_of_negative": 0.13212435233160622,
+      "share_of_negative": 0.13263979193758127,
       "upvotes": 33,
-      "share_last_30d": 0.14666666666666667,
-      "share_trailing_180d": 0.1407035175879397,
+      "share_last_30d": 0.136986301369863,
+      "share_trailing_180d": 0.14285714285714285,
       "spiking": false,
       "quotes": [
         {
@@ -444,11 +444,11 @@
       "key": "tracking_eta",
       "label": "Live tracking, GPS, ETA & location accuracy",
       "owner": "app",
-      "reviews": 91,
-      "share_of_negative": 0.11787564766839378,
+      "reviews": 90,
+      "share_of_negative": 0.11703511053315994,
       "upvotes": 44,
-      "share_last_30d": 0.12,
-      "share_trailing_180d": 0.11809045226130653,
+      "share_last_30d": 0.1232876712328767,
+      "share_trailing_180d": 0.11779448621553884,
       "spiking": false,
       "quotes": [
         {
@@ -476,10 +476,10 @@
       "label": "Late cabs, no-shows, cab not assigned",
       "owner": "ops",
       "reviews": 73,
-      "share_of_negative": 0.09455958549222798,
+      "share_of_negative": 0.09492847854356307,
       "upvotes": 47,
-      "share_last_30d": 0.10666666666666667,
-      "share_trailing_180d": 0.10301507537688442,
+      "share_last_30d": 0.0958904109589041,
+      "share_trailing_180d": 0.10526315789473684,
       "spiking": false,
       "quotes": [
         {
@@ -507,10 +507,10 @@
       "label": "Transport service / vendor / desk (general)",
       "owner": "ops",
       "reviews": 69,
-      "share_of_negative": 0.08937823834196891,
+      "share_of_negative": 0.08972691807542263,
       "upvotes": 20,
-      "share_last_30d": 0.05333333333333334,
-      "share_trailing_180d": 0.10050251256281408,
+      "share_last_30d": 0.0547945205479452,
+      "share_trailing_180d": 0.10025062656641603,
       "spiking": false,
       "quotes": [
         {
@@ -538,10 +538,10 @@
       "label": "Can't reach driver / helpdesk from the app",
       "owner": "app",
       "reviews": 64,
-      "share_of_negative": 0.08290155440414508,
+      "share_of_negative": 0.08322496749024708,
       "upvotes": 33,
-      "share_last_30d": 0.08,
-      "share_trailing_180d": 0.0829145728643216,
+      "share_last_30d": 0.0684931506849315,
+      "share_trailing_180d": 0.08521303258145363,
       "spiking": false,
       "quotes": [
         {
@@ -568,11 +568,11 @@
       "key": "routing_clubbing",
       "label": "Routing, clubbing, nodal points & trip length",
       "owner": "ops",
-      "reviews": 49,
-      "share_of_negative": 0.06347150259067358,
+      "reviews": 48,
+      "share_of_negative": 0.06241872561768531,
       "upvotes": 25,
-      "share_last_30d": 0.05333333333333334,
-      "share_trailing_180d": 0.07035175879396985,
+      "share_last_30d": 0.0410958904109589,
+      "share_trailing_180d": 0.07268170426065163,
       "spiking": false,
       "quotes": [
         {
@@ -600,10 +600,10 @@
       "label": "New UI / update made it harder to use",
       "owner": "app",
       "reviews": 48,
-      "share_of_negative": 0.06217616580310881,
+      "share_of_negative": 0.06241872561768531,
       "upvotes": 9,
-      "share_last_30d": 0.05333333333333334,
-      "share_trailing_180d": 0.06281407035175879,
+      "share_last_30d": 0.0547945205479452,
+      "share_trailing_180d": 0.06265664160401002,
       "spiking": false,
       "quotes": [
         {
@@ -631,10 +631,10 @@
       "label": "Forced trip rating, review nags, policy re-accept, permissions, banners",
       "owner": "app",
       "reviews": 30,
-      "share_of_negative": 0.038860103626943004,
+      "share_of_negative": 0.03901170351105332,
       "upvotes": 13,
-      "share_last_30d": 0.08,
-      "share_trailing_180d": 0.03015075376884422,
+      "share_last_30d": 0.0821917808219178,
+      "share_trailing_180d": 0.03007518796992481,
       "spiking": true,
       "quotes": [
         {
@@ -662,10 +662,10 @@
       "label": "Notification spam / wrong notifications",
       "owner": "app",
       "reviews": 22,
-      "share_of_negative": 0.02849740932642487,
+      "share_of_negative": 0.02860858257477243,
       "upvotes": 14,
-      "share_last_30d": 0.06666666666666667,
-      "share_trailing_180d": 0.02763819095477387,
+      "share_last_30d": 0.0684931506849315,
+      "share_trailing_180d": 0.02756892230576441,
       "spiking": true,
       "quotes": [
         {
@@ -693,10 +693,10 @@
       "label": "'Not installed from Play Store' / forced reinstall",
       "owner": "app",
       "reviews": 18,
-      "share_of_negative": 0.023316062176165803,
+      "share_of_negative": 0.02340702210663199,
       "upvotes": 8,
-      "share_last_30d": 0.09333333333333334,
-      "share_trailing_180d": 0.020100502512562814,
+      "share_last_30d": 0.0958904109589041,
+      "share_trailing_180d": 0.020050125313283207,
       "spiking": true,
       "quotes": [
         {
@@ -724,10 +724,10 @@
       "label": "Driver behaviour & professionalism",
       "owner": "ops",
       "reviews": 15,
-      "share_of_negative": 0.019430051813471502,
+      "share_of_negative": 0.01950585175552666,
       "upvotes": 11,
-      "share_last_30d": 0.04,
-      "share_trailing_180d": 0.01256281407035176,
+      "share_last_30d": 0.0410958904109589,
+      "share_trailing_180d": 0.012531328320802004,
       "spiking": true,
       "quotes": [
         {
@@ -755,10 +755,10 @@
       "label": "Boarding: QR scan & OTP screen",
       "owner": "app",
       "reviews": 12,
-      "share_of_negative": 0.015544041450777202,
+      "share_of_negative": 0.015604681404421327,
       "upvotes": 2,
-      "share_last_30d": 0.04,
-      "share_trailing_180d": 0.010050251256281407,
+      "share_last_30d": 0.0410958904109589,
+      "share_trailing_180d": 0.010025062656641603,
       "spiking": true,
       "quotes": [
         {
@@ -786,10 +786,10 @@
       "label": "Safety concerns",
       "owner": "ops",
       "reviews": 12,
-      "share_of_negative": 0.015544041450777202,
+      "share_of_negative": 0.015604681404421327,
       "upvotes": 2,
       "share_last_30d": 0.0,
-      "share_trailing_180d": 0.020100502512562814,
+      "share_trailing_180d": 0.020050125313283207,
       "spiking": false,
       "quotes": [
         {
@@ -817,10 +817,10 @@
       "label": "Trip details / OTP / cab no. unavailable when needed",
       "owner": "app",
       "reviews": 6,
-      "share_of_negative": 0.007772020725388601,
+      "share_of_negative": 0.007802340702210663,
       "upvotes": 5,
-      "share_last_30d": 0.013333333333333334,
-      "share_trailing_180d": 0.005025125628140704,
+      "share_last_30d": 0.0136986301369863,
+      "share_trailing_180d": 0.005012531328320802,
       "spiking": true,
       "quotes": [
         {
@@ -847,32 +847,17 @@
   "releases": [
     {
       "version": "12.5",
-      "first_seen": "2025-10-09",
-      "reviews": 38,
+      "first_seen": "2025-10-12",
+      "reviews": 29,
       "avg": 4.0,
-      "one_star": 0.21052631578947367,
-      "baseline_one_star": 0.26166902404526166,
+      "one_star": 0.20689655172413793,
+      "baseline_one_star": 0.26458036984352773,
       "regression": false,
       "watch": false,
       "top_negative_themes": [
         "Live tracking, GPS, ETA & location accuracy",
-        "Login, OTP & forced logouts",
-        "Crashes, won't open, slow / blank screen"
-      ]
-    },
-    {
-      "version": "12.4",
-      "first_seen": "2025-10-10",
-      "reviews": 10,
-      "avg": 3.8,
-      "one_star": 0.3,
-      "baseline_one_star": 0.2623413258110014,
-      "regression": false,
-      "watch": false,
-      "top_negative_themes": [
-        "Notification spam / wrong notifications",
-        "Late cabs, no-shows, cab not assigned",
-        "Transport service / vendor / desk (general)"
+        "Crashes, won't open, slow / blank screen",
+        "Notification spam / wrong notifications"
       ]
     },
     {
@@ -926,6 +911,21 @@
       "regression": false,
       "watch": false,
       "top_negative_themes": []
+    },
+    {
+      "version": "12.4",
+      "first_seen": "2025-10-19",
+      "reviews": 9,
+      "avg": 3.6666666666666665,
+      "one_star": 0.3333333333333333,
+      "baseline_one_star": 0.2603129445234708,
+      "regression": false,
+      "watch": false,
+      "top_negative_themes": [
+        "Notification spam / wrong notifications",
+        "Late cabs, no-shows, cab not assigned",
+        "Transport service / vendor / desk (general)"
+      ]
     },
     {
       "version": "12.3",
@@ -1546,7 +1546,7 @@
       "reviews": 1,
       "avg": 2.0,
       "one_star": 0.0,
-      "baseline_one_star": 0.24603174603174602,
+      "baseline_one_star": 0.24736842105263157,
       "regression": false,
       "watch": false,
       "top_negative_themes": [
@@ -1559,7 +1559,7 @@
       "reviews": 1,
       "avg": 5.0,
       "one_star": 0.0,
-      "baseline_one_star": 0.24603174603174602,
+      "baseline_one_star": 0.24769433465085638,
       "regression": false,
       "watch": false,
       "top_negative_themes": []
@@ -1567,10 +1567,10 @@
     {
       "version": "12.19.0",
       "first_seen": "2026-09-21",
-      "reviews": 102,
-      "avg": 3.5784313725490198,
-      "one_star": 0.3235294117647059,
-      "baseline_one_star": 0.24603174603174602,
+      "reviews": 105,
+      "avg": 3.619047619047619,
+      "one_star": 0.3142857142857143,
+      "baseline_one_star": 0.24570673712021135,
       "regression": false,
       "watch": true,
       "top_negative_themes": [
@@ -1585,18 +1585,18 @@
       "reviews": 1,
       "avg": 5.0,
       "one_star": 0.0,
-      "baseline_one_star": 0.24869791666666666,
+      "baseline_one_star": 0.24870466321243523,
       "regression": false,
       "watch": false,
       "top_negative_themes": []
     },
     {
       "version": "12.20.0",
-      "first_seen": "2026-10-07",
+      "first_seen": "2026-10-06",
       "reviews": 4,
       "avg": 4.0,
       "one_star": 0.25,
-      "baseline_one_star": 0.24225352112676057,
+      "baseline_one_star": 0.2412831241283124,
       "regression": false,
       "watch": false,
       "top_negative_themes": [
@@ -1637,7 +1637,7 @@
         "text": "your new update is a threat to person with medical condition. it just books you without informing if he's on waitlist or not. so annoying"
       },
       {
-        "date": "2026-10-02",
+        "date": "2026-10-01",
         "stars": 1,
         "text": "\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4e\ud83d\udc4ewho the hell is giving them 5 star \u2b50 rating worst punctuation, my cab has to assign on 2:30 am and it's 3:30 am and still no updates. I called twice to there Customer support they are not receiving the call . i have a lots of abusive words for them. i have edited "
       },
@@ -1650,8 +1650,8 @@
   },
   "benchmark": {
     "title": "Safetrax Commuter",
-    "score": 4.719634,
-    "ratings": 24142,
+    "score": 4.719867,
+    "ratings": 24143,
     "last_12m_reviews": 114,
     "last_12m_avg": 2.8859649122807016,
     "last_12m_one_star": 0.4649122807017544,
@@ -1661,8 +1661,8 @@
     {
       "app_id": "com.moveinsync.driver.lite",
       "title": "Moveinsync Partner - Lite",
-      "score": 4.29,
-      "ratings": 701,
+      "score": 4.25,
+      "ratings": 703,
       "installs": "100,000+"
     },
     {
