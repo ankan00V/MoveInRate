@@ -1,6 +1,15 @@
 app,reviewId,content,score,thumbsUpCount,reviewCreatedVersion,at,replyContent,repliedAt,appVersion
-Safetrax Commuter (benchmark),268c56d2-3757-488e-910a-12aa5111b285,nice,4,0,2.1.74,2026-10-07 00:18:07,,,2.1.74
-Safetrax Commuter (benchmark),7b7d47b7-edd5-4c1b-ac7d-46c62830e843,good,5,0,2.1.74,2026-10-01 11:22:03,,,2.1.74
+Safetrax Commuter (benchmark),268c56d2-3757-488e-910a-12aa5111b285,nice,4,0,2.1.74,2026-10-07 00:18:07,"""Dear User,
+
+We're grateful for your 4-star rating! ⭐
+Your support means a lot to us. If you have any thoughts on how we can elevate your experience or if there are specific areas you'd like to see improved, please share your insights through our in-app chat. We value your feedback as we strive to make our app even better.""",2026-10-12 12:07:27,2.1.74
+Safetrax Commuter (benchmark),7b7d47b7-edd5-4c1b-ac7d-46c62830e843,good,5,0,2.1.74,2026-10-01 11:22:03,"""Dear User,
+
+Thank you for the fantastic 5-star rating! ⭐
+We're thrilled to hear you're enjoying our app. If you ever have suggestions or feedback, feel free to share.
+We're here to make your experience even better!
+
+Appreciate your support.""",2026-10-12 12:07:18,2.1.74
 Safetrax Commuter (benchmark),fd7d5bd1-a808-491f-8a20-51106bdc161c,Good for commuter,5,0,2.1.74,2026-09-24 03:20:25,"""Dear User,
 
 Thank you for the fantastic 5-star rating! ⭐
