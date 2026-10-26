@@ -1,51 +1,51 @@
 {
-  "generated_at": "2026-10-19T06:25+00:00",
-  "data_through": "2026-10-17",
+  "generated_at": "2026-10-26T06:35+00:00",
+  "data_through": "2026-10-24",
   "store": {
     "title": "MoveInSync",
-    "score": 4.6401114,
-    "ratings": 115145,
-    "reviews": 23665,
+    "score": 4.6406937,
+    "ratings": 115411,
+    "reviews": 23704,
     "installs": "1,000,000+",
-    "version": "12.19.0",
+    "version": "12.20.0",
     "histogram": [
-      7342,
-      847,
-      1209,
-      7103,
-      98638
+      7384,
+      860,
+      1182,
+      6980,
+      99001
     ],
     "written_histogram": [
-      6362,
-      1165,
+      6371,
+      1168,
       1090,
       2797,
-      12950
+      12980
     ],
     "star_only_histogram": [
-      980,
+      1013,
       0,
-      119,
-      4306,
-      85688
+      92,
+      4183,
+      86021
     ]
   },
   "corpus": {
-    "reviews_total": 24364,
+    "reviews_total": 24406,
     "first": "2014-03-14"
   },
   "last_12m": {
-    "reviews": 2839,
-    "avg": 3.8337442761535754,
-    "one_star": 0.24092990489609017,
-    "negative": 768,
-    "negative_share": 0.27051778795350473,
-    "reply_rate": 0.02430433251144769,
+    "reviews": 2821,
+    "avg": 3.8319744771357676,
+    "one_star": 0.24175824175824176,
+    "negative": 769,
+    "negative_share": 0.27259836937256293,
+    "reply_rate": 0.02445941155618575,
     "negative_by_owner": {
-      "app": 0.4791666666666667,
-      "generic": 0.2890625,
-      "ops": 0.11588541666666667,
-      "both": 0.11588541666666667
+      "app": 0.4759427828348505,
+      "generic": 0.28608582574772434,
+      "both": 0.11963589076723016,
+      "ops": 0.11833550065019506
     }
   },
   "most_relevant": {
@@ -57,10 +57,10 @@
   "monthly": [
     {
       "month": "2023-10",
-      "n": 141,
-      "avg": 3.120567375886525,
-      "one_star": 0.3900709219858156,
-      "reply_rate": 0.9574468085106383
+      "n": 85,
+      "avg": 2.7058823529411766,
+      "one_star": 0.4823529411764706,
+      "reply_rate": 0.9294117647058824
     },
     {
       "month": "2023-11",
@@ -309,10 +309,10 @@
     },
     {
       "month": "2026-10",
-      "n": 134,
-      "avg": 3.798507462686567,
-      "one_star": 0.26865671641791045,
-      "reply_rate": 0.022388059701492536
+      "n": 176,
+      "avg": 3.8295454545454546,
+      "one_star": 0.2556818181818182,
+      "reply_rate": 0.017045454545454544
     }
   ],
   "themes": [
@@ -320,11 +320,11 @@
       "key": "unspecified",
       "label": "Generic (e.g. 'worst app', no detail)",
       "owner": "-",
-      "reviews": 222,
-      "share_of_negative": 0.2890625,
-      "upvotes": 4,
-      "share_last_30d": 0.22857142857142856,
-      "share_trailing_180d": 0.2725,
+      "reviews": 220,
+      "share_of_negative": 0.28608582574772434,
+      "upvotes": 5,
+      "share_last_30d": 0.18333333333333332,
+      "share_trailing_180d": 0.27710843373493976,
       "spiking": false,
       "quotes": [
         {
@@ -351,11 +351,11 @@
       "key": "crash_not_opening",
       "label": "Crashes, won't open, slow / blank screen",
       "owner": "app",
-      "reviews": 173,
-      "share_of_negative": 0.22526041666666666,
+      "reviews": 174,
+      "share_of_negative": 0.22626788036410922,
       "upvotes": 62,
-      "share_last_30d": 0.3,
-      "share_trailing_180d": 0.245,
+      "share_last_30d": 0.25,
+      "share_trailing_180d": 0.25301204819277107,
       "spiking": false,
       "quotes": [
         {
@@ -379,45 +379,14 @@
       ]
     },
     {
-      "key": "login_otp_session",
-      "label": "Login, OTP & forced logouts",
-      "owner": "app",
-      "reviews": 106,
-      "share_of_negative": 0.13802083333333334,
-      "upvotes": 29,
-      "share_last_30d": 0.08571428571428572,
-      "share_trailing_180d": 0.125,
-      "spiking": false,
-      "quotes": [
-        {
-          "text": "Worst user interface. App doesn't even load once you login using your official id. It just says \"Something went wrong\". Tried uninstalling and installing a couple of times but getting the same error message.",
-          "stars": 1,
-          "date": "2026-04-15",
-          "version": "12.11.2"
-        },
-        {
-          "text": "the new update looks confusing including the font color of \"logout\" is red like the font color of \"cancel\" Also the \"book\" tab became smaller",
-          "stars": 2,
-          "date": "2026-07-15",
-          "version": null
-        },
-        {
-          "text": "cab is never assigned on time...always late ..no value of others time...after logout every day we have to wait for 40+ mins for cab the 20 mins distance route...which is totally waste of time...third class",
-          "stars": 1,
-          "date": "2026-06-22",
-          "version": "12.13.1"
-        }
-      ]
-    },
-    {
       "key": "booking_flow",
       "label": "Booking, cancel, waitlist & schedule flow",
       "owner": "app",
-      "reviews": 103,
-      "share_of_negative": 0.13411458333333334,
+      "reviews": 105,
+      "share_of_negative": 0.13654096228868662,
       "upvotes": 33,
-      "share_last_30d": 0.12857142857142856,
-      "share_trailing_180d": 0.1425,
+      "share_last_30d": 0.2,
+      "share_trailing_180d": 0.13493975903614458,
       "spiking": false,
       "quotes": [
         {
@@ -441,14 +410,45 @@
       ]
     },
     {
+      "key": "login_otp_session",
+      "label": "Login, OTP & forced logouts",
+      "owner": "app",
+      "reviews": 104,
+      "share_of_negative": 0.1352405721716515,
+      "upvotes": 29,
+      "share_last_30d": 0.08333333333333333,
+      "share_trailing_180d": 0.12289156626506025,
+      "spiking": false,
+      "quotes": [
+        {
+          "text": "Worst user interface. App doesn't even load once you login using your official id. It just says \"Something went wrong\". Tried uninstalling and installing a couple of times but getting the same error message.",
+          "stars": 1,
+          "date": "2026-04-15",
+          "version": "12.11.2"
+        },
+        {
+          "text": "the new update looks confusing including the font color of \"logout\" is red like the font color of \"cancel\" Also the \"book\" tab became smaller",
+          "stars": 2,
+          "date": "2026-07-15",
+          "version": null
+        },
+        {
+          "text": "cab is never assigned on time...always late ..no value of others time...after logout every day we have to wait for 40+ mins for cab the 20 mins distance route...which is totally waste of time...third class",
+          "stars": 1,
+          "date": "2026-06-22",
+          "version": "12.13.1"
+        }
+      ]
+    },
+    {
       "key": "tracking_eta",
       "label": "Live tracking, GPS, ETA & location accuracy",
       "owner": "app",
-      "reviews": 91,
-      "share_of_negative": 0.11848958333333333,
+      "reviews": 92,
+      "share_of_negative": 0.11963589076723016,
       "upvotes": 44,
-      "share_last_30d": 0.08571428571428572,
-      "share_trailing_180d": 0.1225,
+      "share_last_30d": 0.15,
+      "share_trailing_180d": 0.1180722891566265,
       "spiking": false,
       "quotes": [
         {
@@ -472,14 +472,45 @@
       ]
     },
     {
+      "key": "service_general",
+      "label": "Transport service / vendor / desk (general)",
+      "owner": "ops",
+      "reviews": 77,
+      "share_of_negative": 0.10013003901170352,
+      "upvotes": 21,
+      "share_last_30d": 0.18333333333333332,
+      "share_trailing_180d": 0.10120481927710843,
+      "spiking": true,
+      "quotes": [
+        {
+          "text": "so much ridiculous app. After 3 no show cab facility nahi milti... shiiii Ganda app",
+          "stars": 1,
+          "date": "2026-01-06",
+          "version": "12.8.3"
+        },
+        {
+          "text": "Pathetic app. My office is using their service and driver doesn't come on time for pickup. Most of the time driver doesn't pick the call. Their customer care is also not easy to connect.",
+          "stars": 1,
+          "date": "2025-12-09",
+          "version": "12.7.2"
+        },
+        {
+          "text": "Complaint Regarding Pathetic Transport Service I would like to raise a complaint regarding the pathetic transport service provided today.",
+          "stars": 1,
+          "date": "2026-07-15",
+          "version": "12.15.0"
+        }
+      ]
+    },
+    {
       "key": "punctuality_noshow",
       "label": "Late cabs, no-shows, cab not assigned",
       "owner": "ops",
       "reviews": 73,
-      "share_of_negative": 0.09505208333333333,
+      "share_of_negative": 0.09492847854356307,
       "upvotes": 47,
-      "share_last_30d": 0.04285714285714286,
-      "share_trailing_180d": 0.115,
+      "share_last_30d": 0.016666666666666666,
+      "share_trailing_180d": 0.11325301204819277,
       "spiking": false,
       "quotes": [
         {
@@ -503,45 +534,14 @@
       ]
     },
     {
-      "key": "service_general",
-      "label": "Transport service / vendor / desk (general)",
-      "owner": "ops",
-      "reviews": 72,
-      "share_of_negative": 0.09375,
-      "upvotes": 20,
-      "share_last_30d": 0.1,
-      "share_trailing_180d": 0.1025,
-      "spiking": false,
-      "quotes": [
-        {
-          "text": "so much ridiculous app. After 3 no show cab facility nahi milti... shiiii Ganda app",
-          "stars": 1,
-          "date": "2026-01-06",
-          "version": "12.8.3"
-        },
-        {
-          "text": "Pathetic app. My office is using their service and driver doesn't come on time for pickup. Most of the time driver doesn't pick the call. Their customer care is also not easy to connect.",
-          "stars": 1,
-          "date": "2025-12-09",
-          "version": "12.7.2"
-        },
-        {
-          "text": "Complaint Regarding Pathetic Transport Service I would like to raise a complaint regarding the pathetic transport service provided today.",
-          "stars": 1,
-          "date": "2026-07-15",
-          "version": "12.15.0"
-        }
-      ]
-    },
-    {
       "key": "contact_support",
       "label": "Can't reach driver / helpdesk from the app",
       "owner": "app",
-      "reviews": 65,
-      "share_of_negative": 0.08463541666666667,
+      "reviews": 66,
+      "share_of_negative": 0.0858257477243173,
       "upvotes": 33,
-      "share_last_30d": 0.05714285714285714,
-      "share_trailing_180d": 0.0875,
+      "share_last_30d": 0.08333333333333333,
+      "share_trailing_180d": 0.08433734939759036,
       "spiking": false,
       "quotes": [
         {
@@ -568,13 +568,19 @@
       "key": "routing_clubbing",
       "label": "Routing, clubbing, nodal points & trip length",
       "owner": "ops",
-      "reviews": 49,
-      "share_of_negative": 0.06380208333333333,
-      "upvotes": 25,
-      "share_last_30d": 0.04285714285714286,
-      "share_trailing_180d": 0.0725,
+      "reviews": 50,
+      "share_of_negative": 0.06501950585175553,
+      "upvotes": 26,
+      "share_last_30d": 0.06666666666666667,
+      "share_trailing_180d": 0.06746987951807229,
       "spiking": false,
       "quotes": [
+        {
+          "text": "Genpact cabs can make u travel through the entire city With charging. Sequences are like wow.",
+          "stars": 1,
+          "date": "2026-10-16",
+          "version": "12.20.0"
+        },
         {
           "text": "cab is never assigned on time...always late ..no value of others time...after logout every day we have to wait for 40+ mins for cab the 20 mins distance route...which is totally waste of time...third class",
           "stars": 1,
@@ -586,12 +592,6 @@
           "stars": 1,
           "date": "2026-03-17",
           "version": "12.10.2"
-        },
-        {
-          "text": "the new update of the pop up to rate the previous ride is the most inconvenient feature as if it doesnt load it doesnt let you access your route details. Its especially irritating when you're cutting it close with your cab timings",
-          "stars": 1,
-          "date": "2026-02-20",
-          "version": "12.9.4"
         }
       ]
     },
@@ -599,11 +599,11 @@
       "key": "ui_redesign",
       "label": "New UI / update made it harder to use",
       "owner": "app",
-      "reviews": 48,
-      "share_of_negative": 0.0625,
+      "reviews": 46,
+      "share_of_negative": 0.05981794538361508,
       "upvotes": 9,
-      "share_last_30d": 0.05714285714285714,
-      "share_trailing_180d": 0.06,
+      "share_last_30d": 0.05,
+      "share_trailing_180d": 0.060240963855421686,
       "spiking": false,
       "quotes": [
         {
@@ -630,12 +630,12 @@
       "key": "forced_prompts",
       "label": "Forced trip rating, review nags, policy re-accept, permissions, banners",
       "owner": "app",
-      "reviews": 30,
-      "share_of_negative": 0.0390625,
+      "reviews": 29,
+      "share_of_negative": 0.0377113133940182,
       "upvotes": 13,
-      "share_last_30d": 0.07142857142857142,
-      "share_trailing_180d": 0.03,
-      "spiking": true,
+      "share_last_30d": 0.05,
+      "share_trailing_180d": 0.033734939759036145,
+      "spiking": false,
       "quotes": [
         {
           "text": "I'm getting calling permission is disabled as per company policy",
@@ -662,17 +662,17 @@
       "label": "Notification spam / wrong notifications",
       "owner": "app",
       "reviews": 22,
-      "share_of_negative": 0.028645833333333332,
+      "share_of_negative": 0.02860858257477243,
       "upvotes": 14,
-      "share_last_30d": 0.04285714285714286,
-      "share_trailing_180d": 0.0325,
+      "share_last_30d": 0.03333333333333333,
+      "share_trailing_180d": 0.03132530120481928,
       "spiking": false,
       "quotes": [
         {
-          "text": "06-10-2026 even after booked the trip it keep sends the push notification that trip is not booked. old: Bring monthly view ,not just day view...",
-          "stars": 1,
-          "date": "2026-10-06",
-          "version": "12.19.0"
+          "text": "still irritating push message of trip is not booked despite having valid trip booked. 06-10-2026 even after booked the trip it keep sends the push notification that trip is not booked. old: Bring monthly view ,not just day view...",
+          "stars": 2,
+          "date": "2026-10-24",
+          "version": "12.20.0"
         },
         {
           "text": "you guys keep giving notifications to cancel the ride if not available for the same, but you don't even bother to remind the user regarding the default cancellation of logout trip if login trip is marked \"Noshow\", this is not fair at all",
@@ -693,11 +693,11 @@
       "label": "'Not installed from Play Store' / forced reinstall",
       "owner": "app",
       "reviews": 18,
-      "share_of_negative": 0.0234375,
+      "share_of_negative": 0.02340702210663199,
       "upvotes": 8,
-      "share_last_30d": 0.08571428571428572,
-      "share_trailing_180d": 0.0225,
-      "spiking": true,
+      "share_last_30d": 0.03333333333333333,
+      "share_trailing_180d": 0.03132530120481928,
+      "spiking": false,
       "quotes": [
         {
           "text": "Unable to view the schedule for the whole month even though the schedule is done a month prior. Only the following / next schedule is shown. Reinstalled app multiple times!",
@@ -724,10 +724,10 @@
       "label": "Driver behaviour & professionalism",
       "owner": "ops",
       "reviews": 14,
-      "share_of_negative": 0.018229166666666668,
+      "share_of_negative": 0.018205461638491547,
       "upvotes": 11,
-      "share_last_30d": 0.02857142857142857,
-      "share_trailing_180d": 0.015,
+      "share_last_30d": 0.03333333333333333,
+      "share_trailing_180d": 0.014457831325301205,
       "spiking": true,
       "quotes": [
         {
@@ -755,10 +755,10 @@
       "label": "Boarding: QR scan & OTP screen",
       "owner": "app",
       "reviews": 11,
-      "share_of_negative": 0.014322916666666666,
+      "share_of_negative": 0.014304291287386216,
       "upvotes": 2,
-      "share_last_30d": 0.04285714285714286,
-      "share_trailing_180d": 0.01,
+      "share_last_30d": 0.05,
+      "share_trailing_180d": 0.007228915662650603,
       "spiking": true,
       "quotes": [
         {
@@ -786,10 +786,10 @@
       "label": "Safety concerns",
       "owner": "ops",
       "reviews": 10,
-      "share_of_negative": 0.013020833333333334,
+      "share_of_negative": 0.013003901170351105,
       "upvotes": 2,
       "share_last_30d": 0.0,
-      "share_trailing_180d": 0.02,
+      "share_trailing_180d": 0.01927710843373494,
       "spiking": false,
       "quotes": [
         {
@@ -817,10 +817,10 @@
       "label": "Trip details / OTP / cab no. unavailable when needed",
       "owner": "app",
       "reviews": 6,
-      "share_of_negative": 0.0078125,
+      "share_of_negative": 0.007802340702210663,
       "upvotes": 5,
-      "share_last_30d": 0.014285714285714285,
-      "share_trailing_180d": 0.005,
+      "share_last_30d": 0.016666666666666666,
+      "share_trailing_180d": 0.004819277108433735,
       "spiking": true,
       "quotes": [
         {
@@ -847,83 +847,40 @@
   "releases": [
     {
       "version": "12.6",
-      "first_seen": "2025-10-18",
-      "reviews": 257,
-      "avg": 3.813229571984436,
-      "one_star": 0.22957198443579765,
-      "baseline_one_star": 0.2621082621082621,
+      "first_seen": "2025-10-24",
+      "reviews": 205,
+      "avg": 3.7512195121951217,
+      "one_star": 0.24878048780487805,
+      "baseline_one_star": 0.26166902404526166,
       "regression": false,
       "watch": false,
       "top_negative_themes": [
         "Login, OTP & forced logouts",
         "Booking, cancel, waitlist & schedule flow",
-        "New UI / update made it harder to use"
-      ]
-    },
-    {
-      "version": "12.4",
-      "first_seen": "2025-10-19",
-      "reviews": 9,
-      "avg": 3.6666666666666665,
-      "one_star": 0.3333333333333333,
-      "baseline_one_star": 0.2606837606837607,
-      "regression": false,
-      "watch": false,
-      "top_negative_themes": [
-        "Notification spam / wrong notifications",
-        "Late cabs, no-shows, cab not assigned",
-        "Transport service / vendor / desk (general)"
-      ]
-    },
-    {
-      "version": "12.3",
-      "first_seen": "2025-10-22",
-      "reviews": 3,
-      "avg": 3.6666666666666665,
-      "one_star": 0.3333333333333333,
-      "baseline_one_star": 0.2589928057553957,
-      "regression": false,
-      "watch": false,
-      "top_negative_themes": [
         "Crashes, won't open, slow / blank screen"
       ]
     },
     {
       "version": "12.5",
-      "first_seen": "2025-10-22",
-      "reviews": 6,
-      "avg": 3.1666666666666665,
-      "one_star": 0.3333333333333333,
-      "baseline_one_star": 0.2582972582972583,
+      "first_seen": "2025-10-27",
+      "reviews": 5,
+      "avg": 3.6,
+      "one_star": 0.2,
+      "baseline_one_star": 0.26382978723404255,
       "regression": false,
       "watch": false,
       "top_negative_themes": [
-        "Live tracking, GPS, ETA & location accuracy",
         "Notification spam / wrong notifications",
+        "Live tracking, GPS, ETA & location accuracy",
         "Can't reach driver / helpdesk from the app"
-      ]
-    },
-    {
-      "version": "11.3.9",
-      "first_seen": "2025-10-23",
-      "reviews": 1,
-      "avg": 1.0,
-      "one_star": 1.0,
-      "baseline_one_star": 0.26406926406926406,
-      "regression": false,
-      "watch": false,
-      "top_negative_themes": [
-        "Crashes, won't open, slow / blank screen",
-        "Forced trip rating, review nags, policy re-accept, permissions, banners",
-        "Live tracking, GPS, ETA & location accuracy"
       ]
     },
     {
       "version": "11.5.20",
       "first_seen": "2025-10-29",
-      "reviews": 3,
-      "avg": 2.3333333333333335,
-      "one_star": 0.6666666666666666,
+      "reviews": 4,
+      "avg": 3.0,
+      "one_star": 0.5,
       "baseline_one_star": 0.2725988700564972,
       "regression": false,
       "watch": false,
@@ -952,6 +909,21 @@
       "regression": false,
       "watch": false,
       "top_negative_themes": [
+        "Late cabs, no-shows, cab not assigned",
+        "Transport service / vendor / desk (general)"
+      ]
+    },
+    {
+      "version": "12.4",
+      "first_seen": "2025-11-11",
+      "reviews": 8,
+      "avg": 3.5,
+      "one_star": 0.375,
+      "baseline_one_star": 0.27259684361549497,
+      "regression": false,
+      "watch": false,
+      "top_negative_themes": [
+        "Notification spam / wrong notifications",
         "Late cabs, no-shows, cab not assigned",
         "Transport service / vendor / desk (general)"
       ]
@@ -1092,6 +1064,19 @@
       "regression": false,
       "watch": false,
       "top_negative_themes": []
+    },
+    {
+      "version": "12.3",
+      "first_seen": "2026-01-15",
+      "reviews": 2,
+      "avg": 3.0,
+      "one_star": 0.5,
+      "baseline_one_star": 0.23809523809523808,
+      "regression": false,
+      "watch": false,
+      "top_negative_themes": [
+        "Crashes, won't open, slow / blank screen"
+      ]
     },
     {
       "version": "12.9.0",
@@ -1356,9 +1341,9 @@
     {
       "version": "12.13.0",
       "first_seen": "2026-05-31",
-      "reviews": 36,
-      "avg": 3.6944444444444446,
-      "one_star": 0.2777777777777778,
+      "reviews": 37,
+      "avg": 3.72972972972973,
+      "one_star": 0.2702702702702703,
       "baseline_one_star": 0.20765027322404372,
       "regression": false,
       "watch": true,
@@ -1568,8 +1553,8 @@
       "version": "12.19.0",
       "first_seen": "2026-09-21",
       "reviews": 122,
-      "avg": 3.737704918032787,
-      "one_star": 0.28688524590163933,
+      "avg": 3.7704918032786887,
+      "one_star": 0.2786885245901639,
       "baseline_one_star": 0.24503311258278146,
       "regression": false,
       "watch": false,
@@ -1593,17 +1578,28 @@
     {
       "version": "12.20.0",
       "first_seen": "2026-10-06",
-      "reviews": 32,
-      "avg": 3.59375,
-      "one_star": 0.3125,
-      "baseline_one_star": 0.24055944055944056,
+      "reviews": 66,
+      "avg": 3.6363636363636362,
+      "one_star": 0.2878787878787879,
+      "baseline_one_star": 0.23949579831932774,
       "regression": false,
-      "watch": true,
+      "watch": false,
       "top_negative_themes": [
         "Transport service / vendor / desk (general)",
         "Crashes, won't open, slow / blank screen",
-        "Routing, clubbing, nodal points & trip length"
+        "Booking, cancel, waitlist & schedule flow"
       ]
+    },
+    {
+      "version": "12.21.0",
+      "first_seen": "2026-10-23",
+      "reviews": 1,
+      "avg": 5.0,
+      "one_star": 0.0,
+      "baseline_one_star": 0.2570621468926554,
+      "regression": false,
+      "watch": false,
+      "top_negative_themes": []
     }
   ],
   "alerts": {
@@ -1625,8 +1621,7 @@
       }
     ],
     "spiking_themes": [
-      "Forced trip rating, review nags, policy re-accept, permissions, banners",
-      "'Not installed from Play Store' / forced reinstall",
+      "Transport service / vendor / desk (general)",
       "Driver behaviour & professionalism",
       "Boarding: QR scan & OTP screen",
       "Trip details / OTP / cab no. unavailable when needed"
@@ -1646,26 +1641,26 @@
   },
   "benchmark": {
     "title": "Safetrax Commuter",
-    "score": 4.7193203,
-    "ratings": 24176,
+    "score": 4.714701,
+    "ratings": 24192,
     "last_12m_reviews": 112,
-    "last_12m_avg": 2.857142857142857,
-    "last_12m_one_star": 0.4732142857142857,
+    "last_12m_avg": 2.892857142857143,
+    "last_12m_one_star": 0.4642857142857143,
     "last_12m_reply_rate": 1.0
   },
   "other_apps": [
     {
       "app_id": "com.moveinsync.driver.lite",
       "title": "Moveinsync Partner - Lite",
-      "score": 4.26,
-      "ratings": 709,
+      "score": 4.245098,
+      "ratings": 712,
       "installs": "100,000+"
     },
     {
       "app_id": "com.moveinsync.driver.dco",
       "title": "MoveInSync - Driver Partner",
-      "score": 3.52,
-      "ratings": 50,
+      "score": 3.6785715,
+      "ratings": 56,
       "installs": "10,000+"
     },
     {
